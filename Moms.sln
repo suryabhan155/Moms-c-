@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{BC71B4AE-0F77-40B1-88AF-2FF533718F31}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKernel", "{BC71B4AE-0F77-40B1-88AF-2FF533718F31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.SharedKernel", "Moms.SharedKernel\Moms.SharedKernel.csproj", "{3017C60D-8798-49A3-998F-C554906D2274}"
 EndProject
