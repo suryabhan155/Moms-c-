@@ -7,6 +7,7 @@ using Moms.RegistrationManagement.Core.Application.Facilities.Commands;
 using Moms.RegistrationManagement.Core.Application.Facilities.Services;
 using Moms.RegistrationManagement.Core.Domain.Facilities;
 using Moms.RegistrationManagement.Core.Domain.Facilities.Dto;
+using Moms.RegistrationManagement.Core.Domain.Patient.Service;
 
 namespace Moms.RegistrationManagement.Core
 {
@@ -16,6 +17,7 @@ namespace Moms.RegistrationManagement.Core
         {
             services.AddAutoMapper(typeof(FacilitiesProfile));
             services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IPatientService, IPatientService>();
 
             if (null != others)
             {

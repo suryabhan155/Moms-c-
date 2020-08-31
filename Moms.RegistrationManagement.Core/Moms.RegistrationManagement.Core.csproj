@@ -10,12 +10,19 @@
         <PackageReference Include="CSharpFunctionalExtensions" Version="2.11.5" />
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.6" />
         <PackageReference Include="Serilog" Version="2.9.0" />
     </ItemGroup>
     
     <ItemGroup>
       <ProjectReference Include="..\Moms.SharedKernel\Moms.SharedKernel.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Application\Patient\Commands" />
+      <Folder Include="Application\Patient\Events" />
+      <Folder Include="Application\Patient\Queries" />
     </ItemGroup>
     
 </Project>

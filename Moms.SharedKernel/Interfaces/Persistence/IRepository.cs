@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Moms.SharedKernel.Model;
 
 namespace Moms.SharedKernel.Interfaces.Persistence
@@ -27,6 +28,6 @@ namespace Moms.SharedKernel.Interfaces.Persistence
         void DeleteById<TC, TCId>(IEnumerable<TCId> ids) where TC : Entity<TCId>;
 
         void ExecCommand(string sqlCommand);
-        void Save();
+        Task Save();
     }
 }
