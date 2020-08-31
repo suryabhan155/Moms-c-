@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Moms.SharedKernel.Interfaces.Persistence;
@@ -96,9 +97,9 @@ namespace Moms.SharedKernel.Infrastructure.Persistence
             GetConnection().Execute(sqlCommand);
         }
 
-        public virtual void Save()
+        public Task Save()
         {
-            Context.SaveChanges();
+           return Context.SaveChangesAsync();
         }
     }
 }
