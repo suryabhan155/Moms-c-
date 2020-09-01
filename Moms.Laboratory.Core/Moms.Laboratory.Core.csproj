@@ -8,15 +8,16 @@
       <Folder Include="Application\Lab\Commands" />
       <Folder Include="Application\Lab\Events" />
       <Folder Include="Application\Lab\Queries" />
-      <Folder Include="Application\Lab\Services" />
-      <Folder Include="Domain\Lab\Dto" />
-      <Folder Include="Domain\Lab\Models" />
-      <Folder Include="Domain\Lab\Services" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="10.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.6" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Moms.SharedKernel\Moms.SharedKernel.csproj" />
     </ItemGroup>
 
 </Project>
