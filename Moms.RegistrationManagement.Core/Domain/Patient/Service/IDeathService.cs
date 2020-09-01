@@ -10,8 +10,8 @@ namespace Moms.RegistrationManagement.Core.Domain.Patient.Service
     public interface IDeathService
     {
         Task<(bool IsSuccess, IEnumerable<DeathDto>, string ErrorMessage)> LoadDeaths();
-        Task<(bool IsSuccess, DeathDto, string ErrorMessage)> GetDeath(Guid id);
+        Task<(bool IsSuccess, IEnumerable<DeathDto> deathDtos, string ErrorMessage)> GetPatientDeath(Guid id);
         Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteDeath(Guid id);
-        Task<(bool IsSuccess,Models.Patient patients, string ErrorMEssage )> AddDeath(Death death);
+        Task<(bool IsSuccess,Death death, string ErrorMEssage )> AddDeath(Death death);
     }
 }
