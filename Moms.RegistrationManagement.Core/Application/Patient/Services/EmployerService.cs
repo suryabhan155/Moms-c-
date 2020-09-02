@@ -8,6 +8,7 @@ using Moms.RegistrationManagement.Core.Domain.Patient;
 using Moms.RegistrationManagement.Core.Domain.Patient.Dto;
 using Moms.RegistrationManagement.Core.Domain.Patient.Models;
 using Moms.RegistrationManagement.Core.Domain.Patient.Service;
+using Moms.SharedKernel.Custom;
 using Serilog;
 
 namespace Moms.RegistrationManagement.Core.Application.Patient.Services
@@ -62,10 +63,10 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
         {
             try
             {
-                var employer = await _employerRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
-                if (employer == null)
-                    return (false, id, $"employer data not found");
-                _employerRepository.Delete(employer);
+                if (id.IsNullOrEmpty())
+                    return (false, id, $"No Delete Id provided");
+                _employerRepository.DeleteById(id);
+                await _employerRepository.Save();
                 return (true, id, $"employer with Id :{id} deleted successfully");
             }
             catch (Exception e)

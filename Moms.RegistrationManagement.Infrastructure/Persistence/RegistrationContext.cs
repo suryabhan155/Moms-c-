@@ -1,5 +1,6 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using Moms.RegistrationManagement.Core.Domain.Facilities.Models;
 using Moms.RegistrationManagement.Core.Domain.Patient.Models;
 using Moms.SharedKernel.Infrastructure.Persistence;
@@ -33,6 +34,26 @@ namespace Moms.RegistrationManagement.Infrastructure.Persistence
             {
                 var data = SeedDataReader.ReadCsv<Clinic>(typeof(RegistrationContext).Assembly);
                 AddRange(data);
+            }
+
+            if (!Patients.Any())
+            {
+                var data = SeedDataReader.ReadCsv<Patient>(typeof(RegistrationContext).Assembly);
+            }
+
+            if (!Contacts.Any())
+            {
+                var data = SeedDataReader.ReadCsv<Contact>(typeof(RegistrationContext).Assembly);
+            }
+
+            if (!Employers.Any())
+            {
+                var data = SeedDataReader.ReadCsv<Employer>(typeof(RegistrationContext).Assembly);
+            }
+
+            if (!Guardians.Any())
+            {
+                var data = SeedDataReader.ReadCsv<Guardian>(typeof(RegistrationContext).Assembly);
             }
 
             SaveChanges();
