@@ -1,9 +1,8 @@
-﻿using Moms.SharedKernel.Model;
-using System;
+﻿using System;
 
 namespace Moms.Laboratory.Core.Domain.Lab.Dto
 {
-    class ItemBillOfMaterialDto:Entity<Guid>
+    public class ItemBillOfMaterialDto
     {
         public Guid ItemId { get; set; }
         public Guid BomItemId { get; set; }
