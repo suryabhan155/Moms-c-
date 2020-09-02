@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,9 +14,9 @@ namespace Moms.RegistrationManagement.Infrastructure
             IConfiguration configuration, bool initDb = true)
         {
             if (initDb)
-                services.AddDbContext<RegistrationContext>(o => o.UseNpgsql(
-                    configuration.GetConnectionString("DatabaseConnection"), x =>
-                        x.MigrationsAssembly(typeof(RegistrationContext).Assembly.FullName)));
+                 services.AddDbContext<RegistrationContext>(o => o.UseNpgsql(
+                     configuration.GetConnectionString("DatabaseConnection"), x =>
+                         x.MigrationsAssembly(typeof(RegistrationContext).Assembly.FullName)));
 
             services
                 .AddScoped<IClinicRepository, ClinicRepository>();

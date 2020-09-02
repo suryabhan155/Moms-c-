@@ -63,13 +63,11 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
         {
             try
             {
-                var guardian = await _guardianRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
-                if (guardian == null)
-                    return (false, id, "unable to delete the guardian  info");
-                _guardianRepository.Delete(guardian);
+                if (id.IsNullOrEmpty())
+                    return (false, id, "No Delete Id provided");
+                _guardianRepository.DeleteById(id);
+                await _guardianRepository.Save();
                 return (true, id, $"$Guardian with id: {id} Deleted successfully");
-
-
             }
             catch (Exception e)
             {
