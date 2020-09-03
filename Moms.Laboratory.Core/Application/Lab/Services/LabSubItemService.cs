@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Moms.Laboratory.Core.Domain.Lab;
 using Moms.Laboratory.Core.Domain.Lab.Models;
 using Moms.Laboratory.Core.Domain.Lab.Services;
+using Moms.SharedKernel.Custom;
 using Serilog;
 
 namespace Moms.Laboratory.Core.Application.Lab.Services
@@ -40,19 +42,60 @@ namespace Moms.Laboratory.Core.Application.Lab.Services
             }
         }
 
-        public Task<(bool IsSuccess, IEnumerable<LabSubItem> labSubItems, string ErrorMessage)> GetLabSubItem(Guid id)
+        public async Task<(bool IsSuccess, IEnumerable<LabSubItem> labSubItems, string ErrorMessage)> GetLabSubItem(Guid id)
         {
-            throw new NotImplementedException();
+            IEnumerable<LabSubItem> labSub = new List<LabSubItem>();
+            try
+            {
+                var labItem = await _LabSubItemRepository.GetAll(x => x.ItemId == id).ToListAsync();
+                if (labItem == null)
+                    return (false, labSub, "No records found.");
+                return (true, _IMapper.Map<List<LabSubItem>>(labItem), "Lab sub items loaded successfully.");
+                
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error loading the lab sub items.");
+                return (false, labSub, $"{e.Message}");
+            }
         }
 
-        public Task<(bool IsSuccess, LabSubItem labSubItem, string ErrorMEssage)> AddLabSubItem(LabSubItem labSubItem)
+        public async Task<(bool IsSuccess, LabSubItem labSubItem, string ErrorMEssage)> AddLabSubItem(LabSubItem labSubItem)
         {
-            throw new NotImplementedException();
+            IEnumerable<LabSubItem> labSub = new List<LabSubItem>();
+            try
+            {
+                if (labSubItem == null)
+                    return (false, null, "No record found.");
+                if(labSubItem.ItemId.IsNullOrEmpty())
+                    _LabSubItemRepository.Create(labSubItem);
+                _LabSubItemRepository.Update(labSubItem);
+                await _LabSubItemRepository.Save();
+                return (true, labSubItem, "Lab sub item saved successfully.");
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
-        public Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteLabSubItem(Guid id)
+        public async Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteLabSubItem(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var labSubItem = await _LabSubItemRepository.GetAll(x=>x.ItemId == id).FirstOrDefaultAsync();
+                if (labSubItem == null)
+                    return (false, id, "No record found.");
+                _LabSubItemRepository.Delete(labSubItem);
+
+                return (false, id, "Record deleted successfully.");
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error deleting lab sub items.");
+                return (false, id, $"{e.Message}");
+
+            }
         }
     }
 }
