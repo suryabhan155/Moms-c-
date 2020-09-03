@@ -13,23 +13,23 @@ namespace Moms.Laboratory.Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LabOrderSampleController : ControllerBase
+    public class LabOrderSampleStatusController : ControllerBase
     {
         public readonly IMediator _IMediator;
-        public readonly ILabOrderSampleService _LabOrderSampleService;
+        public readonly ILabOrderSampleStatusService _LabOrderSampleStatusService;
 
-        public LabOrderSampleController(IMediator iMediator, ILabOrderSampleService labOrderSampleService)
+        public LabOrderSampleStatusController(IMediator iMediator, ILabOrderSampleStatusService labOrderSampleStatusService)
         {
             _IMediator = iMediator;
-            _LabOrderSampleService = labOrderSampleService;
+            _LabOrderSampleStatusService = labOrderSampleStatusService;
         }
 
-        [HttpGet("lab/orders/samples")]
+        [HttpGet("lab/orders/sample/status")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var results = await _LabOrderSampleService.LoadLabOrderSamples();
+                var results = await _LabOrderSampleStatusService.LoadLabOrderSampleStatus();
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound();
@@ -43,12 +43,12 @@ namespace Moms.Laboratory.Management.Controllers
             }
         }
 
-        [HttpGet("lab/order/sample")]
-        public async Task<IActionResult> GetLabOrderSample(Guid id)
+        [HttpGet("lab/order/sample/status")]
+        public async Task<IActionResult> GetLabOrderSampleStatus(Guid id)
         {
             try
             {
-                var result = await _LabOrderSampleService.GetLabOrderSample(id);
+                var result = await _LabOrderSampleStatusService.GetLabOrderSampleStatus(id);
                 if (result.IsSuccess)
                     return Ok(result);
                 return NotFound();
@@ -62,11 +62,11 @@ namespace Moms.Laboratory.Management.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteLabOrderSample(Guid id)
+        public async Task<IActionResult> DeleteLabOrderSampleStatus(Guid id)
         {
             try
             {
-                var result = await _LabOrderSampleService.DeleteLabOrderSample(id);
+                var result = await _LabOrderSampleStatusService.DeleteLabOrderSampleStatus(id);
                 if (result.IsSuccess)
                     return Ok(result);
                 return NotFound();
@@ -79,11 +79,11 @@ namespace Moms.Laboratory.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddLabOrderSample([FromBody] LabOrderSample labOrderSample)
+        public async Task<IActionResult> AddLabOrderSampleStatus([FromBody] LabOrderSampleStatus labOrderSampleStatus)
         {
             try
             {
-                var results = await _LabOrderSampleService.AddLabOrderSample(labOrderSample);
+                var results = await _LabOrderSampleStatusService.AddLabOrderSampleStatus(labOrderSampleStatus);
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound();
