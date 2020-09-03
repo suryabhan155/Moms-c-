@@ -46,7 +46,7 @@ namespace Moms.Laboratory.Core.Application.Lab.Services
             {
                 var labOrder = await _LabOrderRepository.GetAll(x => x.Id == id).ToListAsync();
                 if (labOrder == null)
-                    return (false, labOrder, "Lab order not found.");
+                    return (false, lab, "Lab order not found.");
                 return (true, _IMapper.Map<List<LabOrder>>(labOrder), "Lab order loaded successfully");
 
             }
@@ -64,8 +64,8 @@ namespace Moms.Laboratory.Core.Application.Lab.Services
                 if (labOrder == null)
                     return (false, labOrder, "No lab order found");
                 if(labOrder.ItemID.IsNullOrEmpty())
-                    _LabOrderRepository.Update(labOrder);
-                _LabOrderRepository.Create(labOrder);
+                    _LabOrderRepository.Create(labOrder);
+                _LabOrderRepository.Update(labOrder);
                 await _LabOrderRepository.Save();
 
                 return (true, labOrder, "Lab order created successfully");

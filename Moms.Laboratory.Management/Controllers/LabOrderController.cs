@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Moms.Laboratory.Core.Domain.Lab.Models;
 using Moms.Laboratory.Core.Domain.Lab.Services;
 using Serilog;
 
@@ -68,6 +69,23 @@ namespace Moms.Laboratory.Management.Controllers
                 var result = await _LabOrderService.DeleteLabOrder(id);
                 if (result.IsSuccess)
                     return Ok(result);
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLabOrder([FromBody] LabOrder labOrder)
+        {
+            try
+            {
+                var results = await _LabOrderService.AddLabOrder(labOrder);
+                if (results.IsSuccess)
+                    return Ok(results);
                 return NotFound();
             }
             catch (Exception e)
