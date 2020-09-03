@@ -10,6 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Moms.Laboratory.Core\Moms.Laboratory.Core.csproj" />
       <ProjectReference Include="..\Moms.SharedKernel.Infrastructure\Moms.SharedKernel.Infrastructure.csproj" />
     </ItemGroup>
 
