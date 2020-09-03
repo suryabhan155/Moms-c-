@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moms.Laboratory.Core.Domain.Lab;
+using Moms.Laboratory.Core.Domain.Lab.Models;
 using Moms.Laboratory.Core.Domain.Lab.Services;
 using Serilog;
 
@@ -58,6 +59,40 @@ namespace Moms.Laboratory.Management.Controllers
             {
                 Console.WriteLine(e);
                 throw;
+            }
+        }
+        [HttpDelete()]
+        public async Task<IActionResult> DeleteLabSubItem(Guid id)
+        {
+            try
+            {
+                var results = await _LabSubItemService.DeleteLabSubItem(id);
+                if (results.IsSuccess)
+                    return Ok(results);
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLabSubItem([FromBody] LabSubItem labSubItem)
+        {
+            try
+            {
+                var results = await _LabSubItemService.AddLabSubItem(labSubItem);
+                if (results.IsSuccess)
+                    return Ok(results);
+                return NotFound(results);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
             }
         }
     }
