@@ -61,10 +61,10 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
         {
             try
             {
-                var death = await _deathRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
-                if (death == null)
-                    return (true, id, "No death status to delete");
-                _deathRepository.Delete(death);
+                if (id.IsNullOrEmpty())
+                    return (true, id, "No Delete Id provided");
+                _deathRepository.DeleteById(id);
+                await _deathRepository.Save();
                 return (true, id, $"Death Status deleted successfully{id}");
             }
             catch (Exception e)

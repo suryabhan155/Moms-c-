@@ -60,8 +60,10 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
         {
             try
             {
-                var patient = await _patientRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
-                _patientRepository.Delete(patient);
+                if (id.IsNullOrEmpty())
+                    return (false, id, "No Id provided");
+                _patientRepository.DeleteById(id);
+                await _patientRepository.Save();
                 return (true, id, "Patient deleted successfully");
             }
             catch (Exception e)
