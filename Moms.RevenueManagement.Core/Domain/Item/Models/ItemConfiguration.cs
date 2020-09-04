@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Moms.RevenueManagement.Core.Domain.Item.Models;
 using Moms.SharedKernel.Model;
 
-namespace Moms.RevenueManagement.Core.Domain.Billing.Models
+namespace Moms.RevenueManagement.Core.Domain.Item
 {
     public class ItemConfiguration: Entity<Guid>
     {

@@ -1,6 +1,8 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Moms.RevenueManagement.Core.Domain.Billing.Models;
+using Moms.RevenueManagement.Core.Domain.Item;
+using Moms.RevenueManagement.Core.Domain.Item.Models;
 using Moms.SharedKernel.Infrastructure.Persistence;
 using Moms.SharedKernel.Utility;
 
@@ -9,6 +11,18 @@ namespace Moms.RevenueManagement.Infrastructure.Persistence
     public class RevenueContext : BaseContext
     {
         public DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<BillingDiscount> BillingDiscounts { get; set; }
+        public DbSet<BillingType> BillingTypes { get; set; }
+        public DbSet<ClientBill> ClientBills { get; set; }
+        public DbSet<ClientBillingItem> ClientBillingItems { get; set; }
+        public DbSet<PriceList> PriceLists { get; set; }
+
+        /* Item Configuration Models*/
+        public DbSet<ItemConfiguration> ItemConfigurations { get; set; }
+        public DbSet<ItemMaster> ItemMasters { get; set; }
+        public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<ItemTypeSubType> ItemTypeSubTypes { get; set; }
+        public DbSet<Module> Modules { get; set; }
 
         public RevenueContext(DbContextOptions<RevenueContext> options) : base(options)
         {
