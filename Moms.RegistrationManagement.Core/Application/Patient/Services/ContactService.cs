@@ -102,7 +102,7 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
             }
             catch (Exception e)
             {
-                Log.Error("New Contacts added successfully");
+                Log.Error("New Contacts addition failed.");
                 Contact contacts= new Contact();
                 return (false, contacts, e.Message);
             }
