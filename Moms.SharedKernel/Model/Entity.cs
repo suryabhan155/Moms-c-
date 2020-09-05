@@ -8,6 +8,10 @@ namespace Moms.SharedKernel.Model
     {
         [Key]
         public virtual TId Id { get; set; }
+        public DateTime CreateDate { get; set; }
+        public Boolean Void { get; set; }
+        public DateTime? VoidDate { get; set; }
+        public Guid UserId { get; set; }
 
         protected Entity()
         {

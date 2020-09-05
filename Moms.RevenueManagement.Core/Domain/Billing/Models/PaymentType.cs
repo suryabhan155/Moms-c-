@@ -7,6 +7,7 @@ namespace Moms.RevenueManagement.Core.Domain.Billing.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public ClientBillPayment ClientBillPayment { get; set; }
 
         public bool IsValid()
         {
