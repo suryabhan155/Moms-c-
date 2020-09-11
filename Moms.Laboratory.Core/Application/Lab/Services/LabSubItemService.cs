@@ -62,7 +62,6 @@ namespace Moms.Laboratory.Core.Application.Lab.Services
 
         public async Task<(bool IsSuccess, LabSubItem labSubItem, string ErrorMEssage)> AddLabSubItem(LabSubItem labSubItem)
         {
-            IEnumerable<LabSubItem> labSub = new List<LabSubItem>();
             try
             {
                 if (labSubItem == null)
