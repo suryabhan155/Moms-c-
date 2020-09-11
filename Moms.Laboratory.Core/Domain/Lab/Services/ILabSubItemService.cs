@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;s
+using System.Text;
 using System.Threading.Tasks;
 using Moms.Laboratory.Core.Domain.Lab.Models;
 
