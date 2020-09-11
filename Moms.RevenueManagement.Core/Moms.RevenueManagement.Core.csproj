@@ -21,4 +21,9 @@
       <ProjectReference Include="..\Moms.SharedKernel\Moms.SharedKernel.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Domain\Billing\Services" />
+      <Folder Include="Domain\Item\Services" />
+    </ItemGroup>
+
 </Project>
