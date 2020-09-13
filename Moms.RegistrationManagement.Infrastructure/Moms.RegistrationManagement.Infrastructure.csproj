@@ -27,6 +27,7 @@
 
     <ItemGroup>
         <EmbeddedResource Include="Seed\Clinic.csv" />
+        <EmbeddedResource Include="Seed\Patient.csv" />
     </ItemGroup>
 
     <ItemGroup>
@@ -34,4 +35,7 @@
       <ProjectReference Include="..\Moms.SharedKernel.Infrastructure\Moms.SharedKernel.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Seed\Patient.csv" />
+    </ItemGroup>
 </Project>
