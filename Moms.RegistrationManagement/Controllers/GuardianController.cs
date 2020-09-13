@@ -19,6 +19,7 @@ namespace Moms.RegistrationManagement.Controllers
             _guardianService = guardianService;
         }
 
+        [HttpPost]
         public async Task<IActionResult> AddGuardian([FromBody] Guardian guardian)
         {
             try
@@ -36,6 +37,7 @@ namespace Moms.RegistrationManagement.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
