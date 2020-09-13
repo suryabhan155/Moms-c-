@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Moms.RevenueManagement.Core.Domain.Item.Models;
 using Moms.SharedKernel.Custom;
 using Moms.SharedKernel.Model;
 
-namespace Moms.RevenueManagement.Core.Domain.Item
+namespace Moms.RevenueManagement.Core.Domain.Item.Models
 {
     public class ItemConfiguration: Entity<Guid>
     {
@@ -19,7 +18,7 @@ namespace Moms.RevenueManagement.Core.Domain.Item
        public bool Status { get; set; }
        public IEnumerable<ItemMaster> ItemMasters { get; set; }
 
-       public ItemConfiguration(Guid itemMasterId, int maxStock, int minStock, double purchaseUnitPrice, double quantityPerPurchaseUnit,
+       public ItemConfiguration(Guid itemMasterId, int maxStock, int minStock, decimal purchaseUnitPrice, decimal quantityPerPurchaseUnit,
            string dispensingUnit, string purchaseUnit, string quantityPerDispenseUnit)
        {
             if(itemMasterId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(itemMasterId));
@@ -31,6 +30,13 @@ namespace Moms.RevenueManagement.Core.Domain.Item
             if(string.IsNullOrEmpty(purchaseUnit)) throw new ArgumentNullException(nameof(purchaseUnit));
             if(string.IsNullOrEmpty(quantityPerDispenseUnit)) throw new ArgumentNullException(quantityPerDispenseUnit);
 
+            MaxStock = maxStock;
+            MinStock = minStock;
+            QuantityPerDispenseUnit = quantityPerDispenseUnit;
+            PurchaseUnitPrice = PurchaseUnitPrice;
+            DispensingUnit = dispensingUnit;
+            PurchaseUnit = purchaseUnit;
+            QuantityPerPurchaseUnit = quantityPerPurchaseUnit;
        }
     }
 }

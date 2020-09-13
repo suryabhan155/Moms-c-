@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Application" />
+      <Folder Include="Domain\Options\Dto" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Moms.RegistrationManagement.Core\Moms.RegistrationManagement.Core.csproj" />
+      <ProjectReference Include="..\Moms.SharedKernel\Moms.SharedKernel.csproj" />
+    </ItemGroup>
+
+</Project>

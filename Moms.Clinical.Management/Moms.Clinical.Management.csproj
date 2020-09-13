@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Moms.Clinical.Core\Moms.Clinical.Core.csproj" />
+      <ProjectReference Include="..\Moms.Clinical.Infrastructure\Moms.Clinical.Infrastructure.csproj" />
+    </ItemGroup>
+
+
+</Project>
