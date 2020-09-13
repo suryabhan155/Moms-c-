@@ -39,22 +39,26 @@ namespace Moms.RegistrationManagement.Infrastructure.Persistence
             if (!Patients.Any())
             {
                 var data = SeedDataReader.ReadCsv<Patient>(typeof(RegistrationContext).Assembly);
+                AddRange(data);
             }
 
-            if (!Contacts.Any())
-            {
-                var data = SeedDataReader.ReadCsv<Contact>(typeof(RegistrationContext).Assembly);
-            }
+            /* if (!Contacts.Any())
+             {
+                 var data = SeedDataReader.ReadCsv<Contact>(typeof(RegistrationContext).Assembly);
+                 AddRange(data);
+             }
 
-            if (!Employers.Any())
-            {
-                var data = SeedDataReader.ReadCsv<Employer>(typeof(RegistrationContext).Assembly);
-            }
+             if (!Employers.Any())
+             {
+                 var data = SeedDataReader.ReadCsv<Employer>(typeof(RegistrationContext).Assembly);
+                 AddRange(data);
+             }
 
-            if (!Guardians.Any())
-            {
-                var data = SeedDataReader.ReadCsv<Guardian>(typeof(RegistrationContext).Assembly);
-            }
+             if (!Guardians.Any())
+             {
+                 var data = SeedDataReader.ReadCsv<Guardian>(typeof(RegistrationContext).Assembly);
+                 AddRange(data);
+             }*/
 
             SaveChanges();
         }
