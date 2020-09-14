@@ -6,7 +6,7 @@
 
     <ItemGroup>
       <Folder Include="Application" />
-      <Folder Include="Domain" />
+      <Folder Include="Domain\Consultation\Dto\" />
     </ItemGroup>
 
     <ItemGroup>
