@@ -13,15 +13,15 @@ namespace Moms.Clinical.Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ConsultationController : ControllerBase
+    public class ConsultationTreatmentController : ControllerBase
     {
         public readonly IMediator _IMediator;
-        public readonly IConsultationService _ConsultationService;
+        public readonly IConsultationTreatmentService _ConsultationTreatmentService;
 
-        public ConsultationController(IMediator iMediator, IConsultationService consultationService)
+        public ConsultationTreatmentController(IMediator iMediator, IConsultationTreatmentService consultationService)
         {
             _IMediator = iMediator;
-            _ConsultationService = consultationService;
+            _ConsultationTreatmentService = consultationService;
         }
 
         [HttpGet("lab/consultations")]
@@ -29,7 +29,7 @@ namespace Moms.Clinical.Management.Controllers
         {
             try
             {
-                var results = await _ConsultationService.LoadConsultations();
+                var results = await _ConsultationTreatmentService.LoadConsultationTreatments();
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound();
@@ -44,11 +44,11 @@ namespace Moms.Clinical.Management.Controllers
         }
 
         [HttpGet("lab/consultation")]
-        public async Task<IActionResult> GetConsultation(Guid id)
+        public async Task<IActionResult> GetConsultationTreatments(Guid id)
         {
             try
             {
-                var result = await _ConsultationService.GetConsultation(id);
+                var result = await _ConsultationTreatmentService.GetConsultationTreatments(id);
                 if (result.IsSuccess)
                     return Ok(result);
                 return NotFound();
@@ -62,11 +62,11 @@ namespace Moms.Clinical.Management.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteConsultation(Guid id)
+        public async Task<IActionResult> DeleteConsultationTreatment(Guid id)
         {
             try
             {
-                var result = await _ConsultationService.DeleteConsultation(id);
+                var result = await _ConsultationTreatmentService.DeleteConsultationTreatment(id);
                 if (result.IsSuccess)
                     return Ok(result);
                 return NotFound();
@@ -79,11 +79,11 @@ namespace Moms.Clinical.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddConsultation([FromBody] Consultation consultation)
+        public async Task<IActionResult> AddConsultationTreatment([FromBody] ConsultationTreatment consultation)
         {
             try
             {
-                var results = await _ConsultationService.AddConsultation(consultation);
+                var results = await _ConsultationTreatmentService.AddConsultationTreatment(consultation);
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound();
