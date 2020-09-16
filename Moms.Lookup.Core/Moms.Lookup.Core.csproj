@@ -8,6 +8,7 @@
       <Folder Include="Application\Options\Commands" />
       <Folder Include="Application\Options\Events" />
       <Folder Include="Application\Options\Queries" />
+      <Folder Include="Domain\Options\Dto" />
     </ItemGroup>
 
     <ItemGroup>
