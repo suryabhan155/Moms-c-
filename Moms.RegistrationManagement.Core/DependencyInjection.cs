@@ -5,7 +5,6 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Moms.Lookup.Core.Application.ICD.Services;
 using Moms.RegistrationManagement.Core.Application.Facilities.Commands;
-using Moms.RegistrationManagement.Core.Application.Facilities.Services;
 using Moms.RegistrationManagement.Core.Application.Patient.Services;
 using Moms.RegistrationManagement.Core.Domain.Facilities;
 using Moms.RegistrationManagement.Core.Domain.Facilities.Dto;

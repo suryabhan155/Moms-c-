@@ -55,7 +55,7 @@ namespace Moms.Laboratory.Core.Application.Lab.Services
                 return (false, lab, $"{e.Message}");
             }
         }
-        
+
         public async Task<(bool IsSuccess, LabOrderSampleResult labOrderSampleResult, string ErrorMEssage)> AddLabOrderSampleResult(LabOrderSampleResult labOrderSampleResult)
         {
             try
@@ -91,6 +91,11 @@ namespace Moms.Laboratory.Core.Application.Lab.Services
             {
                 return (false, id, $"{e.Message}");
             }
+        }
+
+        public Task<(bool IsSuccess, LabOrderSampleResult labOrderSampleResult, string ErrorMEssage)> AddLabOrderSampleResut(LabOrderSampleResult labOrderSampleResult)
+        {
+            throw new NotImplementedException();
         }
     }
 }
