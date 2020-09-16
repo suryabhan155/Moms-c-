@@ -71,7 +71,7 @@ namespace Moms.Lookup.Management
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Moms.Registration V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Moms.Lookup V1");
             });
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -82,7 +82,7 @@ namespace Moms.Lookup.Management
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             EnsureMigrationOfContext<LookupContext>(app);
-            Log.Information($"Moms.Registration [Version {GetType().Assembly.GetName().Version}] started successfully");
+            Log.Information($"Moms.Lookup [Version {GetType().Assembly.GetName().Version}] started successfully");
         }
 
         private static void EnsureMigrationOfContext<T>(IApplicationBuilder app) where T : BaseContext

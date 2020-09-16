@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Moms.SharedKernel.Model;
 
 namespace Moms.Lookup.Core.Domain.Options.Models
@@ -7,6 +8,7 @@ namespace Moms.Lookup.Core.Domain.Options.Models
     {
         public string Name { get; set; }
         public string Alias { get; set; }
+        public ICollection<LookupOption> lookupOptions { get; set; }
 
         public LookupItem(string name)
         {

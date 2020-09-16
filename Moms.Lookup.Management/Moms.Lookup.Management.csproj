@@ -8,5 +8,30 @@
       <ProjectReference Include="..\Moms.Lookup.Infrastructure\Moms.Lookup.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="10.0.0" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+        <PackageReference Include="CSharpFunctionalExtensions" Version="2.11.5" />
+        <PackageReference Include="Dapper" Version="2.0.35" />
+        <PackageReference Include="MediatR" Version="8.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+        <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+        <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
+          
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    </ItemGroup>
+
 
 </Project>

@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Reflection;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Moms.RegistrationManagement.Core.Application.Facilities.Commands;
+using Moms.Lookup.Core.Application.Options.Service;
+using Moms.Lookup.Core.Domain.Options.Service;
 
 namespace Moms.Lookup.Core
 {
@@ -12,8 +13,11 @@ namespace Moms.Lookup.Core
         {
             // services.AddAutoMapper(typeof(FacilitiesProfile));
             // services.AddAutoMapper(typeof(PatientProfile));
+            services.AddScoped<ILookupMasterService, LookupMasterService>();
+            services.AddScoped<ILookupItemService, LookupItemService>();
+            services.AddScoped<ILookupOptionsService, LookupOptionsServices>();
 
-            if (null != others)
+         /*   if (null != others)
             {
                 others.Add(typeof(SampleCommandHandler).Assembly);
                 services.AddMediatR(others.ToArray());
@@ -21,7 +25,7 @@ namespace Moms.Lookup.Core
             else
             {
                 services.AddMediatR(typeof(SampleCommandHandler).Assembly);
-            }
+            }*/
 
             return services;
         }

@@ -7,9 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Moms.Lookup.Core.Domain.ICD;
 using Moms.Lookup.Core.Domain.ICD.Models;
 using Moms.Lookup.Core.Domain.ICD.Services;
-using Moms.RegistrationManagement.Core.Domain.Facilities;
-using Moms.RegistrationManagement.Core.Domain.Facilities.Dto;
-using Moms.RegistrationManagement.Core.Domain.Facilities.Models;
+
 using Serilog;
 
 namespace Moms.Lookup.Core.Application.ICD.Services
