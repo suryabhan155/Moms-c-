@@ -78,7 +78,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<ConsultationFinding> consultations, string ErrorMessage)> GetConsultationFinding(Guid id)
+        public async Task<(bool IsSuccess, IEnumerable<ConsultationFinding> consultations, string ErrorMessage)> GetConsultationFindings(Guid id)
         {
             IEnumerable<ConsultationFinding> lab = new List<ConsultationFinding>();
             try
