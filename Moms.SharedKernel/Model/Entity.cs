@@ -8,10 +8,10 @@ namespace Moms.SharedKernel.Model
     {
         [Key]
         public virtual TId Id { get; set; }
-        public DateTime CreateDate { get; set; }
-        public Boolean Void { get; set; }
+        public DateTime CreateDate { get; set; }=DateTime.Now;
+        public Boolean Void { get; set; } = false;
         public DateTime? VoidDate { get; set; }
-        public Guid UserId { get; set; }
+        public Guid UserId { get; set; }=Guid.NewGuid(); //default Guid before replacing with IS4 value
 
         protected Entity()
         {

@@ -22,7 +22,8 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
             _mapper = mapper;
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<PatientDto>, string ErrorMessage)> LoadPatients()
+
+        public async Task<(bool IsSuccess, IEnumerable<PatientDto> patients, string ErrorMessage)> LoadPatients()
         {
             try
             {

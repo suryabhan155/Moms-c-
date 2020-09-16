@@ -5,13 +5,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Application" />
-      <Folder Include="Domain\Options\Dto" />
+      <Folder Include="Application\Options\Commands" />
+      <Folder Include="Application\Options\Events" />
+      <Folder Include="Application\Options\Queries" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Moms.RegistrationManagement.Core\Moms.RegistrationManagement.Core.csproj" />
       <ProjectReference Include="..\Moms.SharedKernel\Moms.SharedKernel.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     </ItemGroup>
 
 </Project>

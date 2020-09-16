@@ -6,13 +6,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Seed" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Moms.Lookup.Core\Moms.Lookup.Core.csproj" />
       <ProjectReference Include="..\Moms.RegistrationManagement.Core\Moms.RegistrationManagement.Core.csproj" />
       <ProjectReference Include="..\Moms.SharedKernel.Infrastructure\Moms.SharedKernel.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Seed\LookupItem.csv" />
+      <None Remove="Seed\LookupMaster.csv" />
+      <None Remove="Seed\LookupOption.csv" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Seed\LookupItem.csv" />
+      <EmbeddedResource Include="Seed\LookupMaster.csv" />
+      <EmbeddedResource Include="Seed\LookupOption.csv" />
+    </ItemGroup>
 </Project>
