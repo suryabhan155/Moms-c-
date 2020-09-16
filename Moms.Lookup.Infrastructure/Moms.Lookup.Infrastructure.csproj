@@ -6,10 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Seed" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Moms.Lookup.Core\Moms.Lookup.Core.csproj" />
       <ProjectReference Include="..\Moms.RegistrationManagement.Core\Moms.RegistrationManagement.Core.csproj" />
       <ProjectReference Include="..\Moms.SharedKernel.Infrastructure\Moms.SharedKernel.Infrastructure.csproj" />

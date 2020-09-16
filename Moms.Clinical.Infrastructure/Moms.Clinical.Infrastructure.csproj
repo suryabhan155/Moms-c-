@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Moms.Clinical.Core\Moms.Clinical.Core.csproj" />
       <ProjectReference Include="..\Moms.SharedKernel.Infrastructure\Moms.SharedKernel.Infrastructure.csproj" />
     </ItemGroup>
 
