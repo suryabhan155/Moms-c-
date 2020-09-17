@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Moms.Lookup.Core.Domain;
+using Moms.Lookup.Core.Domain.ICD;
 using Moms.Lookup.Infrastructure.Persistence;
 using Moms.RegistrationManagement.Core.Application.Facilities.Commands;
 
@@ -26,6 +27,7 @@ namespace Moms.Lookup.Infrastructure
                 .AddScoped<ILookupItemRepository, LookupItemRepository>();
             services
                 .AddScoped<ILookupOptionsRepository, LookupOptionsRepository>();
+            services.AddScoped<IIcdCodeRepository, IcdCodeRepository>();
 
             return services;
         }

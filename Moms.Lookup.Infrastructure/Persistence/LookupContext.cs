@@ -51,11 +51,16 @@ namespace Moms.Lookup.Infrastructure.Persistence
                 AddRange(data);
             }
 
-          /*  if (!LookupOptions.Any())
+            if (!IcdCodes.Any())
+            {
+                var data = SeedDataReader.ReadCsv<IcdCode>(typeof(LookupContext).Assembly);
+                AddRange(data);
+            }
+            if (!LookupOptions.Any())
             {
                 var data = SeedDataReader.ReadCsv<LookupOption>(typeof(LookupContext).Assembly);
                 AddRange(data);
-            }*/
+            }
             SaveChanges();
         }
     }

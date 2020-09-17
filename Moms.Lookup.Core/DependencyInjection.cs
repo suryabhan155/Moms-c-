@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Moms.Lookup.Core.Application.ICD.Services;
 using Moms.Lookup.Core.Application.Options.Service;
+using Moms.Lookup.Core.Domain.ICD.Services;
 using Moms.Lookup.Core.Domain.Options.Service;
 
 namespace Moms.Lookup.Core
@@ -16,6 +18,7 @@ namespace Moms.Lookup.Core
             services.AddScoped<ILookupMasterService, LookupMasterService>();
             services.AddScoped<ILookupItemService, LookupItemService>();
             services.AddScoped<ILookupOptionsService, LookupOptionsServices>();
+            services.AddScoped<IIcdCodeService, IcdCodeService>();
 
          /*   if (null != others)
             {
