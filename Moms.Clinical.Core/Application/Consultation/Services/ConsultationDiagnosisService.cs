@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moms.Clinical.Core.Domain.Consultation.Services;
 using Moms.Clinical.Core.Domain.Consultation.Models;
@@ -13,12 +11,10 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
 {
     public class ConsultationDiagnosisService : IConsultationDiagnosisService
     {
-        public readonly IMapper _IMapper;
         public readonly IConsultationDiagnosisRepository _ConsultationDiagnosisRepository;
 
-        public ConsultationDiagnosisService(IMapper iMapper, IConsultationDiagnosisRepository consultationRepository)
+        public ConsultationDiagnosisService(IConsultationDiagnosisRepository consultationRepository)
         {
-            _IMapper = iMapper;
             _ConsultationDiagnosisRepository = consultationRepository;
         }
 
@@ -31,7 +27,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultations = await _ConsultationDiagnosisRepository.GetAll().ToListAsync();
                 if (consultations == null)
                     return (false, c, "No record found.");
-                return (true, _IMapper.Map<List<ConsultationDiagnosis>>(consultations), "Consultation diagnosis loaded successfully.");
+                return (true, consultations, "Consultation diagnosis loaded successfully.");
             }
             catch (Exception e)
             {
@@ -86,7 +82,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultation = await _ConsultationDiagnosisRepository.GetAll(x => x.Id == id).ToListAsync();
                 if (consultation == null)
                     return (false, lab, "Consultation diagnosis not found.");
-                return (true, _IMapper.Map<List<ConsultationDiagnosis>>(consultation), "Consultation diagnosis loaded successfully");
+                return (true, consultation, "Consultation diagnosis loaded successfully");
 
             }
             catch (Exception e)

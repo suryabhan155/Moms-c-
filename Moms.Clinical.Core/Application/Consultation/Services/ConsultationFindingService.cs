@@ -13,12 +13,10 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
 {
     public class ConsultationFindingService : IConsultationFindingService
     {
-        public readonly IMapper _IMapper;
         public readonly IConsultationFindingRepository _ConsultationFindingRepository;
 
-        public ConsultationFindingService(IMapper iMapper, IConsultationFindingRepository consultationRepository)
+        public ConsultationFindingService(IConsultationFindingRepository consultationRepository)
         {
-            _IMapper = iMapper;
             _ConsultationFindingRepository= consultationRepository;
         }
 
@@ -31,7 +29,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultations = await _ConsultationFindingRepository.GetAll().ToListAsync();
                 if (consultations == null)
                     return (false, c, "No record found.");
-                return (true, _IMapper.Map<List<ConsultationFinding>>(consultations), "Consultation findings loaded successfully.");
+                return (true, consultations, "Consultation findings loaded successfully.");
             }
             catch (Exception e)
             {
@@ -86,7 +84,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultation = await _ConsultationFindingRepository.GetAll(x => x.Id == id).ToListAsync();
                 if (consultation == null)
                     return (false, lab, "Consultation finding not found.");
-                return (true, _IMapper.Map<List<ConsultationFinding>>(consultation), "Consultation finding loaded successfully");
+                return (true, consultation, "Consultation finding loaded successfully");
 
             }
             catch (Exception e)
