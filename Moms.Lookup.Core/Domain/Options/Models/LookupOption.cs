@@ -17,9 +17,9 @@ namespace Moms.Lookup.Core.Domain.Options.Models
 
         public LookupOption(string lookupName, Guid lookupMasterId, Guid lookupItemId)
         {
-           /* if(string.IsNullOrEmpty(lookupName)) throw new ArgumentNullException(nameof(lookupName));
+            if(string.IsNullOrEmpty(lookupName)) throw new ArgumentNullException(nameof(lookupName));
             if(lookupMasterId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(lookupMasterId));
-            if(lookupItemId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(lookupItemId));*/
+            if(lookupItemId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(lookupItemId));
 
             LookupName = lookupName;
             LookupMasterId = lookupMasterId;
