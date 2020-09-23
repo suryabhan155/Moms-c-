@@ -1,4 +1,6 @@
 
+using System.Reflection;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,7 @@ namespace Moms.Lookup.Infrastructure
                 .AddScoped<ILookupItemRepository, LookupItemRepository>();
             services
                 .AddScoped<ILookupOptionsRepository, LookupOptionsRepository>();
+            services.AddMediatR(typeof(DependencyInjection).GetTypeInfo().Assembly);
 
             return services;
         }

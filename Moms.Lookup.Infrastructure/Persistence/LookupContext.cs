@@ -51,11 +51,11 @@ namespace Moms.Lookup.Infrastructure.Persistence
                 AddRange(data);
             }
 
-          /*  if (!LookupOptions.Any())
+            if (!LookupOptions.Any())
             {
                 var data = SeedDataReader.ReadCsv<LookupOption>(typeof(LookupContext).Assembly);
                 AddRange(data);
-            }*/
+            }
             SaveChanges();
         }
     }
