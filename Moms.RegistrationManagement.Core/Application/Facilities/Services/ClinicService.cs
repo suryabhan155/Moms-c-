@@ -7,7 +7,7 @@ using Moms.RegistrationManagement.Core.Domain.Facilities.Dto;
 using Moms.RegistrationManagement.Core.Domain.Facilities.Models;
 using Serilog;
 
-namespace Moms.RegistrationManagement.Core.Application.Facilities.Services
+namespace Moms.Lookup.Core.Application.ICD.Services
 {
     public class ClinicService : IClinicService
     {

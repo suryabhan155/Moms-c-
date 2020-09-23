@@ -28,7 +28,7 @@ namespace Moms.RegistrationManagement.Controllers
             {
                 var results = await _patientService.AddPatient(patient);
                 if (results.IsSuccess)
-                    return Ok(results);
+                    return Ok(results.patients);
                 return NotFound(results.ErrorMEssage);
             }
             catch (Exception e)
@@ -46,7 +46,7 @@ namespace Moms.RegistrationManagement.Controllers
             {
                 var results = await _patientService.LoadPatients();
                 if (results.IsSuccess)
-                    return Ok(results);
+                    return Ok(results.patients);
                 return NotFound(results);
             }
             catch (Exception e)
@@ -64,7 +64,7 @@ namespace Moms.RegistrationManagement.Controllers
             {
                 var results = await _patientService.GetPatient(id);
                 if (results.IsSuccess)
-                    return Ok(results);
+                    return Ok(results.patient);
                 return NotFound(results);
             }
             catch (Exception e)

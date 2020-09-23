@@ -25,7 +25,7 @@ namespace Moms.Lookup.Management
 
             try
             {
-                Log.Information($"Starting Moms.Registration...");
+                Log.Information($"Starting Moms.Lookup...");
                 ;
                 CreateHostBuilder(args).Build().Run();
             }

@@ -63,7 +63,7 @@ namespace Moms.Laboratory.Core.Application.Lab.Services
             {
                 if (labOrder == null)
                     return (false, labOrder, "No lab order found");
-                if(labOrder.ItemID.IsNullOrEmpty())
+                if(labOrder.ItemId.IsNullOrEmpty())
                     _LabOrderRepository.Create(labOrder);
                 _LabOrderRepository.Update(labOrder);
                 await _LabOrderRepository.Save();
