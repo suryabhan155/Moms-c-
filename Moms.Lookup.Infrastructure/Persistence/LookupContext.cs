@@ -51,6 +51,7 @@ namespace Moms.Lookup.Infrastructure.Persistence
                 AddRange(data);
             }
 
+            if (!LookupOptions.Any())
             /* if (!IcdCodeChapters.Any())
              {
                  var data = SeedDataReader.ReadCsv<IcdCode>(typeof(LookupContext).Assembly);
