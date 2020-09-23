@@ -58,7 +58,7 @@ namespace Moms.Lookup.Management.Controllers
             }
         }
 
-        [HttpGet("MasterById/{name}")]
+        [HttpGet("MasterByName/{name}")]
         public async Task<IActionResult> GetLookupMasterByName(string name)
         {
             try

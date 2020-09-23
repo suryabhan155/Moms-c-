@@ -18,6 +18,8 @@ namespace Moms.RegistrationManagement
     {
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
+        private static string[] _allowedOrigins;
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
@@ -39,6 +41,17 @@ namespace Moms.RegistrationManagement
             services.AddApplication();
             services.AddSwaggerGen();
 
+            _allowedOrigins = Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.SetIsOriginAllowed(isOriginAllowed: _ => true).AllowAnyHeader().AllowAnyMethod()
+                            .AllowCredentials();
+                    });
+            });
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders =
@@ -57,16 +70,10 @@ namespace Moms.RegistrationManagement
             else
             {
                 app.UseForwardedHeaders();
-                ;
                 app.UseHsts();
             }
 
-            app.UseCors(
-                builder => builder
-                    .WithOrigins("https://localhost:3000")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials());
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
