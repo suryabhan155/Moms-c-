@@ -3,7 +3,6 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Moms.Lookup.Core.Domain.ICD.Models;
-using Moms.Lookup.Core.Domain.Options.Dto;
 using Moms.Lookup.Core.Domain.Options.Models;
 using Moms.SharedKernel.Infrastructure.Persistence;
 using Moms.SharedKernel.Utility;
@@ -39,31 +38,34 @@ namespace Moms.Lookup.Infrastructure.Persistence
         public override void EnsureSeeded()
         {
             /*  add seeding of models here */
+
+          if (!LookupItems.Any())
+            {
+                var data = SeedDataReader.ReadCsv<LookupItem>(typeof(LookupContext).Assembly);
+                AddRange(data);
+            }
+
             if (!LookupMasters.Any())
             {
                 var data = SeedDataReader.ReadCsv<LookupMaster>(typeof(LookupContext).Assembly);
                 AddRange(data);
             }
 
-            if (!LookupItems.Any())
-            {
-                var data = SeedDataReader.ReadCsv<LookupItem>(typeof(LookupContext).Assembly);
-                AddRange(data);
-            }
 
-            if (!LookupOptions.Any())
+
+
             /* if (!IcdCodeChapters.Any())
              {
                  var data = SeedDataReader.ReadCsv<IcdCode>(typeof(LookupContext).Assembly);
                  AddRange(data);
              }*/
-            if (!LookupOptions.Any())
+           if (!LookupOptions.Any())
             {
                 var data = SeedDataReader.ReadCsv<LookupOption>(typeof(LookupContext).Assembly);
-                AddRange(data);
+
+                AddRange(data.FindAll(x=>!string.IsNullOrEmpty(x.LookupName)));
             }
             SaveChanges();
-
         }
     }
 }

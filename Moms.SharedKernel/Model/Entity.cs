@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moms.SharedKernel.Custom;
 
 namespace Moms.SharedKernel.Model
@@ -8,10 +9,10 @@ namespace Moms.SharedKernel.Model
     {
         [Key]
         public virtual TId Id { get; set; }
-        public DateTime CreateDate { get; set; }=DateTime.Now;
-        public Boolean Void { get; set; } = false;
+        public DateTime CreateDate { get; set; }
+        public Boolean Void { get; set; }
         public DateTime? VoidDate { get; set; }
-        public Guid UserId { get; set; }=Guid.NewGuid(); //default Guid before replacing with IS4 value
+        public Guid UserId { get; set; }
 
         protected Entity()
         {
@@ -25,8 +26,9 @@ namespace Moms.SharedKernel.Model
 
         public virtual void AssignId()
         {
-            if (typeof(TId) == typeof(Guid))
-                Id = (TId) (object) LiveGuid.NewGuid();
+            if (typeof(TId) == typeof(Guid)) ;
+
+            Id = (TId) (object) LiveGuid.NewGuid();
         }
 
         public override bool Equals(object obj)

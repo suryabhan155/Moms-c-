@@ -45,7 +45,7 @@ namespace Moms.Lookup.Core.Application.Options.Service
             catch (Exception e)
             {
                 Log.Error("LookupMaster Load: Error occured",e);
-                LookupItem  lookupItems=new LookupItem("");
+                LookupItem  lookupItems=new LookupItem();
                return (false, lookupItems, e.Message);
             }
         }
