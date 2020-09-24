@@ -10,21 +10,21 @@ using Serilog;
 
 namespace Moms.Lookup.Infrastructure.Persistence
 {
-    public class LookupOptionsRepository: BaseRepository<LookupOption, Guid>, ILookupOptionsRepository
+    public class LookupMasterItemRepository: BaseRepository<LookupMasterItem, Guid>, ILookupMasterItemRepository
     {
-        public LookupOptionsRepository(LookupContext context) : base(context)
+        public LookupMasterItemRepository(LookupContext context) : base(context)
         {
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<LookupOption> lookupOption, string ErrorMessage)> GetLookupOptionsByName(string name)
+      /*  public async Task<(bool IsSuccess, IEnumerable<LookupOption> lookupOption, string ErrorMessage)> GetLookupOptionsByName(string name)
         {
             try
             {
                 using (var ctx = Context as LookupContext)
                 {
                     var data = await ctx.LookupOptions.Where(x => x.LookupName == name)
-                        .Include(b => b.lookupMater)
-                        .Include(i => i.lookupItem)
+                        .Include(b => b.LookupMaster)
+                        .Include(i => i.LookupItem)
                         .ToListAsync();
                     if (data.Count > 0)
                         return (true, data, "LookupOptions loaded successfully");
@@ -37,20 +37,20 @@ namespace Moms.Lookup.Infrastructure.Persistence
                 IEnumerable<LookupMaster>  lookupMasters=new List<LookupMaster>();
                 return (false, new List<LookupOption>(), e.Message);
             }
-        }
+        }*/
 
-        public async Task<(bool IsSuccess, IEnumerable<LookupOption> lookupOption, string ErrorMessage)> GetLookupOptionsById(Guid id)
+       /* public async Task<(bool IsSuccess, IEnumerable<LookupOption> lookupOption, string ErrorMessage)> GetLookupOptionsById(Guid id)
         {
             var ctx = Context as LookupContext;
 
             var data = await ctx.LookupOptions.Where(x => x.LookupMasterId == id)
-                .Include(b => b.lookupMater)
-                .Include(i=>i.lookupItem)
+                .Include(b => b.LookupMaster)
+                .Include(i=>i.LookupItem)
                 .ToListAsync();
 
                 if (data.Count > 0)
                     return (true, data, "LookupOption Loaded successfully");
                 return (false, new List<LookupOption>(), "LookupOption not found");
-        }
+        }*/
     }
 }

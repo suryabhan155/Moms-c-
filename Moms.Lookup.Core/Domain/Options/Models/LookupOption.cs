@@ -1,34 +1,24 @@
 using System;
-using System.Collections.Generic;
-using Moms.SharedKernel.Custom;
+using System.ComponentModel.DataAnnotations.Schema;
 using Moms.SharedKernel.Model;
 
 namespace Moms.Lookup.Core.Domain.Options.Models
 {
+    [Table("lookupoptions")]
     public class LookupOption:Entity<Guid>
     {
-        public string LookupName { get; set; }
+       [Column("lookupmasterid")]
         public Guid LookupMasterId { get; set; }
-        public Guid LookupItemId { get; set; }
+       [Column("lookupmastername")]
+        public string LookupMasterName { get; set; }
+       [Column("lookupmasteralias")]
+        public string LookupMasterAlias { get; set; }
+       [Column("lookupitemid")]
+       public Guid  LookupItemId { get; set; }
+       [Column("lookupitemname")]
+       public string LookupItemName { get; set; }
+       [Column("lookupitemalias")]
+       public string LookupItemAlias { get; set; }
 
-        public string LookupNameAlias { get; set; }
-
-        public LookupMaster lookupMater { get; set; }=new LookupMaster();
-        public LookupItem lookupItem { get; set; }=new LookupItem();
-
-       /* public LookupOption()
-        {
-
-        }
-        public LookupOption(string lookupName, Guid lookupMasterId, Guid lookupItemId)
-        {
-            if(string.IsNullOrEmpty(lookupName)) throw new ArgumentNullException(nameof(lookupName));
-            if(lookupMasterId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(lookupMasterId));
-            if(lookupItemId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(lookupItemId));
-
-            LookupName = lookupName;
-            LookupMasterId = lookupMasterId;
-            LookupItemId = lookupItemId;
-        }*/
     }
 }

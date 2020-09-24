@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Moms.Lookup.Infrastructure.Migrations
 {
     [DbContext(typeof(LookupContext))]
-    [Migration("20200917011440_icd10 tables")]
-    partial class icd10tables
+    [Migration("20200924163000_initial migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -219,7 +219,7 @@ namespace Moms.Lookup.Infrastructure.Migrations
                     b.ToTable("LookupMasters");
                 });
 
-            modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.LookupOption", b =>
+            modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.LookupMasterItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -234,12 +234,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
                     b.Property<Guid>("LookupMasterId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("LookupName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LookupNameAlias")
-                        .HasColumnType("text");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
@@ -251,11 +245,7 @@ namespace Moms.Lookup.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LookupItemId");
-
-                    b.HasIndex("LookupMasterId");
-
-                    b.ToTable("LookupOptions");
+                    b.ToTable("LookupMasterItems");
                 });
 
             modelBuilder.Entity("Moms.Lookup.Core.Domain.ICD.Models.IcdCode", b =>
@@ -277,21 +267,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
                     b.HasOne("Moms.Lookup.Core.Domain.ICD.Models.IcdCodeBlock", "IcdCodeBlock")
                         .WithMany("Guardians")
                         .HasForeignKey("IcdCodeBlockId");
-                });
-
-            modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.LookupOption", b =>
-                {
-                    b.HasOne("Moms.Lookup.Core.Domain.Options.Models.LookupItem", "lookupItem")
-                        .WithMany("lookupOptions")
-                        .HasForeignKey("LookupItemId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.HasOne("Moms.Lookup.Core.Domain.Options.Models.LookupMaster", "lookupMater")
-                        .WithMany("LookupOption")
-                        .HasForeignKey("LookupMasterId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

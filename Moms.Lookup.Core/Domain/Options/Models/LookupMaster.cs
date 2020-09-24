@@ -9,21 +9,10 @@ namespace Moms.Lookup.Core.Domain.Options.Models
     {
         public string Name { get; set; }
         public string Alias { get; set; }
-        public ICollection<LookupOption> LookupOption { get; set; }=new List<LookupOption>();
 
         public LookupMaster()
         {
 
         }
-
-        /* public LookupMaster()
-         {
-
-         }
-         public LookupMaster(string name)
-         {
-             if(string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
-             Name = name;
-         }*/
     }
 }
