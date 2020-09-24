@@ -44,7 +44,7 @@ namespace Moms.Lookup.Core.Application.Options.Service
             catch (Exception e)
             {
                 Log.Error("LookupMaster Load: Error occured",e);
-               LookupMaster lookupMaster=new LookupMaster("");
+               LookupMaster lookupMaster=new LookupMaster();
                 return (false, lookupMaster, e.Message);
             }
         }
@@ -59,7 +59,7 @@ namespace Moms.Lookup.Core.Application.Options.Service
             catch (Exception e)
             {
                 Log.Error("LookupMaster Load: Error occured",e);
-                LookupMaster lookupMaster=new LookupMaster("");
+                LookupMaster lookupMaster=new LookupMaster();
                 return (false, lookupMaster, e.Message);
             }
         }

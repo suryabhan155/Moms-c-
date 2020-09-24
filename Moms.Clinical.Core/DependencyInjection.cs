@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Reflection;
+using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Moms.RegistrationManagement.Core.Application.Facilities.Commands;
+using Moms.Clinical.Core.Application.Consultation.Services;
+using Moms.Clinical.Core.Domain.Consultation.Services;
 
 namespace Moms.Clinical.Core
 {
@@ -11,15 +13,21 @@ namespace Moms.Clinical.Core
         public static IServiceCollection AddApplication(this IServiceCollection services, List<Assembly> others = null)
         {
             // Add scoped resources
+            services.AddScoped<IConsultationComplaintService, ConsultationComplaintService>();
+            services.AddScoped<IConsultationDiagnosisService, ConsultationDiagnosisService>();
+            services.AddScoped<IConsultationFindingService, ConsultationFindingService>();
+            services.AddScoped<IConsultationService, ConsultationService>();
+            services.AddScoped<IConsultationServiceService, ConsultationServiceService>();
+            services.AddScoped<IConsultationTreatmentService, ConsultationTreatmentService>();
 
             if (null != others)
             {
-                others.Add(typeof(SampleCommandHandler).Assembly);
+               /* others.Add(typeof(SampleCommandHandler).Assembly);*/
                 services.AddMediatR(others.ToArray());
             }
             else
             {
-                services.AddMediatR(typeof(SampleCommandHandler).Assembly);
+               /* services.AddMediatR(typeof(SampleCommandHandler).Assembly);*/
             }
 
             return services;

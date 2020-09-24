@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moms.Clinical.Core.Domain.Consultation.Services;
 using Moms.Clinical.Core.Domain.Consultation.Models;
@@ -13,12 +11,10 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
 {
     public class ConsultationComplaintService : IConsultationComplaintService
     {
-        public readonly IMapper _IMapper;
         public readonly IConsultationComplaintRepository _ConsultationComplaintRepository;
 
-        public ConsultationComplaintService(IMapper iMapper, IConsultationComplaintRepository consultationRepository)
+        public ConsultationComplaintService(IConsultationComplaintRepository consultationRepository)
         {
-            _IMapper = iMapper;
             _ConsultationComplaintRepository = consultationRepository;
         }
 
@@ -31,7 +27,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultations = await _ConsultationComplaintRepository.GetAll().ToListAsync();
                 if (consultations == null)
                     return (false, c, "No record found.");
-                return (true, _IMapper.Map<List<Domain.Consultation.Models.ConsultationComplaint>>(consultations), "Consultation complaints loaded successfully.");
+                return (true, consultations, "Consultation complaints loaded successfully.");
             }
             catch (Exception e)
             {
@@ -86,7 +82,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultation = await _ConsultationComplaintRepository.GetAll(x => x.Id == id).ToListAsync();
                 if (consultation == null)
                     return (false, lab, "Consultation complaint not found.");
-                return (true, _IMapper.Map<List<ConsultationComplaint>>(consultation), "Consultation complaint loaded successfully");
+                return (true, consultation, "Consultation complaint loaded successfully");
 
             }
             catch (Exception e)

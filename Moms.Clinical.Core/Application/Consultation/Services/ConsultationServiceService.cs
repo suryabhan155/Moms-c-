@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moms.Clinical.Core.Domain.Consultation.Services;
-using Moms.Clinical.Core.Domain.Consultation.Models;
 using Moms.Clinical.Core.Domain.Consultation;
 using Moms.SharedKernel.Custom;
 
@@ -13,12 +11,10 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
 {
     public class ConsultationServiceService : IConsultationServiceService
     {
-        public readonly IMapper _IMapper;
         public readonly IConsultationServiceRepository _ConsultationServiceRepository;
 
-        public ConsultationServiceService(IMapper iMapper, IConsultationServiceRepository consultationRepository)
+        public ConsultationServiceService(IConsultationServiceRepository consultationRepository)
         {
-            _IMapper = iMapper;
             _ConsultationServiceRepository = consultationRepository;
         }
 
@@ -31,7 +27,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultations = await _ConsultationServiceRepository.GetAll().ToListAsync();
                 if (consultations == null)
                     return (false, c, "No record found.");
-                return (true, _IMapper.Map<List<Domain.Consultation.Models.ConsultationService>>(consultations), "Consultation findings loaded successfully.");
+                return (true, consultations, "Consultation findings loaded successfully.");
             }
             catch (Exception e)
             {
@@ -86,7 +82,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultation = await _ConsultationServiceRepository.GetAll(x => x.Id == id).ToListAsync();
                 if (consultation == null)
                     return (false, lab, "Consultation service not found.");
-                return (true, _IMapper.Map<List<Domain.Consultation.Models.ConsultationService>>(consultation), "Consultation service loaded successfully");
+                return (true, consultation, "Consultation service loaded successfully");
 
             }
             catch (Exception e)

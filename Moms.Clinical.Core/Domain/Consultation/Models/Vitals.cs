@@ -6,7 +6,7 @@ using Moms.SharedKernel.Model;
 
 namespace Moms.Clinical.Core.Domain.Consultation.Models
 {
-    public class Vitals : Entity<Guid>
+    public class Vital : Entity<Guid>
     {
         public Guid PatientId { get; set; }
         public DateTime VitalDateTime { get; set; }
