@@ -14,11 +14,13 @@
     <ItemGroup>
       <None Remove="Seed\LookupItem.csv" />
       <None Remove="Seed\LookupMaster.csv" />
-      <None Remove="Seed\LookupOption.csv" />
     </ItemGroup>
     <ItemGroup>
       <EmbeddedResource Include="Seed\LookupItem.csv" />
       <EmbeddedResource Include="Seed\LookupMaster.csv" />
+      <None Remove="Seed\LookupOption.csv" />
+    </ItemGroup>
+    <ItemGroup>
       <EmbeddedResource Include="Seed\LookupOption.csv" />
     </ItemGroup>
 </Project>

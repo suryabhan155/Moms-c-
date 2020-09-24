@@ -13,14 +13,11 @@ namespace Moms.Lookup.Management.Controllers
     [Route("api/[controller]")]
     public class LookupOptionsController:ControllerBase
     {
-        private readonly IMediator _mediator;
         private readonly ILookupOptionsService _lookupOptionsService;
-        public LookupOptionsController(IMediator mediator, ILookupOptionsService lookupOptionsService )
+        public LookupOptionsController(ILookupOptionsService lookupOptionsService )
         {
-            _mediator = mediator;
             _lookupOptionsService = lookupOptionsService;
         }
-
 
         [HttpGet("optionsByName/{name}")]
         public async Task<IActionResult> GetLookupOptionsByName(string name)

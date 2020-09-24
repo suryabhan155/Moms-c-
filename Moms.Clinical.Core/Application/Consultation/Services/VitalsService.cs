@@ -23,15 +23,15 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
         }
 
 
-        public async Task<(bool IsSuccess, IEnumerable<Vitals>, string ErrorMessage)> LoadVitals()
+        public async Task<(bool IsSuccess, IEnumerable<Vital>, string ErrorMessage)> LoadVitals()
         {
-            IEnumerable<Vitals> c = new List<Vitals>();
+            IEnumerable<Vital> c = new List<Vital>();
             try
             {
                 var vitalses = await _VitalsRepository.GetAll().ToListAsync();
                 if (vitalses == null)
                     return (false, c, "No record found.");
-                return (true, _IMapper.Map<List<Vitals>>(vitalses), "Vitals loaded successfully.");
+                return (true, _IMapper.Map<List<Vital>>(vitalses), "Vitals loaded successfully.");
             }
             catch (Exception e)
             {
@@ -40,7 +40,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
-        public async Task<(bool IsSuccess, Vitals vitals, string ErrorMEssage)> AddVitals(Vitals vitals)
+        public async Task<(bool IsSuccess, Vital vitals, string ErrorMEssage)> AddVitals(Vital vitals)
         {
             try
             {
@@ -78,15 +78,15 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<Vitals> vitalses, string ErrorMessage)> GetVitals(Guid id)
+        public async Task<(bool IsSuccess, IEnumerable<Vital> vitalses, string ErrorMessage)> GetVitals(Guid id)
         {
-            IEnumerable<Vitals> lab = new List<Vitals>();
+            IEnumerable<Vital> lab = new List<Vital>();
             try
             {
                 var consultation = await _VitalsRepository.GetAll(x => x.Id == id).ToListAsync();
                 if (consultation == null)
                     return (false, lab, "Vitals not found.");
-                return (true, _IMapper.Map<List<Vitals>>(consultation), "Vitals loaded successfully");
+                return (true, _IMapper.Map<List<Vital>>(consultation), "Vitals loaded successfully");
 
             }
             catch (Exception e)

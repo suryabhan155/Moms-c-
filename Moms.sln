@@ -47,6 +47,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.Clinical.Core", "Moms.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.Clinical.Infrastructure", "Moms.Clinical.Infrastructure\Moms.Clinical.Infrastructure.csproj", "{2AE553CD-4790-4205-9E2D-707A75CA764E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SupplyChain", "SupplyChain", "{D4768658-E153-46FD-98DD-DBF72443D62D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.SupplyChain.Management", "Moms.SupplyChain.Management\Moms.SupplyChain.Management.csproj", "{239EC622-5622-4374-8396-3032375DAFEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +125,10 @@ Global
 		{2AE553CD-4790-4205-9E2D-707A75CA764E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AE553CD-4790-4205-9E2D-707A75CA764E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AE553CD-4790-4205-9E2D-707A75CA764E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{239EC622-5622-4374-8396-3032375DAFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{239EC622-5622-4374-8396-3032375DAFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{239EC622-5622-4374-8396-3032375DAFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{239EC622-5622-4374-8396-3032375DAFEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3017C60D-8798-49A3-998F-C554906D2274} = {BC71B4AE-0F77-40B1-88AF-2FF533718F31}
@@ -140,5 +148,6 @@ Global
 		{111CA29F-FEFC-4F27-BE50-502C59450EEE} = {0D74D79F-3619-44FC-9A76-4D577AF722C8}
 		{40D51DDA-29E4-448F-95F7-C51A66BFF802} = {0D74D79F-3619-44FC-9A76-4D577AF722C8}
 		{2AE553CD-4790-4205-9E2D-707A75CA764E} = {0D74D79F-3619-44FC-9A76-4D577AF722C8}
+		{239EC622-5622-4374-8396-3032375DAFEB} = {D4768658-E153-46FD-98DD-DBF72443D62D}
 	EndGlobalSection
 EndGlobal

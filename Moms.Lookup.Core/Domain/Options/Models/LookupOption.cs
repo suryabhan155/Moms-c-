@@ -10,20 +10,25 @@ namespace Moms.Lookup.Core.Domain.Options.Models
         public string LookupName { get; set; }
         public Guid LookupMasterId { get; set; }
         public Guid LookupItemId { get; set; }
+
         public string LookupNameAlias { get; set; }
 
-        public LookupMaster lookupMater { get; set; }
-        public LookupItem lookupItem { get; set; }
+        public LookupMaster lookupMater { get; set; }=new LookupMaster();
+        public LookupItem lookupItem { get; set; }=new LookupItem();
 
+       /* public LookupOption()
+        {
+
+        }
         public LookupOption(string lookupName, Guid lookupMasterId, Guid lookupItemId)
         {
-           /* if(string.IsNullOrEmpty(lookupName)) throw new ArgumentNullException(nameof(lookupName));
+            if(string.IsNullOrEmpty(lookupName)) throw new ArgumentNullException(nameof(lookupName));
             if(lookupMasterId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(lookupMasterId));
-            if(lookupItemId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(lookupItemId));*/
+            if(lookupItemId.IsNullOrEmpty()) throw new ArgumentNullException(nameof(lookupItemId));
 
             LookupName = lookupName;
             LookupMasterId = lookupMasterId;
             LookupItemId = lookupItemId;
-        }
+        }*/
     }
 }

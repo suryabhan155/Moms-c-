@@ -1,10 +1,7 @@
-
-
-
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Moms.Clinical.Core.Domain.Consultation;
 using Moms.Clinical.Infrastructure.Persistence;
 
 namespace Moms.Clinical.Infrastructure
@@ -19,9 +16,13 @@ namespace Moms.Clinical.Infrastructure
                     configuration.GetConnectionString("DatabaseConnection"), x =>
                         x.MigrationsAssembly(typeof(ClinicalContext).Assembly.FullName)));
 
-            /*Add scoped items for repositories */
-            /* services
-                .AddScoped<IClinicRepository, ClinicRepository>();*/
+            services.AddScoped<IConsultationComplaintRepository, ConsultationComplaintRepository>();
+            services.AddScoped<IConsultationDiagnosisRepository, ConsultationDiagnosisRepository>();
+            services.AddScoped<IConsultationFindingRepository, ConsultationFindingRepository>();
+            services.AddScoped<IConsultationRepository, ConsultationRepository>();
+            services.AddScoped<IConsultationServiceRepository, ConsultationServiceRepository>();
+            services.AddScoped<IConsultationTreatmentRepository, ConsultationTreatmentRepository>();
+            services.AddScoped<IVitalsRepository, VitalsRepository>();
             return services;
         }
     }

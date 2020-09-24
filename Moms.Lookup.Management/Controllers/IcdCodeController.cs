@@ -14,12 +14,10 @@ namespace Moms.Lookup.Management.Controllers
     [ApiController]
     public class IcdCodeController : ControllerBase
     {
-        public readonly IMediator _IMediator;
         public readonly IIcdCodeService _IcdCodeService;
 
-        public IcdCodeController(IMediator iMediator, IIcdCodeService icdCodeService)
+        public IcdCodeController(IIcdCodeService icdCodeService)
         {
-            _IMediator = iMediator;
             _IcdCodeService = icdCodeService;
         }
 

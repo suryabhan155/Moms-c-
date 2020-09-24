@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +12,10 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
 {
     public class ConsultationTreatmentService : IConsultationTreatmentService
     {
-        public readonly IMapper _IMapper;
         public readonly IConsultationTreatmentRepository _ConsultationTreatmentRepository;
 
-        public ConsultationTreatmentService(IMapper iMapper, IConsultationTreatmentRepository consultationRepository)
+        public ConsultationTreatmentService(IConsultationTreatmentRepository consultationRepository)
         {
-            _IMapper = iMapper;
             _ConsultationTreatmentRepository = consultationRepository;
         }
 
@@ -31,7 +28,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultations = await _ConsultationTreatmentRepository.GetAll().ToListAsync();
                 if (consultations == null)
                     return (false, c, "No record found.");
-                return (true, _IMapper.Map<List<ConsultationTreatment>>(consultations), "Consultation findings loaded successfully.");
+                return (true, consultations, "Consultation findings loaded successfully.");
             }
             catch (Exception e)
             {
@@ -86,7 +83,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 var consultation = await _ConsultationTreatmentRepository.GetAll(x => x.Id == id).ToListAsync();
                 if (consultation == null)
                     return (false, lab, "Consultation finding not found.");
-                return (true, _IMapper.Map<List<ConsultationTreatment>>(consultation), "Consultation finding loaded successfully");
+                return (true, consultation, "Consultation finding loaded successfully");
 
             }
             catch (Exception e)

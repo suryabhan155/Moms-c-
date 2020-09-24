@@ -7,7 +7,7 @@ using Moms.SharedKernel.Infrastructure.Persistence;
 
 namespace Moms.Clinical.Infrastructure.Persistence
 {
-    public class VitalsRepository : BaseRepository<Vitals, Guid>, IVitalsRepository
+    public class VitalsRepository : BaseRepository<Vital, Guid>, IVitalsRepository
     {
         public VitalsRepository(ClinicalContext context) : base(context)
         {

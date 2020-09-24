@@ -13,12 +13,10 @@ namespace Moms.Lookup.Management.Controllers
     [Route("api/[controller]")]
     public class LookupMasterController:ControllerBase
     {
-        private readonly IMediator _mediator;
         private readonly ILookupMasterService _lookupMasterService;
 
-        public LookupMasterController(IMediator mediator, ILookupMasterService lookupMasterService)
+        public LookupMasterController(ILookupMasterService lookupMasterService)
         {
-            _mediator = mediator;
             _lookupMasterService = lookupMasterService;
         }
 
