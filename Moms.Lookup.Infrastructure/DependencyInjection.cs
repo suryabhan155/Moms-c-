@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Moms.Lookup.Core.Domain;
 using Moms.Lookup.Core.Domain.ICD;
+using Moms.Lookup.Core.Domain.Options;
 using Moms.Lookup.Infrastructure.Persistence;
 using Moms.RegistrationManagement.Core.Application.Facilities.Commands;
 
@@ -28,7 +29,9 @@ namespace Moms.Lookup.Infrastructure
             services
                 .AddScoped<ILookupItemRepository, LookupItemRepository>();
             services
-                .AddScoped<ILookupOptionsRepository, LookupOptionsRepository>();
+                .AddScoped<ILookupMasterItemRepository, LookupMasterItemRepository>();
+            services
+                .AddScoped<ILookupOptionRepository, LookupOptionRepository>();
             services.AddScoped<IIcdCodeRepository, IcdCodeRepository>();
             services.AddMediatR(typeof(DependencyInjection).GetTypeInfo().Assembly);
 

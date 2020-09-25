@@ -12,20 +12,20 @@ using Serilog;
 
 namespace Moms.Lookup.Core.Application.Options.Service
 {
-    public class LookupOptionsServices: ILookupOptionsService
+    public class LookupMasterItemServices: ILookupMasterItemService
     {
-        private readonly ILookupOptionsRepository _lookupOptionsRepository;
+        private readonly ILookupMasterItemRepository _lookupOptionsRepository;
         private readonly ILookupItemRepository _lookupItemRepository;
         private readonly ILookupMasterRepository _lookupMasterRepository;
 
-        public LookupOptionsServices(ILookupOptionsRepository lookupOptionsRepository, ILookupItemRepository lookupItemRepository, ILookupMasterRepository lookupMasterRepository)
+        public LookupMasterItemServices(ILookupMasterItemRepository lookupOptionsRepository, ILookupItemRepository lookupItemRepository, ILookupMasterRepository lookupMasterRepository)
         {
             _lookupOptionsRepository = lookupOptionsRepository;
             _lookupMasterRepository = lookupMasterRepository;
             _lookupItemRepository = lookupItemRepository;
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<LookupOption> lookupOptions, string ErrorMessage)> LoadAll()
+        public async Task<(bool IsSuccess, IEnumerable<LookupMasterItem> lookupMasterItems, string ErrorMessage)> LoadAll()
         {
             try
             {
@@ -35,12 +35,12 @@ namespace Moms.Lookup.Core.Application.Options.Service
             catch (Exception e)
             {
                 Log.Error("Error Loading lookupOptions : Error occured",e);
-                IEnumerable<LookupOption>  lookupOption=new List<LookupOption>();
+                IEnumerable<LookupMasterItem>  lookupOption=new List<LookupMasterItem>();
                 return (false, lookupOption, e.Message);
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<LookupOptionsDto>  lookupOptionsDtos, string ErrorMessage)> GetLookupOptionsById(Guid id)
+      /*  public async Task<(bool IsSuccess, IEnumerable<LookupOptionsDto>  lookupOptionsDtos, string ErrorMessage)> GetLookupOptionsById(Guid id)
         {
             try
             {
@@ -57,11 +57,11 @@ namespace Moms.Lookup.Core.Application.Options.Service
                         LookupName=lookupOption.LookupName,
                         LookupNameAlias=lookupOption.LookupNameAlias,
                         LookupMasterId=lookupOption.LookupMasterId,
-                        LookupMaster=lookupOption.lookupMater.Name,
-                        LookupMasterAlias = lookupOption.lookupMater.Alias,
-                        LookupItemId=lookupOption.lookupItem.Id,
-                        LookupItem=lookupOption.lookupItem.Name,
-                        LookupItemAlias = lookupOption.lookupItem.Alias
+                        LookupMaster=lookupOption.LookupMaster.Name,
+                        LookupMasterAlias = lookupOption.LookupMaster.Alias,
+                        LookupItemId=lookupOption.LookupItem.Id,
+                        LookupItem=lookupOption.LookupItem.Name,
+                        LookupItemAlias = lookupOption.LookupItem.Alias
                     };
                     lookupOptionsDtos.Add(lookupOptionsDto);
                 }
@@ -74,9 +74,9 @@ namespace Moms.Lookup.Core.Application.Options.Service
                IEnumerable<LookupOptionsDto>  lookupOptionsDtos=new List<LookupOptionsDto>();
                 return (false, lookupOptionsDtos, e.Message);
             }
-        }
+        }*/
 
-        public async Task<(bool IsSuccess, IEnumerable<LookupOptionsDto> lookupOptionsDtos , string ErrorMessage)> GetLookupOptionsByName(string name)
+       /* public async Task<(bool IsSuccess, IEnumerable<LookupOptionsDto> lookupOptionsDtos , string ErrorMessage)> GetLookupOptionsByName(string name)
         {
             try
             {
@@ -94,11 +94,11 @@ namespace Moms.Lookup.Core.Application.Options.Service
                         LookupName=lookupOption.LookupName,
                         LookupNameAlias=lookupOption.LookupNameAlias,
                         LookupMasterId=lookupOption.LookupMasterId,
-                        LookupMaster=lookupOption.lookupMater.Name,
-                        LookupMasterAlias = lookupOption.lookupMater.Alias,
-                        LookupItemId=lookupOption.lookupItem.Id,
-                        LookupItem=lookupOption.lookupItem.Name,
-                        LookupItemAlias = lookupOption.lookupItem.Alias
+                        LookupMaster=lookupOption.LookupMaster.Name,
+                        LookupMasterAlias = lookupOption.LookupMaster.Alias,
+                        LookupItemId=lookupOption.LookupItem.Id,
+                        LookupItem=lookupOption.LookupItem.Name,
+                        LookupItemAlias = lookupOption.LookupItem.Alias
                     };
                     lookupOptionsDtos.Add(lookupOptionsDto);
                 }
@@ -110,7 +110,7 @@ namespace Moms.Lookup.Core.Application.Options.Service
                IEnumerable<LookupOptionsDto>  lookupOption=new List<LookupOptionsDto>();
                 return (false, lookupOption, e.Message);
             }
-        }
+        }*/
 
         public async Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteLookupOption(Guid id)
         {
@@ -127,7 +127,7 @@ namespace Moms.Lookup.Core.Application.Options.Service
             }
         }
 
-        public async Task<(bool IsSuccess, LookupOption lookupOption, string ErrorMEssage)> AddLookupOption(LookupOption lookupOption)
+        public async Task<(bool IsSuccess, LookupMasterItem lookupOption, string ErrorMEssage)> AddLookupMasterItem(LookupMasterItem lookupOption)
         {
             try
             {
