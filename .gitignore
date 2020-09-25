@@ -405,3 +405,4 @@ ASALocalRun/
 .localhistory/
 
 logs
+/Moms.Lookup.Management/appsettings.Development.json
