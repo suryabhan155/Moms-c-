@@ -7,24 +7,26 @@ namespace Moms.Lookup.Infrastructure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-          /*  migrationBuilder.Sql(@"CREATE VIEW LookupOptions
+            migrationBuilder.Sql(@"DROP VIEW IF EXISTS lookupoptions");
+            migrationBuilder.Sql(@"CREATE VIEW lookupoptions
             As
           SELECT
-                o.Id,
-                i.Id lookupMasterId,
-                i.Name  lookupMasterName,
-                i.Alias LookMasterAlias,
-                l.Id LookupItemId,
-                l.Name LookupItemName,
-                l.Alias LookupItemAlias
-            FROM public.'LookupMasterItems'  o
-                INNER JOIN LookupMaster i
+                o.id,
+                i.id lookupmasterid,
+                i.name  lookupmastername,
+                i.alias lookmasteralias,
+                l.id lookupItemId,
+                l.name lookupitemaame,
+                l.alias lookupitemalias
+            FROM lookupmasteritems  o
+                INNER JOIN lookupmaster i
                 ON
-                o.LookupMasterId=i.Id
-                INNER JOIN LookupItems l
+                o.lookupmasterid=i.Id
+                INNER JOIN lookupitems l
                     ON
-                l.Id=o.LookupItemId"
-            );*/
+                l.id=o.lookupitemid"
+            );
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
