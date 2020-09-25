@@ -17,7 +17,7 @@ namespace Moms.Lookup.Core
             // services.AddAutoMapper(typeof(PatientProfile));
             services.AddScoped<ILookupMasterService, LookupMasterService>();
             services.AddScoped<ILookupItemService, LookupItemService>();
-            services.AddScoped<ILookupOptionsService, LookupOptionsServices>();
+            services.AddScoped<ILookupMasterItemService, LookupMasterItemServices>();
             services.AddScoped<IIcdCodeService, IcdCodeService>();
 
          /*   if (null != others)

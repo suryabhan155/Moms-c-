@@ -19,8 +19,7 @@
       <EmbeddedResource Include="Seed\LookupItem.csv" />
       <EmbeddedResource Include="Seed\LookupMaster.csv" />
       <None Remove="Seed\LookupOption.csv" />
-    </ItemGroup>
-    <ItemGroup>
-      <EmbeddedResource Include="Seed\LookupOption.csv" />
+      <None Remove="Seed\LookupMasterItem.csv" />
+      <EmbeddedResource Include="Seed\LookupMasterItem.csv" />
     </ItemGroup>
 </Project>

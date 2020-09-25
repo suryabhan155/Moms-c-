@@ -11,16 +11,16 @@ namespace Moms.Lookup.Management.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LookupOptionsController:ControllerBase
+    public class LookupMasterItemController:ControllerBase
     {
-        private readonly ILookupOptionsService _lookupOptionsService;
-        public LookupOptionsController(ILookupOptionsService lookupOptionsService )
+        private readonly ILookupMasterItemService _lookupOptionsService;
+        public LookupMasterItemController(ILookupMasterItemService lookupOptionsService )
         {
             _lookupOptionsService = lookupOptionsService;
         }
 
         [HttpGet("optionsByName/{name}")]
-        public async Task<IActionResult> GetLookupOptionsByName(string name)
+       /* public async Task<IActionResult> GetLookupOptionsByName(string name)
         {
             try
             {
@@ -35,10 +35,10 @@ namespace Moms.Lookup.Management.Controllers
                 Log.Error(e, msg);
                 return StatusCode(500, $"{msg} {e.Message}");
             }
-        }
+        }*/
 
         [HttpGet("optionsById/{id}")]
-        public async Task<IActionResult> GetLookupOptionsById(Guid id)
+       /* public async Task<IActionResult> GetLookupOptionsById(Guid id)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Moms.Lookup.Management.Controllers
                 Log.Error(e, msg);
                 return StatusCode(500, $"{msg} {e.Message}");
             }
-        }
+        }*/
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -62,7 +62,7 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupOptionsService.LoadAll();
                 if (result.IsSuccess)
-                    return Ok(result.lookupOptions);
+                    return Ok(result.lookupMasterItems);
                 return BadRequest(result.ErrorMessage);
             }
             catch (Exception e)
@@ -92,11 +92,11 @@ namespace Moms.Lookup.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] LookupOption lookupOption)
+        public async Task<IActionResult> Post([FromBody] LookupMasterItem lookupOption)
         {
             try
             {
-               var result= await _lookupOptionsService.AddLookupOption(lookupOption);
+               var result= await _lookupOptionsService.AddLookupMasterItem(lookupOption);
                 if(result.IsSuccess)
                     return Ok("Lookup Option added successuly");
                 return BadRequest(result.ErrorMEssage);
