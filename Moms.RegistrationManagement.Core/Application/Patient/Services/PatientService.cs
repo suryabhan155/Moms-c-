@@ -76,9 +76,14 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
             try
             {
                 Guid id = patient.Id;
-                if(id.IsNullOrEmpty())
+                if (id.IsNullOrEmpty())
+                {
                     _patientRepository.Create(patient);
-                _patientRepository.Update(patient);
+                }
+                else
+                {
+                    _patientRepository.Update(patient);
+                }
                 await _patientRepository.Save();
                 return (true, patient, "Patient Added successfully");
             }
