@@ -1,4 +1,4 @@
-Id,LookupName,LookupMasterId,LookupMasterItemId,LookupNameAlias,DateCreated,Void,UserId
+Id,LookupName,LookupMasterId,LookupItemId,LookupNameAlias,DateCreated,Void,UserId
 2f620cd8-fdb3-11ea-adc1-0242ac120002,"Gender",836e8f1e-e8de-4567-91a1-4ebf1364dae9,25077c36-b50f-4392-bee3-81e405abc12d,,"2020-09-24",false,46021000-fe5d-11ea-adc1-0242ac120002
 8fbcd400-fe3a-11ea-adc1-0242ac120002,"Gender",836e8f1e-e8de-4567-91a1-4ebf1364dae9,0f2ca7a9-303a-4c76-b25f-bb8e17253034,,"2020-09-24",false,46021000-fe5d-11ea-adc1-0242ac120002
 b58b60d4-fe3a-11ea-adc1-0242ac120002,"Marital Status",a45e92dc-1204-4991-83f8-92d44e2b1b82,b8d160e3-32f9-4753-b69f-1a9f2d0e9f51,,"2020-09-24",false,46021000-fe5d-11ea-adc1-0242ac120002
