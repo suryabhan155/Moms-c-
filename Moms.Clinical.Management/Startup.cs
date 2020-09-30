@@ -18,6 +18,7 @@ namespace Moms.Clinical.Management
     {
         public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public Startup(IWebHostEnvironment environment, IConfiguration configuration)
         {
@@ -34,6 +35,17 @@ namespace Moms.Clinical.Management
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin();
+                    });
+            });
+
             services.AddControllers();
             services.AddInfrastructure(Configuration);
             services.AddApplication();
@@ -57,16 +69,10 @@ namespace Moms.Clinical.Management
             else
             {
                 app.UseForwardedHeaders();
-                ;
                 app.UseHsts();
             }
 
-            app.UseCors(
-                builder => builder
-                    .WithOrigins("https://localhost:3000")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials());
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
