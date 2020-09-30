@@ -24,8 +24,10 @@ namespace Moms.RegistrationManagement.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Patient>()
+                .HasIndex(p => new { p.SearchVector})
+                .HasMethod("GIN");
         }
-
         public override void EnsureSeeded()
         {
             // For complex data use Pipes e.g SeedDataReader.ReadCsv<Clinic>(typeof(RegistrationContext).Assembly, "Seed", "|");

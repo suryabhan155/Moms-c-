@@ -22,4 +22,9 @@
       <None Remove="Seed\LookupMasterItem.csv" />
       <EmbeddedResource Include="Seed\LookupMasterItem.csv" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
+      <PackageReference Include="Npgsql" Version="4.1.4" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
+    </ItemGroup>
 </Project>

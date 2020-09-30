@@ -12,5 +12,8 @@ namespace Moms.RegistrationManagement.Core.Domain.Patient.Service
         Task<(bool IsSuccess, Models.Patient patient, string ErrorMessage)> GetPatient(Guid id);
         Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeletePatient(Guid id);
         Task<(bool IsSuccess,Models.Patient patients, string ErrorMEssage )> AddPatient(Models.Patient patient);
+
+        public Task<(bool IsSuccess, IEnumerable<Models.Patient> patients, string ErrorMessage)> SearchPatient(
+            string searchString);
     }
 }

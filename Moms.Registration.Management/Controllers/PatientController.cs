@@ -75,6 +75,24 @@ namespace Moms.RegistrationManagement.Controllers
             }
         }
 
+        [HttpGet("search/{searchString}")]
+        public async Task<IActionResult> PatientSearch(string searchString)
+        {
+            try
+            {
+                var result = await _patientService.SearchPatient(searchString);
+                if (result.IsSuccess)
+                    return Ok(result.patients);
+                return BadRequest(result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error Searching Patients ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeletePatient(Guid id)
         {
