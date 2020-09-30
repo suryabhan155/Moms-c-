@@ -16,6 +16,7 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
         private readonly IMapper _mapper;
         private readonly IPatientRepository _patientRepository;
 
+
         public PatientService(IPatientRepository patientRepository, IMapper mapper)
         {
             _patientRepository = patientRepository;
@@ -71,6 +72,12 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
                 if (id.IsNullOrEmpty())
                     return (false, id, "No Id provided");
                 _patientRepository.DeleteById(id);
+                var patient = await _patientRepository.GetAll(x=>x.Id==id).FirstOrDefaultAsync();
+                if (patient == null)
+                    return (true, id, "Patient Not Found(0)");
+                patient.Void = true;
+                patient.VoidDate=DateTime.Today;
+                _patientRepository.Update(patient);
                 await _patientRepository.Save();
                 return (true, id, "Patient deleted successfully");
             }

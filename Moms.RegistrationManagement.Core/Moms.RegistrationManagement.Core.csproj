@@ -19,6 +19,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\Moms.Lookup.Core\Moms.Lookup.Core.csproj" />
       <ProjectReference Include="..\Moms.SharedKernel\Moms.SharedKernel.csproj" />
     </ItemGroup>
     

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿
+using Microsoft.EntityFrameworkCore.Migrations;
 using Moms.RegistrationManagement.Core.Domain.Patient.Models;
 using NpgsqlTypes;
 
@@ -12,6 +13,23 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                 name: "SearchVector",
                 table: "Patients",
                 nullable: true);
+
+
+            migrationBuilder.Sql(
+                @"CREATE TRIGGER patient_search_vector_update BEFORE INSERT OR UPDATE
+              ON ""Patients"" FOR EACH ROW EXECUTE PROCEDURE
+              tsvector_update_trigger(""SearchVector"", 'pg_catalog.english',
+                ""FirstName"",
+                ""MiddleName"",
+                ""LastName"",
+                ""Narrative"",
+                ""Phone"",
+                ""IdentificationNumber"",
+                ""PatientNumber"",
+                ""Phone""
+              );");
+
+
 
            /* migrationBuilder.Entity<Patient>()
                 .HasGeneratedTsVectorColumn(
@@ -42,6 +60,8 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
             migrationBuilder.DropColumn(
                 name: "SearchVector",
                 table: "Patients");
+
+            migrationBuilder.Sql("DROP TRIGGER Patient_search_vector_update");
         }
     }
 }

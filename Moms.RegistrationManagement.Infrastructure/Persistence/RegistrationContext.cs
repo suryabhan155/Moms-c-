@@ -28,6 +28,16 @@ namespace Moms.RegistrationManagement.Infrastructure.Persistence
                 .HasIndex(p => new { p.SearchVector})
                 .HasMethod("GIN");
         }
+
+
+        /* migrationBuilder.Entity<Patient>()
+     .HasGeneratedTsVectorColumn(
+         p => b.TsVector,
+         "english",  // Text search config
+         p => new { p.Name, p.Description })  // Included properties
+     .HasIndex(b => b.TsVector)
+     .HasMethod("GIN");*/
+
         public override void EnsureSeeded()
         {
             // For complex data use Pipes e.g SeedDataReader.ReadCsv<Clinic>(typeof(RegistrationContext).Assembly, "Seed", "|");
