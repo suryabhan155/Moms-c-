@@ -7,7 +7,7 @@ namespace Moms.Lookup.Infrastructure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"DROP VIEW IF EXISTS ""lookupoptions""");
+            /*migrationBuilder.Sql(@"DROP VIEW IF EXISTS ""lookupoptions""");
             migrationBuilder.Sql(@"CREATE VIEW ""lookupoptions""
             As
           SELECT
@@ -25,7 +25,7 @@ namespace Moms.Lookup.Infrastructure.Migrations
                 INNER JOIN ""lookupitems"" l
                     ON
                 l.""id""=o.""lookupitemid"""
-            );
+            );*/
 
         }
 

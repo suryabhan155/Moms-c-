@@ -70,7 +70,6 @@ namespace Moms.Lookup.Management
             else
             {
                 app.UseForwardedHeaders();
-                ;
                 app.UseHsts();
             }
 

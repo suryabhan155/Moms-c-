@@ -13,25 +13,22 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
 {
     public class VitalsService : IVitalsService
     {
-        public readonly IMapper _IMapper;
         public readonly IVitalsRepository _VitalsRepository;
 
-        public VitalsService(IMapper iMapper, IVitalsRepository vitalsRepository)
+        public VitalsService(IVitalsRepository vitalsRepository)
         {
-            _IMapper = iMapper;
             _VitalsRepository = vitalsRepository;
         }
 
 
-        public async Task<(bool IsSuccess, IEnumerable<Vital>, string ErrorMessage)> LoadVitals()
+        public async Task<(bool IsSuccess, IEnumerable<Vital> vitals, string ErrorMessage)> LoadVitals()
         {
-            IEnumerable<Vital> c = new List<Vital>();
             try
             {
                 var vitalses = await _VitalsRepository.GetAll().ToListAsync();
                 if (vitalses == null)
-                    return (false, c, "No record found.");
-                return (true, _IMapper.Map<List<Vital>>(vitalses), "Vitals loaded successfully.");
+                    return (false, new List<Vital>(), "No record found.");
+                return (true, vitalses, "Vitals loaded successfully.");
             }
             catch (Exception e)
             {
@@ -46,9 +43,14 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             {
                 if (vitals == null)
                     return (false, vitals, "No vitals found");
-                if (vitals.PatientId.IsNullOrEmpty())
+                if (vitals.Id.IsNullOrEmpty())
+                {
                     _VitalsRepository.Create(vitals);
-                _VitalsRepository.Update(vitals);
+                }
+                else
+                {
+                    _VitalsRepository.Update(vitals);
+                }
                 await _VitalsRepository.Save();
 
                 return (true, vitals, "Vitals created successfully");
@@ -78,21 +80,19 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<Vital> vitalses, string ErrorMessage)> GetVitals(Guid id)
+        public (bool IsSuccess, Vital vital, string ErrorMessage) GetVitals(Guid id)
         {
-            IEnumerable<Vital> lab = new List<Vital>();
             try
             {
-                var consultation = await _VitalsRepository.GetAll(x => x.Id == id).ToListAsync();
+                var consultation = _VitalsRepository.GetById(id);
                 if (consultation == null)
-                    return (false, lab, "Vitals not found.");
-                return (true, _IMapper.Map<List<Vital>>(consultation), "Vitals loaded successfully");
-
+                    return (false, null, "Vitals not found.");
+                return (true, consultation, "Vitals loaded successfully");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, lab, $"{e.Message}");
+                return (false, null, $"{e.Message}");
             }
         }
 
