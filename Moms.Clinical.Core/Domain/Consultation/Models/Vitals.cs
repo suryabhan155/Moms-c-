@@ -14,9 +14,9 @@ namespace Moms.Clinical.Core.Domain.Consultation.Models
         public Decimal Temperature { get; set; }
         public Decimal Weight { get; set; }
         public Decimal Height { get; set; }
-        public Decimal BPDiastolic { get; set; }
-        public Decimal BPSystolic { get; set; }
-        public Decimal Pulse { get; set; }
-        public Decimal RespiratoryRate { get; set; }
+        public Decimal? BPDiastolic { get; set; }
+        public Decimal? BPSystolic { get; set; }
+        public Decimal? Pulse { get; set; }
+        public Decimal? RespiratoryRate { get; set; }
     }
 }

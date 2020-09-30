@@ -23,6 +23,7 @@ namespace Moms.Clinical.Infrastructure
             services.AddScoped<IConsultationServiceRepository, ConsultationServiceRepository>();
             services.AddScoped<IConsultationTreatmentRepository, ConsultationTreatmentRepository>();
             services.AddScoped<IVitalsRepository, VitalsRepository>();
+            services.AddScoped<IConsultationServiceRepository, ConsultationServiceRepository>();
             return services;
         }
     }

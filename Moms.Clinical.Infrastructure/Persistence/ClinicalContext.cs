@@ -12,7 +12,6 @@ namespace Moms.Clinical.Infrastructure.Persistence
         public DbSet<ConsultationComplaint> ConsultationComplaints { get; set; }
         public DbSet<ConsultationDiagnosis> ConsultationDiagnoses { get; set; }
         public DbSet<ConsultationFinding> ConsultationFindings { get; set; }
-        public DbSet<ConsultationService> ConsultationServices { get; set; }
         public DbSet<ConsultationTreatment> ConsultationTreatments { get; set; }
         public DbSet<Vital> Vitals { get; set; }
 

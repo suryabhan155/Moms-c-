@@ -7,8 +7,8 @@ namespace Moms.Clinical.Core.Domain.Consultation.Services
 {
     public interface IVitalsService
     {
-        Task<(bool IsSuccess, IEnumerable<Models.Vital>, string ErrorMessage)> LoadVitals();
-        Task<(bool IsSuccess, IEnumerable<Models.Vital> vitalses, string ErrorMessage)> GetVitals(Guid id);
+        Task<(bool IsSuccess, IEnumerable<Models.Vital> vitals, string ErrorMessage)> LoadVitals();
+        (bool IsSuccess, Models.Vital vital, string ErrorMessage) GetVitals(Guid id);
         Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteVitals(Guid id);
         Task<(bool IsSuccess, Models.Vital vitals, string ErrorMEssage)> AddVitals(Models.Vital vitals);
     }
