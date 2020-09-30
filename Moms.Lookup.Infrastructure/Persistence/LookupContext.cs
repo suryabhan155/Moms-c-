@@ -2,7 +2,6 @@
 
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Moms.Lookup.Core.Domain.ICD.Models;
 using Moms.Lookup.Core.Domain.Options.Models;
 using Moms.SharedKernel.Infrastructure.Persistence;

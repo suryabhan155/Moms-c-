@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moms.RegistrationManagement.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using NpgsqlTypes;
 
 namespace Moms.RegistrationManagement.Infrastructure.Migrations
 {
@@ -242,6 +243,9 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                     b.Property<string>("Narrative")
                         .HasColumnType("text");
 
+                    b.Property<NpgsqlTsVector>("SearchVector")
+                        .HasColumnType("tsvector");
+
                     b.Property<Guid>("Sex")
                         .HasColumnType("uuid");
 
@@ -255,6 +259,9 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SearchVector")
+                        .HasAnnotation("Npgsql:IndexMethod", "GIN");
 
                     b.ToTable("Patients");
                 });

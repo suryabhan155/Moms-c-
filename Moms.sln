@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.RegistrationManagement
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.RegistrationManagement.Infrastructure", "Moms.RegistrationManagement.Infrastructure\Moms.RegistrationManagement.Infrastructure.csproj", "{830A5F1F-2657-47DA-B6B6-71EF6659BF36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.RegistrationManagement", "Moms.RegistrationManagement\Moms.RegistrationManagement.csproj", "{3B4DC727-7391-4DC7-9F92-6E2FC4895680}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.Registration.Management", "Moms.Registration.Management\Moms.Registration.Management.csproj", "{3B4DC727-7391-4DC7-9F92-6E2FC4895680}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Revenue", "Revenue", "{906D0A7F-C6EA-41FA-A537-0DB274B10DE1}"
 EndProject

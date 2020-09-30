@@ -27,7 +27,12 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
         {
             try
             {
-                var patients = await _patientRepository.GetAll(x=>!x.Void).ToListAsync();
+                var patients = await _patientRepository.GetAll(x=>!x.Void)
+                    .Include(x=>x.Contacts)
+                    .Include(x=>x.Death)
+                    .Include(x=>x.Employers)
+                    .Include(x=>x.Guardians)
+                    .ToListAsync();
                 return (true,_mapper.Map<List<PatientDto>>(patients),"Patient Loaded Successfully");
             }
             catch (Exception e)
@@ -42,7 +47,12 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
         {
             try
             {
-                var patient = await _patientRepository.GetAll(x => x.Id==id).FirstOrDefaultAsync();
+                var patient = await _patientRepository.GetAll(x => x.Id==id)
+                    .Include(x=>x.Contacts)
+                    .Include(x=>x.Death)
+                    .Include(x=>x.Employers)
+                    .Include(x=>x.Guardians)
+                    .FirstOrDefaultAsync();
                 return (true, patient, "Patient Loaded successfully");
             }
             catch (Exception e)
@@ -92,6 +102,20 @@ namespace Moms.RegistrationManagement.Core.Application.Patient.Services
                 Log.Error($"Error deleting patient with Id");
                 Domain.Patient.Models.Patient patients=new Domain.Patient.Models.Patient();
                 return (false, patients, $"{e.Message}");
+            }
+        }
+
+        public async Task<(bool IsSuccess, IEnumerable<Domain.Patient.Models.Patient> patients, string ErrorMessage)> SearchPatient(string searchString)
+        {
+            try
+            {
+                var result = await _patientRepository.SearchPatient(searchString);
+                return (result.IsSuccess, result.patients, result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                Log.Error("$patient Search Error : {e}");
+                return (false, new List<Domain.Patient.Models.Patient>(), e.Message);
             }
         }
     }

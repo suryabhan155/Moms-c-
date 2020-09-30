@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moms.RegistrationManagement.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using NpgsqlTypes;
 
 namespace Moms.RegistrationManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(RegistrationContext))]
-    [Migration("20200911152246_common columns")]
-    partial class commoncolumns
+    [Migration("20200925195837_Fulltext Column")]
+    partial class FulltextColumn
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +22,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Facilities.Models.Clinic", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Facilities.Models.Clinic", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +51,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                     b.ToTable("Clinics");
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Contact", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Contact", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +103,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Death", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Death", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,7 +141,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                     b.ToTable("Deaths");
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Employer", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Employer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -186,7 +187,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                     b.ToTable("Employers");
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Guardian", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Guardian", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -217,7 +218,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                     b.ToTable("Guardians");
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Patient", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Patient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -244,6 +245,9 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                     b.Property<string>("Narrative")
                         .HasColumnType("text");
 
+                    b.Property<NpgsqlTsVector>("SearchVector")
+                        .HasColumnType("tsvector");
+
                     b.Property<Guid>("Sex")
                         .HasColumnType("uuid");
 
@@ -258,39 +262,42 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SearchVector")
+                        .HasAnnotation("Npgsql:IndexMethod", "GIN");
+
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Contact", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Contact", b =>
                 {
-                    b.HasOne("Moms.Registration.Management.Core.Domain.Patient.Models.Patient", "Patient")
+                    b.HasOne("Moms.RegistrationManagement.Core.Domain.Patient.Models.Patient", "Patient")
                         .WithMany("Contacts")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Death", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Death", b =>
                 {
-                    b.HasOne("Moms.Registration.Management.Core.Domain.Patient.Models.Patient", "Patient")
+                    b.HasOne("Moms.RegistrationManagement.Core.Domain.Patient.Models.Patient", "Patient")
                         .WithOne("Death")
-                        .HasForeignKey("Moms.Registration.Management.Core.Domain.Patient.Models.Death", "PatientId")
+                        .HasForeignKey("Moms.RegistrationManagement.Core.Domain.Patient.Models.Death", "PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Employer", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Employer", b =>
                 {
-                    b.HasOne("Moms.Registration.Management.Core.Domain.Patient.Models.Patient", "Patient")
+                    b.HasOne("Moms.RegistrationManagement.Core.Domain.Patient.Models.Patient", "Patient")
                         .WithMany("Employers")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Moms.Registration.Management.Core.Domain.Patient.Models.Guardian", b =>
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Guardian", b =>
                 {
-                    b.HasOne("Moms.Registration.Management.Core.Domain.Patient.Models.Patient", "Patient")
+                    b.HasOne("Moms.RegistrationManagement.Core.Domain.Patient.Models.Patient", "Patient")
                         .WithMany("Guardians")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
