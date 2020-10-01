@@ -3,6 +3,7 @@ using System.Reflection;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Moms.Clinical.Core.Application.Consultation.Commands;
 using Moms.Clinical.Core.Application.Consultation.Services;
 using Moms.Clinical.Core.Domain.Consultation.Services;
 
@@ -19,15 +20,16 @@ namespace Moms.Clinical.Core
             services.AddScoped<IConsultationService, ConsultationService>();
             services.AddScoped<IConsultationServiceService, ConsultationServiceService>();
             services.AddScoped<IConsultationTreatmentService, ConsultationTreatmentService>();
+            services.AddScoped<IVitalsService, VitalsService>();
 
             if (null != others)
             {
-               /* others.Add(typeof(SampleCommandHandler).Assembly);*/
+                others.Add(typeof(SampleCommandHandler).Assembly);
                 services.AddMediatR(others.ToArray());
             }
             else
             {
-               /* services.AddMediatR(typeof(SampleCommandHandler).Assembly);*/
+                services.AddMediatR(typeof(SampleCommandHandler).Assembly);
             }
 
             return services;

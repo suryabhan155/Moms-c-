@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Moms.SharedKernel.Model;
+using NpgsqlTypes;
 
 namespace Moms.RegistrationManagement.Core.Domain.Patient.Models
 {
@@ -13,6 +14,7 @@ namespace Moms.RegistrationManagement.Core.Domain.Patient.Models
        public Guid Sex { get; set; }
        public Guid MaritalStatus { get; set; }
        public string Narrative { get; set; }
+       public NpgsqlTsVector SearchVector { get; set; }
        public ICollection<Guardian> Guardians { get; set; }=new List<Guardian>();
        public Death Death { get; set; }
        public ICollection<Contact> Contacts { get; set; }=new List<Contact>();
