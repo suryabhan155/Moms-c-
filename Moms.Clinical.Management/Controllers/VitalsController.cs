@@ -61,6 +61,24 @@ namespace Moms.Clinical.Management.Controllers
             }
         }
 
+        [HttpGet("getPatientVitals/{patientId}")]
+        public async Task<IActionResult> GetPatientVitals(Guid patientId)
+        {
+            try
+            {
+                var results = await _vitalsService.GetPatientVitals(patientId);
+                if (results.IsSuccess)
+                    return Ok(results.vitals);
+                return NotFound(results);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
         // POST api/<VitalsController>
         [HttpPost]
         public async Task<IActionResult> AddVitals([FromBody] Vital vitals)
