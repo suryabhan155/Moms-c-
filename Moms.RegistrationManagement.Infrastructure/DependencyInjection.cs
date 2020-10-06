@@ -30,6 +30,8 @@ namespace Moms.RegistrationManagement.Infrastructure
                 .AddScoped<IEmployerRepository, EmployerRepository>();
             services
                 .AddScoped<IDeathRepository, DeathRepository>();
+
+            services.AddScoped<IPatientGridRepository, PatientGridRepository>();
             return services;
         }
     }

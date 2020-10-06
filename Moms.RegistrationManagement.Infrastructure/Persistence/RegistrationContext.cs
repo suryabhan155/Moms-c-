@@ -16,6 +16,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Persistence
         public DbSet<Employer> Employers { get; set; }
         public DbSet<Guardian> Guardians { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<PatientGrid> PatientGrids { get; set; }
 
         public RegistrationContext(DbContextOptions<RegistrationContext> options) : base(options)
         {
