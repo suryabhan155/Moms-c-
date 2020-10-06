@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Moms.RegistrationManagement.Core.Domain.Patient;
 using Moms.RegistrationManagement.Core.Domain.Patient.Models;
 using Moms.RegistrationManagement.Core.Domain.Patient.Service;
 using Serilog;
@@ -14,11 +15,13 @@ namespace Moms.RegistrationManagement.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IPatientService _patientService;
+        private readonly IPatientGridRepository _patientGridRepository;
 
-        public PatientController(IMediator  mediator, IPatientService patientService)
+        public PatientController(IMediator  mediator, IPatientService patientService, IPatientGridRepository patientGridRepository)
         {
             _mediator = mediator;
             _patientService = patientService;
+            _patientGridRepository = patientGridRepository;
         }
 
         [HttpPost]
@@ -57,6 +60,24 @@ namespace Moms.RegistrationManagement.Controllers
             }
         }
 
+        [HttpGet("Patient/All/")]
+        public async Task<IActionResult> GetAllPatients()
+        {
+            try
+            {
+                var result = await _patientGridRepository.AllPatients();
+                if (result.IsSuccess)
+                    return Ok(result.patientGrids);
+                return BadRequest(result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPatient(Guid id)
         {
@@ -84,6 +105,27 @@ namespace Moms.RegistrationManagement.Controllers
                 if (result.IsSuccess)
                     return Ok(result.patients);
                 return BadRequest(result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error Searching Patients ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
+        [HttpGet("PatientSearch/{searchstring}")] /* returns patients with decoded lookupItem names*/
+        public async Task<IActionResult> SearchPatient(string searchstring)
+        {
+            try
+            {
+                var result = await _patientGridRepository.SearchPatient(searchstring);
+                if (result.IsSuccess)
+                    return Ok(result.patientGrids);
+                return BadRequest(result.ErrorMessage);
+                {
+
+                }
             }
             catch (Exception e)
             {
