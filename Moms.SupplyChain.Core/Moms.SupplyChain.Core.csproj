@@ -18,10 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Application\SupplyChain\Services\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Moms.SharedKernel\Moms.SharedKernel.csproj" />
     </ItemGroup>
     
