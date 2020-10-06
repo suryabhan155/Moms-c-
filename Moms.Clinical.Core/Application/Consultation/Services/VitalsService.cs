@@ -62,6 +62,19 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
+        public async Task<(bool IsSuccess, IEnumerable<Vital> vitals, string ErrorMEssage)> GetPatientVitals(Guid patientId)
+        {
+            try
+            {
+                var vitals = await _VitalsRepository.GetAll(x => x.PatientId == patientId).ToListAsync();
+                return (true, vitals, "Vitals loaded successfully.");
+            }
+            catch (Exception e)
+            {
+                return (false, new List<Vital>(), $"{e.Message}");
+            }
+        }
+
         public async Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteVitals(Guid id)
         {
             try

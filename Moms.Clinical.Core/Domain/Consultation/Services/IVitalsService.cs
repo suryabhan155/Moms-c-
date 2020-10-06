@@ -11,5 +11,6 @@ namespace Moms.Clinical.Core.Domain.Consultation.Services
         (bool IsSuccess, Models.Vital vital, string ErrorMessage) GetVitals(Guid id);
         Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteVitals(Guid id);
         Task<(bool IsSuccess, Models.Vital vitals, string ErrorMEssage)> AddVitals(Models.Vital vitals);
+        Task<(bool IsSuccess, IEnumerable<Models.Vital> vitals, string ErrorMEssage)> GetPatientVitals(Guid patientId);
     }
 }
