@@ -18,5 +18,7 @@ namespace Moms.Clinical.Core.Domain.Consultation.Models
         public Decimal? BPSystolic { get; set; }
         public Decimal? Pulse { get; set; }
         public Decimal? RespiratoryRate { get; set; }
+
+        public String? Notes { get; set; }
     }
 }

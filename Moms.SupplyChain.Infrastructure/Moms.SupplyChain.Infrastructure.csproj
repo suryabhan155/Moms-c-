@@ -31,6 +31,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Moms.SharedKernel.Infrastructure\Moms.SharedKernel.Infrastructure.csproj" />
+      <ProjectReference Include="..\Moms.SupplyChain.Core\Moms.SupplyChain.Core.csproj" />
     </ItemGroup>
 
 </Project>
