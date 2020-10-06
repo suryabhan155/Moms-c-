@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Moms.SharedKernel.Model;
 
 namespace Moms.Lookup.Core.Domain.Options.Models

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Moms.RegistrationManagement.Core.Domain.Patient;
@@ -21,6 +23,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Persistence
             try
             {
                 var response = await GetAll(x => x.SearchVector.Matches(EF.Functions.ToTsQuery(searchString)))
+                   // .Include(x=>x.Sex==x.LookupItems)
                    .ToListAsync();
                if (response.Count < 1)
                    return (false, new List<Patient>(), $"No patient(s) Found using Search String: {searchString}");

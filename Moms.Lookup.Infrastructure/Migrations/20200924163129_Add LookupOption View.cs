@@ -7,31 +7,32 @@ namespace Moms.Lookup.Infrastructure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            /*migrationBuilder.Sql(@"DROP VIEW IF EXISTS ""lookupoptions""");
-            migrationBuilder.Sql(@"CREATE VIEW ""lookupoptions""
+            migrationBuilder.Sql(
+                @"DROP VIEW IF EXISTS ""LookupOptions""");
+            migrationBuilder.Sql(@"CREATE VIEW ""LookupOptions""
             As
           SELECT
-                o.""id"",
-                i.""id"" lookupmasterid,
-                i.""name""  lookupmastername,
-                i.""alias"" lookmasteralias,
-                l.""id"" lookupItemId,
-                l.""name"" lookupitemaame,
-                l.""alias"" lookupitemalias
-            FROM ""lookupmasteritems""  o
-                INNER JOIN ""lookupmaster"" i
+                o.""Id"",
+                i.""Id"" LookUpMasterId,
+                i.""Name""  LookupMasterName,
+                i.""Alias"" LookupMasterAlias,
+                l.""Id"" LookupItemId,
+                l.""Name"" LookupItemName,
+                l.""Alias"" LookupItemAlias
+            FROM ""LookupMasterItems""  o
+                INNER JOIN ""LookupMasters"" i
                 ON
-                o.""lookupmasterid""=i.""id""
-                INNER JOIN ""lookupitems"" l
+                o.""LookupMasterId""=i.""Id""
+                INNER JOIN ""LookupItems"" l
                     ON
-                l.""id""=o.""lookupitemid"""
-            );*/
+                l.""Id""=o.""LookupItemId"""
+            );
 
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"DROP VIEW IF EXISTS ""lookupoptions""");
+            migrationBuilder.Sql(@"DROP VIEW IF EXISTS ""LookupOptions""");
         }
     }
 }
