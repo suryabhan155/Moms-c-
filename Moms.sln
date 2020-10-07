@@ -17,11 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.Registration.Managemen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Revenue", "Revenue", "{906D0A7F-C6EA-41FA-A537-0DB274B10DE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.RevenueManagement.Core", "Moms.RevenueManagement.Core\Moms.RevenueManagement.Core.csproj", "{29F834ED-D39A-4CE3-817E-9608AAD345CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.Revenue.Core", "Moms.Revenue.Core\Moms.Revenue.Core.csproj", "{29F834ED-D39A-4CE3-817E-9608AAD345CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.RevenueManagement.Infrastructure", "Moms.RevenueManagement.Infrastructure\Moms.RevenueManagement.Infrastructure.csproj", "{BD52F599-8673-4FE3-A885-87D47177A20B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.Revenue.Infrastructure", "Moms.Revenue.Infrastructure\Moms.Revenue.Infrastructure.csproj", "{BD52F599-8673-4FE3-A885-87D47177A20B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.RevenueManagement", "Moms.RevenueManagement\Moms.RevenueManagement.csproj", "{975CD62B-0BB8-47CD-841E-B63FE8AF8748}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moms.Revenue.Management", "Moms.Revenue.Management\Moms.Revenue.Management.csproj", "{975CD62B-0BB8-47CD-841E-B63FE8AF8748}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Laboratory", "Laboratory", "{90E48369-35FC-45DC-BBAE-8C63738E4A0E}"
 EndProject
