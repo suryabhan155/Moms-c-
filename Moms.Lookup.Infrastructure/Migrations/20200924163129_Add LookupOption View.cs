@@ -19,10 +19,10 @@ namespace Moms.Lookup.Infrastructure.Migrations
                 l.""Id"" LookupItemId,
                 l.""Name"" LookupItemName,
                 l.""Alias"" LookupItemAlias,
-l.""CreateDate"",
-l.""UserId"",
-l.""Void"",
-l.""VoidDate""
+                l.""CreateDate"",
+                l.""UserId"",
+                l.""Void"",
+                l.""VoidDate""
             FROM ""LookupMasterItems""  o
                 INNER JOIN ""LookupMasters"" i
                 ON

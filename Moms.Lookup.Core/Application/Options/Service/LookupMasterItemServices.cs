@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Moms.Lookup.Core.Domain;
+using Moms.Lookup.Core.Domain.Options;
 using Moms.Lookup.Core.Domain.Options.Dto;
 using Moms.Lookup.Core.Domain.Options.Models;
 using Moms.Lookup.Core.Domain.Options.Service;
@@ -17,12 +18,15 @@ namespace Moms.Lookup.Core.Application.Options.Service
         private readonly ILookupMasterItemRepository _lookupOptionsRepository;
         private readonly ILookupItemRepository _lookupItemRepository;
         private readonly ILookupMasterRepository _lookupMasterRepository;
+        private readonly ICountyLookupRepository _countyLookupRepository;
 
-        public LookupMasterItemServices(ILookupMasterItemRepository lookupOptionsRepository, ILookupItemRepository lookupItemRepository, ILookupMasterRepository lookupMasterRepository)
+        public LookupMasterItemServices(ILookupMasterItemRepository lookupOptionsRepository, ILookupItemRepository lookupItemRepository,
+            ILookupMasterRepository lookupMasterRepository, ICountyLookupRepository countyLookupRepository)
         {
             _lookupOptionsRepository = lookupOptionsRepository;
             _lookupMasterRepository = lookupMasterRepository;
             _lookupItemRepository = lookupItemRepository;
+            _countyLookupRepository = countyLookupRepository;
         }
 
         public async Task<(bool IsSuccess, IEnumerable<LookupMasterItem> lookupMasterItems, string ErrorMessage)> LoadAll()
@@ -139,6 +143,56 @@ namespace Moms.Lookup.Core.Application.Options.Service
             {
                 Log.Error("Error Adding LookupOptions : Error occured",e);
                 return (false, lookupOption, e.Message);
+            }
+        }
+
+        public async Task<(bool IsSuccess, IEnumerable<CountyLookup> CountyLookup, string ErrorMessage)> GetCounty(string name)
+        {
+            try
+            {
+                var result = await _countyLookupRepository.GetAll(x => x.CountyName == name.ToUpper())
+                    .ToListAsync();
+                if (result == null)
+                    return (false, new List<CountyLookup>(), "County not found");
+                return (true, result, "county loaded");
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error Loading County : Error occured",e);
+                return (false,new List<CountyLookup>() , e.Message);
+            }
+        }
+
+        public async Task<(bool IsSuccess, IEnumerable<CountyLookup> CountyLookup, string ErrorMessage)> GetSubCounty(string name)
+        {
+            try
+            {
+                var result = await _countyLookupRepository.GetAll(x => x.SubCountyName == name.ToUpper())
+                    .ToListAsync();
+                if (result == null)
+                    return (false, new List<CountyLookup>(), "Error in loading SubCounty");
+                return (true, result, "SubCounty loaded");
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error Loading County : Error occured",e);
+                return (false,new List<CountyLookup>() , e.Message);
+            }
+        }
+
+        public async Task<(bool IsSuccess, IEnumerable<CountyLookup> CountyLookup, string ErrorMessage)> GetWards(string name)
+        {
+            try
+            {
+                var result = await _countyLookupRepository.GetAll(x => x.WardName == name.ToUpper()).ToListAsync();
+                if (result == null)
+                    return (false, new List<CountyLookup>(), "No Wards Found");
+                return (true, result, "Wards Loaded");
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error Loading Wards : Error occured",e);
+                return (false,new List<CountyLookup>() , e.Message);
             }
         }
     }
