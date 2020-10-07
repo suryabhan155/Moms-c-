@@ -12,24 +12,24 @@ namespace Moms.SupplyChain.Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoreController : ControllerBase
+    public class StoreAdjustmentController : ControllerBase
     {
 
         public readonly IMediator _IMediator;
-        public readonly IStoreService _Service;
+        public readonly IStockAdjustmentService _Service;
 
-        public StoreController(IMediator iMediator, IStoreService service)
+        public StoreAdjustmentController(IMediator iMediator, IStockAdjustmentService service)
         {
             _IMediator = iMediator;
             _Service = service;
         }
 
-        [HttpGet("lab/stores")]
+        [HttpGet("lab/stock/adjustment")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var results = await _Service.LoadStores();
+                var results = await _Service.LoadStockAdjustment();
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound();
@@ -48,9 +48,9 @@ namespace Moms.SupplyChain.Management.Controllers
         {
             try
             {
-                var results = _Service.GetStore(id);
+                var results = _Service.GetStockAdjustment(id);
                 if (results.IsSuccess)
-                    return Ok(results.stores);
+                    return Ok(results.stockAdjustment);
                 return NotFound(results);
             }
             catch (Exception e)
@@ -62,13 +62,13 @@ namespace Moms.SupplyChain.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddStore([FromBody] Store store)
+        public async Task<IActionResult> AddStockAdjustment([FromBody] StockAdjustment stockAdjustment)
         {
             try
             {
-                var results = await _Service.AddStore(store);
+                var results = await _Service.AddStockAdjustment(stockAdjustment);
                 if (results.IsSuccess)
-                    return Ok(results.store);
+                    return Ok(results.stockAdjustment);
                 return NotFound(results.ErrorMessage);
             }
             catch (Exception e)
@@ -85,7 +85,7 @@ namespace Moms.SupplyChain.Management.Controllers
         {
             try
             {
-                var results = await _Service.DeleteStore(id);
+                var results = await _Service.DeleteStockAdjustment(id);
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound(results);

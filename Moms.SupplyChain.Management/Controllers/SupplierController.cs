@@ -12,24 +12,24 @@ namespace Moms.SupplyChain.Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoreController : ControllerBase
+    public class SupplierController : ControllerBase
     {
 
         public readonly IMediator _IMediator;
-        public readonly IStoreService _Service;
+        public readonly ISupplierService _Service;
 
-        public StoreController(IMediator iMediator, IStoreService service)
+        public SupplierController(IMediator iMediator, ISupplierService service)
         {
             _IMediator = iMediator;
             _Service = service;
         }
 
-        [HttpGet("lab/stores")]
+        [HttpGet("lab/supplier")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var results = await _Service.LoadStores();
+                var results = await _Service.LoadSupplies();
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound();
@@ -48,9 +48,9 @@ namespace Moms.SupplyChain.Management.Controllers
         {
             try
             {
-                var results = _Service.GetStore(id);
+                var results = _Service.GetSupplier(id);
                 if (results.IsSuccess)
-                    return Ok(results.stores);
+                    return Ok(results.supplier);
                 return NotFound(results);
             }
             catch (Exception e)
@@ -62,13 +62,13 @@ namespace Moms.SupplyChain.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddStore([FromBody] Store store)
+        public async Task<IActionResult> AddSupplier([FromBody] Supplier supplier)
         {
             try
             {
-                var results = await _Service.AddStore(store);
+                var results = await _Service.AddSupplier(supplier);
                 if (results.IsSuccess)
-                    return Ok(results.store);
+                    return Ok(results.supplier);
                 return NotFound(results.ErrorMessage);
             }
             catch (Exception e)
@@ -79,13 +79,13 @@ namespace Moms.SupplyChain.Management.Controllers
             }
         }
 
-
+        // DELETE api/<VitalsController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
-                var results = await _Service.DeleteStore(id);
+                var results = await _Service.DeleteSupplier(id);
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound(results);

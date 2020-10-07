@@ -12,24 +12,24 @@ namespace Moms.SupplyChain.Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoreController : ControllerBase
+    public class StoreVoucherController : ControllerBase
     {
 
         public readonly IMediator _IMediator;
-        public readonly IStoreService _Service;
+        public readonly IStockVoucherService _Service;
 
-        public StoreController(IMediator iMediator, IStoreService service)
+        public StoreVoucherController(IMediator iMediator, IStockVoucherService service)
         {
             _IMediator = iMediator;
             _Service = service;
         }
 
-        [HttpGet("lab/stores")]
+        [HttpGet("lab/vouchers")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var results = await _Service.LoadStores();
+                var results = await _Service.LoadStockVoucher();
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound();
@@ -48,9 +48,9 @@ namespace Moms.SupplyChain.Management.Controllers
         {
             try
             {
-                var results = _Service.GetStore(id);
+                var results = _Service.GetStockVoucher(id);
                 if (results.IsSuccess)
-                    return Ok(results.stores);
+                    return Ok(results.stockVouchers);
                 return NotFound(results);
             }
             catch (Exception e)
@@ -62,13 +62,13 @@ namespace Moms.SupplyChain.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddStore([FromBody] Store store)
+        public async Task<IActionResult> AddStockVoucher([FromBody] StockVoucher stockVoucher)
         {
             try
             {
-                var results = await _Service.AddStore(store);
+                var results = await _Service.AddStockVoucher(stockVoucher);
                 if (results.IsSuccess)
-                    return Ok(results.store);
+                    return Ok(results.stockVoucher);
                 return NotFound(results.ErrorMessage);
             }
             catch (Exception e)
@@ -85,7 +85,7 @@ namespace Moms.SupplyChain.Management.Controllers
         {
             try
             {
-                var results = await _Service.DeleteStore(id);
+                var results = await _Service.DeleteStockVoucher(id);
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound(results);

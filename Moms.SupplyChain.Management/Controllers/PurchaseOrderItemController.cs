@@ -12,24 +12,24 @@ namespace Moms.SupplyChain.Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StoreController : ControllerBase
+    public class PurchaseOrderItemController : ControllerBase
     {
 
         public readonly IMediator _IMediator;
-        public readonly IStoreService _Service;
+        public readonly IPurchaseOrderItemService _Service;
 
-        public StoreController(IMediator iMediator, IStoreService service)
+        public PurchaseOrderItemController(IMediator iMediator, IPurchaseOrderItemService service)
         {
             _IMediator = iMediator;
             _Service = service;
         }
 
-        [HttpGet("lab/stores")]
+        [HttpGet("lab/po/items")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var results = await _Service.LoadStores();
+                var results = await _Service.LoadPurchaseOrderItems();
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound();
@@ -48,9 +48,9 @@ namespace Moms.SupplyChain.Management.Controllers
         {
             try
             {
-                var results = _Service.GetStore(id);
+                var results = _Service.GetPurchaseOrderItem(id);
                 if (results.IsSuccess)
-                    return Ok(results.stores);
+                    return Ok(results.purchaseOrderItems);
                 return NotFound(results);
             }
             catch (Exception e)
@@ -62,13 +62,13 @@ namespace Moms.SupplyChain.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddStore([FromBody] Store store)
+        public async Task<IActionResult> AddPurchaseOrderItem([FromBody] PurchaseOrderItem purchaseOrderItem)
         {
             try
             {
-                var results = await _Service.AddStore(store);
+                var results = await _Service.AddPurchaseOrderItem(purchaseOrderItem);
                 if (results.IsSuccess)
-                    return Ok(results.store);
+                    return Ok(results.purchaseOrderItem);
                 return NotFound(results.ErrorMessage);
             }
             catch (Exception e)
@@ -85,7 +85,7 @@ namespace Moms.SupplyChain.Management.Controllers
         {
             try
             {
-                var results = await _Service.DeleteStore(id);
+                var results = await _Service.DeletePurchaseOrderItem(id);
                 if (results.IsSuccess)
                     return Ok(results);
                 return NotFound(results);

@@ -66,7 +66,7 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
             }
         }
 
-        public (bool IsSuccess, StockAdjustment, string ErrorMessage) GetStockAdjustment(Guid id)
+        public (bool IsSuccess, StockAdjustment stockAdjustment, string ErrorMessage) GetStockAdjustment(Guid id)
         {
             try
             {
