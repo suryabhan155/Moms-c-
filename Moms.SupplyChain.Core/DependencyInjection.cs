@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Moms.SupplyChain.Core.Application.SupplyChain.Services;
+using Moms.SupplyChain.Core.Domain.SupplyChain.Services;
 
 namespace Moms.SupplyChain.Core
 {
@@ -10,6 +12,16 @@ namespace Moms.SupplyChain.Core
         {
            /* services.AddAutoMapper(typeof(BillingProfile));
             services.AddScoped<IBillingService, BillingService>();*/
+           services
+               .AddScoped<IStoreService, StoreService>()
+               .AddScoped<ISupplierService, SupplierService>()
+               .AddScoped<IPurchaseOrderService, PurchaseOrderService>()
+               .AddScoped<IPurchaseOrderItemService, PurchaseOrderItemService>()
+               .AddScoped<IGoodReceivedNoteService, GoodReceivedNoteService>()
+               .AddScoped<IGoodReceivedNoteItemService, GoodReceivedNoteItemService>()
+               .AddScoped<IStockVoucherService, StockVoucherService>()
+               .AddScoped<IStockVoucherItemService, StockVoucherItemService>()
+               .AddScoped<IStockAdjustmentService, StockAdjustmentService>();
 
             return services;
         }
