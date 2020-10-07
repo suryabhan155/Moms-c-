@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Moms.Revenue.Core.Domain.Billing;
 using Moms.Revenue.Core.Domain.Billing.Dto;
+using Moms.Revenue.Core.Domain.Billing.Services;
 using Serilog;
 
 namespace Moms.Revenue.Core.Application.Billing.Services
