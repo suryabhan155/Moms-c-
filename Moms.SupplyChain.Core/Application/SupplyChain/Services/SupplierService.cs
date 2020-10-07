@@ -41,6 +41,10 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         }
 
 
+        public Task<(bool IsSuccess, IEnumerable<Supplier>, string ErrorMessage)> LoadSupplies()
+        {
+            throw new NotImplementedException();
+        }
 
         public (bool IsSuccess, Supplier supplier, string ErrorMessage) GetSupplier(Guid id)
         {
