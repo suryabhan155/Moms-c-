@@ -10,7 +10,7 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Services
     {
         Task<(bool IsSuccess, IEnumerable<StockVoucherItem>, String ErrorMessage)> LoadStockVoucherItem();
 
-        Task<(bool IsSuccess, IEnumerable<StockVoucherItem> stockVoucherItems, String ErrorMessage)>
+        (bool IsSuccess, StockVoucherItem stockVoucherItems, String ErrorMessage)
             GetStockVoucherItem(Guid id);
 
         Task<(bool IsSuccess, Guid id, String ErrorMessage)> DeleteStockVoucherItem(Guid id);

@@ -9,7 +9,7 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Services
     public interface IStockAdjustmentService
     {
         Task<(bool IsSuccess, IEnumerable<StockAdjustment>, String ErrorMessage)> LoadStockAdjustment();
-        Task<(bool IsSuccess, IEnumerable<StockAdjustment>, String ErrorMessage)> GetStockAdjustment(Guid id);
+        (bool IsSuccess, StockAdjustment, String ErrorMessage) GetStockAdjustment(Guid id);
         Task<(bool IsSuccess, Guid id, String ErrorMessage)> DeleteStockAdjustment(Guid id);
 
         Task<(bool IsSuccess, StockAdjustment stockAdjustment, String ErrorMessage)> AddStockAdjustment(
