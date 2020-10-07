@@ -17,10 +17,10 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         private readonly IMapper _mapper;
         private readonly IGoodReceivedNoteItemRepository _goodReceivedNoteItemRepository;
 
-        public GoodReceivedNoteItemService(IGoodReceivedNoteItemRepository iGoodReceivedNoteRepository, IMapper iMapper)
+        public GoodReceivedNoteItemService(IGoodReceivedNoteItemRepository iGoodReceivedNoteItemRepository, IMapper iMapper)
         {
             _mapper = iMapper;
-            _goodReceivedNoteItemRepository = iGoodReceivedNoteRepository;
+            _goodReceivedNoteItemRepository = iGoodReceivedNoteItemRepository;
         }
         public async Task<(bool IsSuccess, GoodReceivedNoteItem goodReceivedNoteItem, string ErrorMessage)> AddGoodReceivedNoteItems(GoodReceivedNoteItem goodReceivedNoteItem)
         {
