@@ -8,18 +8,16 @@ using Moms.SharedKernel.Custom;
 using Moms.SupplyChain.Core.Domain.SupplyChain;
 using Moms.SupplyChain.Core.Domain.SupplyChain.Models;
 using Moms.SupplyChain.Core.Domain.SupplyChain.Services;
+using Serilog;
 
 namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 {
     public class PurchaseOrderItemService : IPurchaseOrderItemService
     {
-
-        private readonly IMapper _mapper;
         private readonly IPurchaseOrderItemRepository _purchaseOrderItemRepository;
 
-        public PurchaseOrderItemService(IMapper iMapper, IPurchaseOrderItemRepository iPurchaseOrderItemRepository)
+        public PurchaseOrderItemService(IPurchaseOrderItemRepository iPurchaseOrderItemRepository)
         {
-            _mapper = iMapper;
             _purchaseOrderItemRepository = iPurchaseOrderItemRepository;
         }
 
@@ -63,7 +61,8 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
             }
             catch (Exception e)
             {
-                return (false, id, $"{e.Message}");
+                Log.Error("Error deleting records: Error occurred", e);
+                return (false, id, e.Message);
             }
         }
 
@@ -71,18 +70,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-
-                var purchaseOrderItem = _purchaseOrderItemRepository.GetById(id);
-
-                if (purchaseOrderItem == null)
-                    return (false, null, "Purchase order items not found.");
-
-                return (true, purchaseOrderItem, "Purchase order items loaded successfully");
+                var result = _purchaseOrderItemRepository.GetById(id);
+                return result == null ? (false, new PurchaseOrderItem(), "No Record Found") : (true, result, "Record Found");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                return (false, null, $"{e.Message}");
+                Log.Error("Error Loading Purchase Items: Error occurred", e);
+                return (false, new PurchaseOrderItem(), e.Message);
             }
         }
 
@@ -90,15 +84,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var purchaseOrderItems = await _purchaseOrderItemRepository.GetAll().ToListAsync();
-                return (true, _mapper.Map<List<PurchaseOrderItem>>(purchaseOrderItems),
-                    purchaseOrderItems.Count + " items loaded successfully.");
-
+                var result = await _purchaseOrderItemRepository.GetAll().ToListAsync();
+                return result == null ? (false, new List<PurchaseOrderItem>(), "PurchaseOrder Not Found") : (true, result, "Records Found");
             }
             catch (Exception e)
             {
-                IEnumerable<PurchaseOrderItem> purchaseOrderItems = new List<PurchaseOrderItem>();
-                return (false, purchaseOrderItems, e.Message);
+                Log.Error("Error Loading Purchase Items: Error occurred", e);
+                return (false, new List<PurchaseOrderItem>(), e.Message);
             }
         }
     }

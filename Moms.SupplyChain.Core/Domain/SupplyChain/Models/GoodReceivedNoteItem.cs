@@ -7,6 +7,10 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
 {
     public class GoodReceivedNoteItem:Entity<Guid>
     {
+        public GoodReceivedNoteItem()
+        {
+
+        }
         public Guid GoodReceivedNoteId { set; get; }
         public Guid ItemId { set; get; }
         public String BatchNumber { set; get; }

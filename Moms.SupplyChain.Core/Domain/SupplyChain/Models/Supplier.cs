@@ -9,5 +9,10 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
     {
         public String Name { set; get; }
         public int Status { set; get; }
+
+        public Supplier()
+        {
+
+        }
     }
 }
