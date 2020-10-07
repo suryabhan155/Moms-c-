@@ -4,7 +4,7 @@ using Moms.SharedKernel.Model;
 
 namespace Moms.Lookup.Core.Domain.Options.Models
 {
-    [Table("lookupoptions")]
+    [Table("LookupOptions")]
     public class LookupOption:Entity<Guid>
     {
        [Column("lookupmasterid")]
@@ -19,6 +19,7 @@ namespace Moms.Lookup.Core.Domain.Options.Models
        public string LookupItemName { get; set; }
        [Column("lookupitemalias")]
        public string LookupItemAlias { get; set; }
+
 
     }
 }
