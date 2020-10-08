@@ -150,6 +150,56 @@ namespace Moms.Lookup.Infrastructure.Migrations
                     b.ToTable("IcdCodeSubBlocks");
                 });
 
+            modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.CountyLookup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CountyCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CountyName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("CountyUid")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("SubCountyCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SubCountyName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("SubCountyUid")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("WardCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("WardName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("WardUid")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CountyLookups");
+                });
+
             modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.LookupItem", b =>
                 {
                     b.Property<Guid>("Id")

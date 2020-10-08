@@ -14,12 +14,10 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 {
     public class GoodReceivedNoteService : IGoodReceivedNoteService
     {
-        private readonly IMapper _mapper;
         private readonly IGoodReceivedNoteRepository _goodReceivedNoteRepository;
 
-        public GoodReceivedNoteService(IGoodReceivedNoteRepository iGoodReceivedNoteRepository, IMapper iMapper)
+        public GoodReceivedNoteService(IGoodReceivedNoteRepository iGoodReceivedNoteRepository)
         {
-            _mapper = iMapper;
             _goodReceivedNoteRepository = iGoodReceivedNoteRepository;
         }
         public async Task<(bool IsSuccess, GoodReceivedNote goodReceivedNote, string ErrorMessage)> AddGoodReceivedNote(GoodReceivedNote goodReceivedNote)
@@ -70,15 +68,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var grn = _goodReceivedNoteRepository.GetById(id);
-                if (grn == null)
-                    return (false, null, "GRN not found.");
-                return (true, grn, "GRN loaded successfully");
+                var result = _goodReceivedNoteRepository.GetById(id);
+                return result == null ? (false, new GoodReceivedNote(), "GRN Not found") : (true, result, "GRN Found");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                return (false, null, $"{e.Message}");
+                Log.Error("Stores Load: Error occurred", e);
+                return (false, new GoodReceivedNote(), e.Message);
             }
         }
 
@@ -86,15 +82,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var goodReceivedNotes = await _goodReceivedNoteRepository.GetAll().ToListAsync();
-
-                return (true, _mapper.Map<List<GoodReceivedNote>>(goodReceivedNotes), "GRN Loaded Successfully");
+                var result = await _goodReceivedNoteRepository.GetAll().ToListAsync();
+                return result == null ? (false, new List<GoodReceivedNote>(), "No GRN Found") : (true, result, "GRN  Found");
             }
             catch (Exception e)
             {
                 Log.Error("Stores Load: Error occurred", e);
-                IEnumerable<GoodReceivedNote> grn = new List<GoodReceivedNote>();
-                return (false, grn, e.Message);
+                return (false, new List<GoodReceivedNote>(), e.Message);
             }
         }
     }

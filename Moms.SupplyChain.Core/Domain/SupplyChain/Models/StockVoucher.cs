@@ -12,5 +12,10 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
         public DateTime VoucherDateTime { set; get; }
 
         public Store Store { set; get; }
+
+        public StockVoucher()
+        {
+
+        }
     }
 }

@@ -34,6 +34,9 @@ namespace Moms.Lookup.Infrastructure
                 .AddScoped<ILookupOptionRepository, LookupOptionRepository>();
             services.AddScoped<IIcdCodeRepository, IcdCodeRepository>();
 
+            services
+                .AddScoped<ICountyLookupRepository, CountyLookupRepository>();
+
 
             services.AddMediatR(typeof(DependencyInjection).GetTypeInfo().Assembly);
 

@@ -19,6 +19,7 @@ namespace Moms.Lookup.Infrastructure.Persistence
         public DbSet<IcdCodeBlock> IcdCodeBlocks { get; set; }
         public DbSet<IcdCodeSubBlock> IcdCodeSubBlocks { get; set; }
         public DbSet<IcdCode> IcdCodes { get; set; }
+        public DbSet<CountyLookup> CountyLookups { get; set; }
 
         public LookupContext(DbContextOptions<LookupContext> options) : base(options)
         {

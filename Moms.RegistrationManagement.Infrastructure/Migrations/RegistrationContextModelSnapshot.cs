@@ -92,8 +92,8 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("City")
-                        .HasColumnType("uuid");
+                    b.Property<string>("City")
+                        .HasColumnType("text");
 
                     b.Property<Guid>("County")
                         .HasColumnType("uuid");
@@ -127,6 +127,9 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
 
                     b.Property<DateTime?>("VoidDate")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("Ward")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -310,6 +313,71 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
                         .HasAnnotation("Npgsql:IndexMethod", "GIN");
 
                     b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.PatientGrid", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("DoB")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MaritalStatus")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("MaritalStatusId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Narrative")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PatientNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<NpgsqlTsVector>("SearchVector")
+                        .HasColumnType("tsvector");
+
+                    b.Property<string>("Sex")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("SexId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PatientGrids");
                 });
 
             modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.LookupItem", b =>

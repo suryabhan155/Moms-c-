@@ -29,6 +29,8 @@
       <None Remove="Seed\LookupOption.csv" />
       <None Remove="Seed\LookupMasterItem.csv" />
       <EmbeddedResource Include="Seed\LookupMasterItem.csv" />
+      <None Remove="Seed\CountyLookup.csv" />
+      <EmbeddedResource Include="Seed\CountyLookup.csv" />
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />

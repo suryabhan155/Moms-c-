@@ -14,13 +14,11 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 {
     public class StoreService:IStoreService
     {
-        private readonly IMapper _mapper;
-        private readonly IStoreRepository _iStoreRepository;
+        private readonly IStoreRepository _storeRepository;
 
-        public StoreService(IStoreRepository iStoreRepository, IMapper iMapper)
+        public StoreService(IStoreRepository storeRepository)
         {
-            _mapper = iMapper;
-            _iStoreRepository = iStoreRepository;
+            _storeRepository = storeRepository;
         }
 
 
@@ -28,15 +26,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var stores = await _iStoreRepository.GetAll().ToListAsync();
-
-                return (true, _mapper.Map<List<Store>>(stores), "Stores Loaded Successfully");
+                var result = await _storeRepository.GetAll().ToListAsync();
+                return result == null ? (false, new List<Store>(), "No Record Found") : (true, result, "Stores Loaded");
             }
             catch (Exception e)
             {
                 Log.Error("Stores Load: Error occurred", e);
-                IEnumerable<Store> stores = new List<Store>();
-                return (false, stores, e.Message);
+                return (false, new List<Store>(), e.Message);
             }
         }
 
@@ -46,7 +42,7 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var store = _iStoreRepository.GetById(id);
+                var store = _storeRepository.GetById(id);
                 if (store == null)
                     return (false, null, "Store not found.");
                 return (true, store, "Store loaded successfully");
@@ -67,13 +63,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 
                 if (store.Id.IsNullOrEmpty())
                 {
-                    _iStoreRepository.Create(store);
+                    _storeRepository.Create(store);
                 }
                 else
                 {
-                    _iStoreRepository.Update(store);
+                    _storeRepository.Update(store);
                 }
-                await _iStoreRepository.Save();
+                await _storeRepository.Save();
 
                 return (true, store, "Stores created successfully");
             }
@@ -88,10 +84,10 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
             try
             {
 
-                var stores = await _iStoreRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
+                var stores = await _storeRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
                 if (stores == null)
                     return (false, id, "No record found.");
-                _iStoreRepository.Delete(stores);
+                _storeRepository.Delete(stores);
 
                 return (false, id, "Record deleted successfully.");
             }

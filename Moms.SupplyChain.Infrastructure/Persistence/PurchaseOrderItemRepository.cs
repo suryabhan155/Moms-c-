@@ -9,7 +9,7 @@ namespace Moms.SupplyChain.Infrastructure.Persistence
 {
     public class PurchaseOrderItemRepository:BaseRepository<PurchaseOrderItem, Guid>, IPurchaseOrderItemRepository
     {
-        PurchaseOrderItemRepository(SupplyChainContext context) : base(context)
+      public  PurchaseOrderItemRepository(SupplyChainContext context) : base(context)
         {
 
         }

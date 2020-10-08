@@ -9,7 +9,7 @@ namespace Moms.SupplyChain.Infrastructure.Persistence
 {
     public class GoodReceivedNoteRepository:BaseRepository<GoodReceivedNote, Guid>, IGoodReceivedNoteRepository
     {
-        GoodReceivedNoteRepository(SupplyChainContext context) : base(context)
+       public GoodReceivedNoteRepository(SupplyChainContext context) : base(context)
         {
 
         }
