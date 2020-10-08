@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Moms.Lookup.Core.Domain.Options.Models;
 using Moms.SharedKernel.Model;
+using System.Text.Json.Serialization;
 using NpgsqlTypes;
 
 
@@ -22,6 +23,7 @@ namespace Moms.RegistrationManagement.Core.Domain.Patient.Models
        public string IdentificationNumber { get; set; }
        public DateTime RegistrationDate { get; set; }
 
+       [JsonIgnore]
        public NpgsqlTsVector SearchVector { get; set; }
        public ICollection<Guardian> Guardians { get; set; }=new List<Guardian>();
        public Death Death { get; set; }
