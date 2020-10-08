@@ -13,14 +13,22 @@ namespace Moms.SupplyChain.Core
            /* services.AddAutoMapper(typeof(BillingProfile));
             services.AddScoped<IBillingService, BillingService>();*/
            services
-               .AddScoped<IStoreService, StoreService>()
-               .AddScoped<ISupplierService, SupplierService>()
-               .AddScoped<IPurchaseOrderService, PurchaseOrderService>()
-               .AddScoped<IPurchaseOrderItemService, PurchaseOrderItemService>()
-               .AddScoped<IGoodReceivedNoteService, GoodReceivedNoteService>()
-               .AddScoped<IGoodReceivedNoteItemService, GoodReceivedNoteItemService>()
-               .AddScoped<IStockVoucherService, StockVoucherService>()
-               .AddScoped<IStockVoucherItemService, StockVoucherItemService>()
+               .AddScoped<IStoreService, StoreService>();
+               services
+               .AddScoped<ISupplierService, SupplierService>();
+               services
+               .AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+               services
+               .AddScoped<IPurchaseOrderItemService, PurchaseOrderItemService>();
+               services
+               .AddScoped<IGoodReceivedNoteService, GoodReceivedNoteService>();
+               services
+               .AddScoped<IGoodReceivedNoteItemService, GoodReceivedNoteItemService>();
+               services
+               .AddScoped<IStockVoucherService, StockVoucherService>();
+               services
+               .AddScoped<IStockVoucherItemService, StockVoucherItemService>();
+               services
                .AddScoped<IStockAdjustmentService, StockAdjustmentService>();
 
             return services;

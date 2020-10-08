@@ -9,7 +9,7 @@ namespace Moms.SupplyChain.Infrastructure.Persistence
 {
     public class StockVoucherItemRepository:BaseRepository<StockVoucherItem, Guid>, IStockVoucherItemRepository
     {
-        StockVoucherItemRepository(SupplyChainContext context) : base(context)
+       public StockVoucherItemRepository(SupplyChainContext context) : base(context)
         {
 
         }

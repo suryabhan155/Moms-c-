@@ -8,17 +8,16 @@ using Moms.SharedKernel.Custom;
 using Moms.SupplyChain.Core.Domain.SupplyChain;
 using Moms.SupplyChain.Core.Domain.SupplyChain.Models;
 using Moms.SupplyChain.Core.Domain.SupplyChain.Services;
+using Serilog;
 
 namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 {
     public class PurchaseOrderService:IPurchaseOrderService
     {
-        private readonly IMapper _iMapper;
         private readonly IPurchaseOrderRepository _iPurchaseOrderRepository;
 
-        public PurchaseOrderService(IMapper iMapper, IPurchaseOrderRepository iPurchaseOrderRepository)
+        public PurchaseOrderService(IPurchaseOrderRepository iPurchaseOrderRepository)
         {
-            _iMapper = iMapper;
             _iPurchaseOrderRepository = iPurchaseOrderRepository;
         }
 
@@ -89,14 +88,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var purchaseOrders = await _iPurchaseOrderRepository.GetAll().ToListAsync();
-
-                return (true, _iMapper.Map<List<PurchaseOrder>>(purchaseOrders), purchaseOrders.Count + " purchase orders loaded successfully");
+                var result = await _iPurchaseOrderRepository.GetAll().ToListAsync();
+                return result == null ? (false, new List<PurchaseOrder>(), "No Record Found") : (true, result, "Records Found");
             }
             catch (Exception e)
             {
-                IEnumerable<PurchaseOrder> purchaseOrders = new List<PurchaseOrder>();
-                return (false, purchaseOrders, e.Message);
+                Log.Error("Error Loading Purchase Orders: Error occurred", e);
+                return (false, new List<PurchaseOrder>(), e.Message);
 
             }
         }

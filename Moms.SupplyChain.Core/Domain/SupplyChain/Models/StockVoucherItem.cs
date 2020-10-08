@@ -18,6 +18,9 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
         public StockVoucher StockVoucher { set; get; }
         public GoodReceivedNoteItem GoodReceivedNoteItem { set; get; }
 
+        public StockVoucherItem()
+        {
 
+        }
     }
 }

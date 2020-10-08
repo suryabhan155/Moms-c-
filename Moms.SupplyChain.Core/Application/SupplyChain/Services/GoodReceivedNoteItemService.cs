@@ -14,12 +14,11 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 {
     public class GoodReceivedNoteItemService : IGoodReceivedNoteItemService
     {
-        private readonly IMapper _mapper;
+
         private readonly IGoodReceivedNoteItemRepository _goodReceivedNoteItemRepository;
 
-        public GoodReceivedNoteItemService(IGoodReceivedNoteItemRepository iGoodReceivedNoteItemRepository, IMapper iMapper)
+        public GoodReceivedNoteItemService(IGoodReceivedNoteItemRepository iGoodReceivedNoteItemRepository)
         {
-            _mapper = iMapper;
             _goodReceivedNoteItemRepository = iGoodReceivedNoteItemRepository;
         }
         public async Task<(bool IsSuccess, GoodReceivedNoteItem goodReceivedNoteItem, string ErrorMessage)> AddGoodReceivedNoteItems(GoodReceivedNoteItem goodReceivedNoteItem)
@@ -86,9 +85,10 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var grn = await _goodReceivedNoteItemRepository.GetAll().ToListAsync();
-
-                return (true, _mapper.Map<List<GoodReceivedNoteItem>>(grn), "GRN items Loaded Successfully");
+                var result = await _goodReceivedNoteItemRepository.GetAll().ToListAsync();
+                if (result == null)
+                    return (false, new List<GoodReceivedNoteItem>(), "Goods Received Note not Found");
+                return (true, result, "Records Found");
             }
             catch (Exception e)
             {

@@ -16,6 +16,10 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
         public decimal Quantity { set; get; }
 
         public Store Store { get; set; }
-        
+
+        public StockAdjustment()
+        {
+
+        }
     }
 }

@@ -13,21 +13,29 @@ namespace Moms.SupplyChain.Infrastructure
             IConfiguration configuration, bool initDb = true)
         {
             if (initDb)
-                services.AddDbContext<SupplyChainContext>(o => o.UseSqlServer(
+                services.AddDbContext<SupplyChainContext>(o => o.UseNpgsql(
                     configuration.GetConnectionString("DatabaseConnection"), x =>
                         x.MigrationsAssembly(typeof(SupplyChainContext).Assembly.FullName)));
 
             /* services
                  .AddScoped<IPaymentTypeRepository, PaymentTypeRepository>();*/
             services
-                .AddScoped<IStoreRepository, StoreRepository>()
-                .AddScoped<ISupplierRepository, SupplierRepository>()
-                .AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>()
-                .AddScoped<IPurchaseOrderItemRepository, PurchaseOrderItemRepository>()
-                .AddScoped<IGoodReceivedNoteRepository, GoodReceivedNoteRepository>()
-                .AddScoped<IGoodReceivedNoteItemRepository, GoodReceivedNoteItemRepository>()
-                .AddScoped<IStockVoucherRepository, StockVoucherRepository>()
-                .AddScoped<IStockVoucherItemRepository, StockVoucherItemRepository>()
+                .AddScoped<IStoreRepository, StoreRepository>();
+            services
+                .AddScoped<ISupplierRepository, SupplierRepository>();
+            services
+                .AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
+            services
+                .AddScoped<IPurchaseOrderItemRepository, PurchaseOrderItemRepository>();
+            services
+                .AddScoped<IGoodReceivedNoteRepository, GoodReceivedNoteRepository>();
+            services
+                .AddScoped<IGoodReceivedNoteItemRepository, GoodReceivedNoteItemRepository>();
+            services
+                .AddScoped<IStockVoucherRepository, StockVoucherRepository>();
+            services
+                .AddScoped<IStockVoucherItemRepository, StockVoucherItemRepository>();
+            services
                 .AddScoped<IStockAdjustmentRepository, StockAdjustmentRepository>();
 
             return services;

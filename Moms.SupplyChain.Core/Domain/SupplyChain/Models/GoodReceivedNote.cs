@@ -12,5 +12,9 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
 
         public PurchaseOrder PurchaseOrder { set; get; }
 
+        public GoodReceivedNote()
+        {
+
+        }
     }
 }

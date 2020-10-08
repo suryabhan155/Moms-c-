@@ -7,6 +7,10 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
 {
     public class PurchaseOrder : Entity<Guid>
     {
+        public PurchaseOrder()
+        {
+
+        }
         public Guid StoreId { set; get; }
         public Guid SupplierId { set; get; }
 

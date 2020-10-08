@@ -26,7 +26,7 @@ namespace Moms.SharedKernel.Model
 
         public virtual void AssignId()
         {
-            if (typeof(TId) == typeof(Guid)) ;
+            if (typeof(TId) == typeof(Guid));
             Id = (TId) (object) LiveGuid.NewGuid();
         }
 

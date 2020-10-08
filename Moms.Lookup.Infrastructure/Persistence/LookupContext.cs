@@ -19,6 +19,7 @@ namespace Moms.Lookup.Infrastructure.Persistence
         public DbSet<IcdCodeBlock> IcdCodeBlocks { get; set; }
         public DbSet<IcdCodeSubBlock> IcdCodeSubBlocks { get; set; }
         public DbSet<IcdCode> IcdCodes { get; set; }
+        public DbSet<CountyLookup> CountyLookups { get; set; }
 
         public LookupContext(DbContextOptions<LookupContext> options) : base(options)
         {
@@ -43,6 +44,12 @@ namespace Moms.Lookup.Infrastructure.Persistence
             if (!LookupMasterItems.Any())
             {
                 var data = SeedDataReader.ReadCsv<LookupMasterItem>(typeof(LookupContext).Assembly);
+                AddRange(data);
+            }
+
+            if (!CountyLookups.Any())
+            {
+                var data = SeedDataReader.ReadCsv<CountyLookup>(typeof(LookupContext).Assembly);
                 AddRange(data);
             }
             SaveChanges();

@@ -14,13 +14,11 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 {
     public class StockVoucherService : IStockVoucherService
     {
-        private readonly IMapper _mapper;
-        private readonly IStockVoucherRepository _repository;
+        private readonly IStockVoucherRepository _stockVoucherRepository;
 
-        public StockVoucherService(IStockVoucherRepository iRepository, IMapper iMapper)
+        public StockVoucherService(IStockVoucherRepository stockVoucherRepository)
         {
-            _mapper = iMapper;
-            _repository = iRepository;
+            _stockVoucherRepository = stockVoucherRepository;
         }
         public async Task<(bool IsSuccess, StockVoucher stockVoucher, string ErrorMessage)> AddStockVoucher(StockVoucher stockVoucher)
         {
@@ -31,13 +29,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 
                 if (stockVoucher.Id.IsNullOrEmpty())
                 {
-                    _repository.Create(stockVoucher);
+                    _stockVoucherRepository.Create(stockVoucher);
                 }
                 else
                 {
-                    _repository.Update(stockVoucher);
+                    _stockVoucherRepository.Update(stockVoucher);
                 }
-                await _repository.Save();
+                await _stockVoucherRepository.Save();
 
                 return (true, stockVoucher, "Stock Voucher created successfully");
             }
@@ -53,10 +51,10 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
             try
             {
 
-                var voucher = await _repository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
+                var voucher = await _stockVoucherRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
                 if (voucher == null)
                     return (false, id, "No record found.");
-                _repository.Delete(voucher);
+                _stockVoucherRepository.Delete(voucher);
 
                 return (false, id, "Record deleted successfully.");
             }
@@ -70,7 +68,7 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var voucher = _repository.GetById(id);
+                var voucher = _stockVoucherRepository.GetById(id);
                 if (voucher == null)
                     return (false, null, "Voucher not found.");
                 return (true, voucher, "Voucher loaded successfully");
@@ -86,15 +84,13 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             try
             {
-                var stockVoucher = await _repository.GetAll().ToListAsync();
-
-                return (true, _mapper.Map<List<StockVoucher>>(stockVoucher), "Stock Voucher Loaded Successfully");
+                var result = await _stockVoucherRepository.GetAll().ToListAsync();
+                return result == null ? (false, new List<StockVoucher>(), "Record not Found") : (true, result, "Stock Voucher Loaded");
             }
             catch (Exception e)
             {
                 Log.Error("Stores Load: Error occurred", e);
-                IEnumerable<StockVoucher> stockVoucher = new List<StockVoucher>();
-                return (false, stockVoucher, e.Message);
+                return (false, new List<StockVoucher>(), e.Message);
             }
         }
     }
