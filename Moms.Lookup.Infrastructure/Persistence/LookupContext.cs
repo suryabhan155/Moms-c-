@@ -28,7 +28,7 @@ namespace Moms.Lookup.Infrastructure.Persistence
         {
             /*  add seeding of models here */
 
-          if (!LookupItems.Any())
+            if (!LookupItems.Any())
             {
                 var data = SeedDataReader.ReadCsv<LookupItem>(typeof(LookupContext).Assembly);
                 AddRange(data);
@@ -45,6 +45,31 @@ namespace Moms.Lookup.Infrastructure.Persistence
                 var data = SeedDataReader.ReadCsv<LookupMasterItem>(typeof(LookupContext).Assembly);
                 AddRange(data);
             }
+
+            if (!IcdCodeChapters.Any())
+            {
+                var data = SeedDataReader.ReadCsv<IcdCodeChapter>(typeof(LookupContext).Assembly);
+                AddRange(data);
+            }
+
+          /*  if (!IcdCodeBlocks.Any())
+            {
+                var data = SeedDataReader.ReadCsv<IcdCodeBlock>(typeof(LookupContext).Assembly);
+                AddRange(data);
+            }
+
+            if (!IcdCodeSubBlocks.Any())
+            {
+                var data = SeedDataReader.ReadCsv<IcdCodeSubBlock>(typeof(LookupContext).Assembly);
+                AddRange(data);
+            }
+
+            if (!IcdCodes.Any())
+            {
+                var data = SeedDataReader.ReadCsv<IcdCode>(typeof(LookupContext).Assembly);
+                AddRange(data);
+            }*/
+
             SaveChanges();
         }
     }

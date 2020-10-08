@@ -86,15 +86,14 @@ namespace Moms.Lookup.Infrastructure.Migrations
                     UserId = table.Column<Guid>(nullable: false),
                     ChapterId = table.Column<Guid>(nullable: false),
                     Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    IcdCodeChapterId = table.Column<Guid>(nullable: true)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IcdCodeBlocks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IcdCodeBlocks_IcdCodeChapters_IcdCodeChapterId",
-                        column: x => x.IcdCodeChapterId,
+                        name: "FK_IcdCodeBlocks_IcdCodeChapters_ChapterId",
+                        column: x => x.ChapterId,
                         principalTable: "IcdCodeChapters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -150,10 +149,10 @@ namespace Moms.Lookup.Infrastructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
+          /*  migrationBuilder.CreateIndex(
                 name: "IX_IcdCodeBlocks_IcdCodeChapterId",
                 table: "IcdCodeBlocks",
-                column: "IcdCodeChapterId");
+                column: "IcdCodeChapterId");*/
 
             migrationBuilder.CreateIndex(
                 name: "IX_IcdCodes_IcdCodeSubBlockId",
