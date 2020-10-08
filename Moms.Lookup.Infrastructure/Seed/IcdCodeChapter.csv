@@ -1,23 +1,23 @@
-uuid3,Code,Name
-FCF2FD60-0937-4D79-B077-91FBF9C3C84A,1,Certain infectious and parasitic diseases
-19250F78-75C9-453C-B51C-54E0409EEA1D,2,Neoplasms
-8625BECB-5263-4962-A6C5-AFAB89D44DB9,3,Diseases of the blood and blood-forming organs and <br/> certain disorders involving the immune mechanism
+Id,Code,Name
+FCF2FD60-0937-4D79-B077-91FBF9C3C84A,1,"Certain infectious and parasitic diseases"
+19250F78-75C9-453C-B51C-54E0409EEA1D,2,"Neoplasms"
+8625BECB-5263-4962-A6C5-AFAB89D44DB9,3,"Diseases of the blood and blood-forming organs and <br/> certain disorders involving the immune mechanism"
 1E232024-E9E2-4FFF-928B-684C7B578957,4,"Endocrine, nutritional and metabolic diseases"
-A82C5BF4-B251-4D19-A3E0-7C3E38B59D9C,5,Mental and behavioural disorders
-40BE8233-B15D-45C7-8852-0F1DE5EAF3F8,6,Diseases of the nervous system
-B8AFD583-9673-4142-9BAD-7E818462A54A,7,Diseases of the eye and adnexa
-AAF51610-FC88-421A-AEC2-97C602E73324,8,Diseases of the ear and mastoid process
-519171A6-E374-4F5B-9687-4EB511CECB12,9,Diseases of the circulatory system
-B0739E71-6746-43C6-BC51-9018E7521697,10,Diseases of the respiratory system
-A5DB4B4D-DAD4-44DC-98E2-7A0FA30BB1F2,11,Diseases of the digestive system
-FC91B058-B06D-4A6B-BB8B-42DD71344D0B,12,Diseases of the skin and subcutaneous tissue
-29539042-892F-4AA7-8B2E-6D9FB9286050,13,Diseases of the musculoskeletal system and connective tissue
-DBB58A6B-11E0-4D67-89BF-64C1A78C0622,14,Diseases of the genitourinary system
+A82C5BF4-B251-4D19-A3E0-7C3E38B59D9C,5,"Mental and behavioural disorders"
+40BE8233-B15D-45C7-8852-0F1DE5EAF3F8,6,"Diseases of the nervous system"
+B8AFD583-9673-4142-9BAD-7E818462A54A,7,"Diseases of the eye and adnexa"
+AAF51610-FC88-421A-AEC2-97C602E73324,8,"Diseases of the ear and mastoid process"
+519171A6-E374-4F5B-9687-4EB511CECB12,9,"Diseases of the circulatory system"
+B0739E71-6746-43C6-BC51-9018E7521697,10,"Diseases of the respiratory system"
+A5DB4B4D-DAD4-44DC-98E2-7A0FA30BB1F2,11,"Diseases of the digestive system"
+FC91B058-B06D-4A6B-BB8B-42DD71344D0B,12,"Diseases of the skin and subcutaneous tissue"
+29539042-892F-4AA7-8B2E-6D9FB9286050,13,"Diseases of the musculoskeletal system and connective tissue"
+DBB58A6B-11E0-4D67-89BF-64C1A78C0622,14,"Diseases of the genitourinary system"
 22065FE8-EEB8-4449-8F85-BDBE76E8D814,15,"Pregnancy, childbirth and the puerperium"
-147069FD-740E-4E2D-A750-B3E877B65AD6,16,Certain conditions originating in the perinatal period
+147069FD-740E-4E2D-A750-B3E877B65AD6,16,"Certain conditions originating in the perinatal period"
 766A1DCB-F50B-4A4C-8D8B-08C091F17B0E,17,"Congenital malformations, deformations and <br/> chromosomal abnormalities"
 68815FEB-87CA-4761-B5F9-B00E417F6E1A,18,"Symptoms, signs and abnormal clinical and laboratory <br/> findings, not elsewhere classified"
 9A5474C3-610F-4D80-90EE-4C287F018231,19,"Injury, poisoning and certain other consequences of external causes"
-7060F878-99D0-4E9D-8CC3-528520B60390,20,External causes of morbidity and mortality
-18409F09-D21B-4346-AC52-DF08DEE89CA2,21,Factors influencing health status and contact with health services
-8D695CC8-2A99-4DDF-9306-48C66A0FDBA0,22,Codes for special purposes
+7060F878-99D0-4E9D-8CC3-528520B60390,20,"External causes of morbidity and mortality"
+18409F09-D21B-4346-AC52-DF08DEE89CA2,21,"Factors influencing health status and contact with health services"
+8D695CC8-2A99-4DDF-9306-48C66A0FDBA0,22,"Codes for special purposes"
