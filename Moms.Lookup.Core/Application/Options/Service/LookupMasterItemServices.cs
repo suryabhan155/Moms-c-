@@ -146,6 +146,20 @@ namespace Moms.Lookup.Core.Application.Options.Service
             }
         }
 
+        public async Task<(bool IsSuccess, IEnumerable<CountyLookup> CountyLookup, string ErrorMessage)> GetAllCounty()
+        {
+            try
+            {
+                var result = await _countyLookupRepository.GetAll().ToListAsync();
+                return result == null ? (false, new List<CountyLookup>(), "Counties Not Found") : (true, result, "Counties Loaded");
+            }
+            catch (Exception e)
+            {
+                Log.Error("Error Adding LookupOptions : Error occured",e);
+                return (false,new List<CountyLookup>(), e.Message);
+            }
+        }
+
         public async Task<(bool IsSuccess, IEnumerable<CountyLookup> CountyLookup, string ErrorMessage)> GetCounty(string name)
         {
             try

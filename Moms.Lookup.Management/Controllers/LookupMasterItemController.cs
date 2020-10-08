@@ -109,6 +109,24 @@ namespace Moms.Lookup.Management.Controllers
             }
         }
 
+        [HttpGet("GetCounty/")]
+        public async Task<IActionResult> GetCounty()
+        {
+            try
+            {
+                var result = await _lookupOptionsService.GetAllCounty();
+                if (result.IsSuccess)
+                    return Ok(result.CountyLookup);
+                return BadRequest(result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
         [HttpGet("GetCounty/{name}")]
         public async Task<IActionResult> GetCounty(string name)
         {
