@@ -9,7 +9,7 @@ namespace Moms.SupplyChain.Infrastructure.Persistence
 {
     public class SupplierRepository:BaseRepository<Supplier, Guid>, ISupplierRepository
     {
-        SupplierRepository(SupplyChainContext context) : base(context)
+      public  SupplierRepository(SupplyChainContext context) : base(context)
         {
 
         }

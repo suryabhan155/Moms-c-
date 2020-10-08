@@ -14,6 +14,5 @@ namespace Moms.Lookup.Core.Domain.Options.Models
        public Guid WardUid { get; set; }
        public int WardCode { get; set; }
        public string WardName { get; set; }
-
     }
 }

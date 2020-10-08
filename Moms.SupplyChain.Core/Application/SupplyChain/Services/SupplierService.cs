@@ -14,47 +14,44 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
 {
     public class SupplierService:ISupplierService
     {
-        private readonly IMapper _mapper;
         private readonly ISupplierRepository _supplierRepository;
 
-        public SupplierService(ISupplierRepository iSupplierRepository, IMapper iMapper)
+        public SupplierService(ISupplierRepository supplierRepository)
         {
-            _mapper = iMapper;
-            _supplierRepository = iSupplierRepository;
+            _supplierRepository = supplierRepository;
         }
-
 
         public async Task<(bool IsSuccess, IEnumerable<Supplier>, string ErrorMessage)> LoadSuppliers()
         {
             try
             {
-                var suppliers = await _supplierRepository.GetAll().ToListAsync();
-
-                return (true, _mapper.Map<List<Supplier>>(suppliers), "Suppliers Loaded Successfully");
+                var result = await _supplierRepository.GetAll().ToListAsync();
+                return result == null ? (false, new List<Supplier>(), "Record Not Found") : (true, result, "Suppliers Loaded Successfully");
             }
             catch (Exception e)
             {
                 Log.Error("Suppliers Load: Error occurred", e);
-                IEnumerable<Supplier> suppliers = new List<Supplier>();
-                return (false, suppliers, e.Message);
+                return (false, new List<Supplier>(), e.Message);
             }
         }
 
 
+        public Task<(bool IsSuccess, IEnumerable<Supplier>, string ErrorMessage)> LoadSupplies()
+        {
+            throw new NotImplementedException();
+        }
 
         public (bool IsSuccess, Supplier supplier, string ErrorMessage) GetSupplier(Guid id)
         {
             try
             {
-                var supplier = _supplierRepository.GetById(id);
-                if (supplier == null)
-                    return (false, null, "Supplier not found.");
-                return (true, supplier, "Supplier loaded successfully");
+                var result = _supplierRepository.GetById(id);
+                return result == null ? (false, new Supplier(), "Supplier Not Found") : (true, result, "Supplier loaded successfully");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                return (false, null, $"{e.Message}");
+                Log.Error("Suppliers Load: Error occurred", e);
+                return (false, new Supplier(), e.Message);
             }
         }
 

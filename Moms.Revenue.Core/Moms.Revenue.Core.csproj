@@ -23,8 +23,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Domain\Billing\Services" />
-      <Folder Include="Domain\Item\Services" />
+      <Folder Include="Application\Billing\Commands" />
+      <Folder Include="Application\Billing\Events" />
+      <Folder Include="Application\Billing\Queries" />
+      <Folder Include="Application\Item\Commands" />
+      <Folder Include="Application\Item\Events" />
+      <Folder Include="Application\Item\Queries" />
     </ItemGroup>
 
 </Project>

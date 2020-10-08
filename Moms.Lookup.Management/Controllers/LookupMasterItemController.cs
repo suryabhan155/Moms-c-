@@ -108,5 +108,60 @@ namespace Moms.Lookup.Management.Controllers
                 return StatusCode(500, $"{msg} {e.Message}");
             }
         }
+
+        [HttpGet("GetCounty/{name}")]
+        public async Task<IActionResult> GetCounty(string name)
+        {
+            try
+            {
+                var result = await _lookupOptionsService.GetCounty(name);
+                if (result.IsSuccess)
+                    return Ok(result.CountyLookup);
+                return BadRequest(result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
+        [HttpGet("GetSubCounty/{name}")]
+        public async Task<IActionResult> GetSubCounty(string name)
+        {
+            try
+            {
+                var result = await _lookupOptionsService.GetSubCounty(name);
+                if (result.IsSuccess)
+                    return Ok(result.CountyLookup);
+                return BadRequest(result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
+        [HttpGet("GetWard/{name}")]
+        public async Task<IActionResult> GetWard(string name)
+        {
+            try
+            {
+                var result = await _lookupOptionsService.GetWards(name);
+                if (result.IsSuccess)
+                    return Ok(result.CountyLookup);
+                return BadRequest(result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
     }
 }

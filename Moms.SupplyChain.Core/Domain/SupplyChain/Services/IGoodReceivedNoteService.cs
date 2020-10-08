@@ -9,7 +9,7 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Services
     public interface IGoodReceivedNoteService
     {
         Task<(bool IsSuccess, IEnumerable<GoodReceivedNote>, String ErrorMessage)> LoadGoodReceivedNotes();
-        Task<(bool IsSuccess, IEnumerable<GoodReceivedNote> goodReceivedNotes, String ErrorMessage)> GetGoodReceivedNote(Guid id);
+        (bool IsSuccess, GoodReceivedNote goodReceivedNotes, String ErrorMessage) GetGoodReceivedNote(Guid id);
         Task<(bool IsSuccess, Guid id, String ErrorMessage)> DeleteGoodReceivedNote(Guid id);
         Task<(bool IsSuccess, GoodReceivedNote goodReceivedNote, String ErrorMessage)> AddGoodReceivedNote(GoodReceivedNote goodReceivedNote);
     }

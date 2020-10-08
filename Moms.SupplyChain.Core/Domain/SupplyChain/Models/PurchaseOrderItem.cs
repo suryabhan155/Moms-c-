@@ -12,5 +12,10 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
         public decimal OrderedQuantity { set; get; }
         public int Status { set; get; }
 
+        public PurchaseOrderItem()
+        {
+
+        }
+
     }
 }

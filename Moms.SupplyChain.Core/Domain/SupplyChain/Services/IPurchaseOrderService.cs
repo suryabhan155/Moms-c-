@@ -10,7 +10,7 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Services
     {
         Task<(bool IsSuccess, IEnumerable<PurchaseOrder>, String ErrorMessage)> LoadPurchaseOrders();
 
-        Task<(bool IsSuccess, IEnumerable<PurchaseOrder> purchaseOrders, String ErrorMessage)> GetPurchaseOrder(Guid id);
+        (bool IsSuccess, PurchaseOrder purchaseOrders, String ErrorMessage) GetPurchaseOrder(Guid id);
 
         Task<(bool IsSuccess, Guid id, String ErrorMessage)> DeletePurchaseOrder(Guid id);
 

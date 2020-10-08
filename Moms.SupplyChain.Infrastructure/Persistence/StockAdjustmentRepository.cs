@@ -9,7 +9,7 @@ namespace Moms.SupplyChain.Infrastructure.Persistence
 {
     public class StockAdjustmentRepository:BaseRepository<StockAdjustment, Guid>, IStockAdjustmentRepository
     {
-        StockAdjustmentRepository(SupplyChainContext context) : base(context)
+      public  StockAdjustmentRepository(SupplyChainContext context) : base(context)
         {
 
         }

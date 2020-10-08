@@ -14,5 +14,10 @@ namespace Moms.Lookup.Core.Domain.Options.Service
         Task<(bool IsSuccess, IEnumerable<LookupOptionsDto> lookupOptionsDtos, string ErrorMessage)> GetLookupOptionsByName(string name);*/
         Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteLookupOption(Guid id);
         Task<(bool IsSuccess,LookupMasterItem lookupOption, string ErrorMEssage )> AddLookupMasterItem(LookupMasterItem lookupOption);
+
+        /* county option tools */
+        Task<(bool IsSuccess, IEnumerable<CountyLookup> CountyLookup, string ErrorMessage)> GetCounty(string name);
+        Task<(bool IsSuccess, IEnumerable<CountyLookup> CountyLookup, string ErrorMessage)> GetSubCounty(string name);
+        Task<(bool IsSuccess, IEnumerable<CountyLookup> CountyLookup, string ErrorMessage)> GetWards(string name);
     }
 }
