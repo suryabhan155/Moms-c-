@@ -8,11 +8,8 @@ namespace Moms.Lookup.Core.Domain.ICD.Models
 {
     public class IcdCodeSubBlock : Entity<Guid>
     {
-        public Guid BlockId { get; set; }
+        public Guid IcdCodeBlockId { get; set; }
         public String Code { get; set; }
         public string Name { get; set; }
-
-        public IcdCodeBlock IcdCodeBlock { get; set; }
-        public ICollection<IcdCode> Guardians { get; set; } = new List<IcdCode>();
     }
 }

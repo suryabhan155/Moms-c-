@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Moms.Lookup.Infrastructure.Migrations
 {
-    public partial class AddLookupOptionView : Migration
+    public partial class AddLookupOptionsView : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +30,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
                     ON
                 l.""Id""=o.""LookupItemId"""
             );
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
