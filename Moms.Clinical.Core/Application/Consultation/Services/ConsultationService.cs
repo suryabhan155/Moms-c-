@@ -44,9 +44,14 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             {
                 if (consultation == null)
                     return (false, consultation, "No consultation found");
-                if (consultation.PatientId.IsNullOrEmpty())
+                if (consultation.Id.IsNullOrEmpty())
+                {
                     _ConsultationRepository.Create(consultation);
-                _ConsultationRepository.Update(consultation);
+                }
+                else
+                {
+                    _ConsultationRepository.Update(consultation);
+                }
                 await _ConsultationRepository.Save();
 
                 return (true, consultation, "Consultation created successfully");
