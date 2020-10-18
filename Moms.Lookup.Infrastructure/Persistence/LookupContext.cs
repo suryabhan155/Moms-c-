@@ -14,13 +14,14 @@ namespace Moms.Lookup.Infrastructure.Persistence
         public DbSet<LookupMaster> LookupMasters { get; set; }
         public DbSet<LookupItem> LookupItems { get; set; }
         public DbSet<LookupMasterItem> LookupMasterItems { get; set; }
-        public DbSet<LookupOption> LookupOptions { get; set; }
+
         public DbSet<IcdCodeChapter> IcdCodeChapters { get; set; }
         public DbSet<IcdCodeBlock> IcdCodeBlocks { get; set; }
         public DbSet<IcdCodeSubBlock> IcdCodeSubBlocks { get; set; }
         public DbSet<IcdCode> IcdCodes { get; set; }
         public DbSet<CountyLookup> CountyLookups { get; set; }
 
+        public DbSet<LookupOption> LookupOptions { get; set; }
         public LookupContext(DbContextOptions<LookupContext> options) : base(options)
         {
         }
@@ -53,7 +54,17 @@ namespace Moms.Lookup.Infrastructure.Persistence
                 AddRange(data);
             }
 
+<<<<<<< HEAD
           /*  if (!IcdCodeBlocks.Any())
+=======
+            if (!IcdCodeChapters.Any())
+            {
+                var data = SeedDataReader.ReadCsv<IcdCodeChapter>(typeof(LookupContext).Assembly);
+                AddRange(data);
+            }
+
+            if (!IcdCodeBlocks.Any())
+>>>>>>> 1ecead17d9c0beba2667da02127c435196f41328
             {
                 var data = SeedDataReader.ReadCsv<IcdCodeBlock>(typeof(LookupContext).Assembly);
                 AddRange(data);
@@ -69,8 +80,12 @@ namespace Moms.Lookup.Infrastructure.Persistence
             {
                 var data = SeedDataReader.ReadCsv<IcdCode>(typeof(LookupContext).Assembly);
                 AddRange(data);
+<<<<<<< HEAD
             }*/
 
+=======
+            }
+>>>>>>> 1ecead17d9c0beba2667da02127c435196f41328
             SaveChanges();
         }
     }

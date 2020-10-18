@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Moms.Lookup.Infrastructure.Migrations
 {
-    public partial class CountyLookup : Migration
+    public partial class AddCountyLookupOptions : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
             migrationBuilder.CreateTable(
                 name: "CountyLookups",
                 columns: table => new

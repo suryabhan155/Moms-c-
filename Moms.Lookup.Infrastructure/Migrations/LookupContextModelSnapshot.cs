@@ -48,8 +48,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IcdCodeSubBlockId");
-
                     b.ToTable("IcdCodes");
                 });
 
@@ -81,8 +79,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IcdCodeChapterId");
 
                     b.ToTable("IcdCodeBlocks");
                 });
@@ -144,8 +140,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IcdCodeBlockId");
 
                     b.ToTable("IcdCodeSubBlocks");
                 });
@@ -286,6 +280,7 @@ namespace Moms.Lookup.Infrastructure.Migrations
 
                     b.ToTable("LookupMasterItems");
                 });
+<<<<<<< HEAD
 
             modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.LookupOption", b =>
                 {
@@ -360,6 +355,8 @@ namespace Moms.Lookup.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
+=======
+>>>>>>> 1ecead17d9c0beba2667da02127c435196f41328
 #pragma warning restore 612, 618
         }
     }
