@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Moms.RegistrationManagement.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -10,9 +11,10 @@ using NpgsqlTypes;
 namespace Moms.RegistrationManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(RegistrationContext))]
-    partial class RegistrationContextModelSnapshot : ModelSnapshot
+    [Migration("20201008085053_change_employer_city_to_guid")]
+    partial class change_employer_city_to_guid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
