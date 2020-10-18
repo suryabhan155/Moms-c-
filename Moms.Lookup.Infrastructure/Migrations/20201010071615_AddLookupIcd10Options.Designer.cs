@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Moms.Lookup.Infrastructure.Migrations
 {
     [DbContext(typeof(LookupContext))]
-    [Migration("20200924163000_initial migration")]
-    partial class initialmigration
+    [Migration("20201010071615_AddLookupIcd10Options")]
+    partial class AddLookupIcd10Options
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,14 +33,11 @@ namespace Moms.Lookup.Infrastructure.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid?>("IcdCodeSubBlockId")
+                    b.Property<Guid>("IcdCodeSubBlockId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<Guid>("SubBlockId")
-                        .HasColumnType("uuid");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -52,8 +49,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IcdCodeSubBlockId");
 
                     b.ToTable("IcdCodes");
                 });
@@ -64,16 +59,13 @@ namespace Moms.Lookup.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ChapterId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Code")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid?>("IcdCodeChapterId")
+                    b.Property<Guid>("IcdCodeChapterId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -89,8 +81,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IcdCodeChapterId");
 
                     b.ToTable("IcdCodeBlocks");
                 });
@@ -130,16 +120,13 @@ namespace Moms.Lookup.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BlockId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Code")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid?>("IcdCodeBlockId")
+                    b.Property<Guid>("IcdCodeBlockId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -156,9 +143,57 @@ namespace Moms.Lookup.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IcdCodeBlockId");
-
                     b.ToTable("IcdCodeSubBlocks");
+                });
+
+            modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.CountyLookup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CountyCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CountyName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("CountyUid")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("SubCountyCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SubCountyName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("SubCountyUid")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("WardCode")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("WardName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("WardUid")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CountyLookups");
                 });
 
             modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.LookupItem", b =>
@@ -246,27 +281,6 @@ namespace Moms.Lookup.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LookupMasterItems");
-                });
-
-            modelBuilder.Entity("Moms.Lookup.Core.Domain.ICD.Models.IcdCode", b =>
-                {
-                    b.HasOne("Moms.Lookup.Core.Domain.ICD.Models.IcdCodeSubBlock", "IcdCodeSubBlock")
-                        .WithMany("Guardians")
-                        .HasForeignKey("IcdCodeSubBlockId");
-                });
-
-            modelBuilder.Entity("Moms.Lookup.Core.Domain.ICD.Models.IcdCodeBlock", b =>
-                {
-                    b.HasOne("Moms.Lookup.Core.Domain.ICD.Models.IcdCodeChapter", "IcdCodeChapter")
-                        .WithMany("Guardians")
-                        .HasForeignKey("IcdCodeChapterId");
-                });
-
-            modelBuilder.Entity("Moms.Lookup.Core.Domain.ICD.Models.IcdCodeSubBlock", b =>
-                {
-                    b.HasOne("Moms.Lookup.Core.Domain.ICD.Models.IcdCodeBlock", "IcdCodeBlock")
-                        .WithMany("Guardians")
-                        .HasForeignKey("IcdCodeBlockId");
                 });
 #pragma warning restore 612, 618
         }

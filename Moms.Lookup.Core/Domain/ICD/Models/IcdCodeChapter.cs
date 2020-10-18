@@ -9,8 +9,5 @@ namespace Moms.Lookup.Core.Domain.ICD.Models
     {
         public int Code { get; set; }
         public string Name { get; set; }
-
-        public ICollection<IcdCodeBlock> Guardians { get; set; } = new List<IcdCodeBlock>();
-
     }
 }
