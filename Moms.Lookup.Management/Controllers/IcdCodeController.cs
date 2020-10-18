@@ -28,7 +28,7 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _IcdCodeService.SearchDiagnosis(icdCode);
                 if (result.IsSuccess)
-                    return Ok(result);
+                    return Ok(result.icdCode);
                 return NotFound();
             }
             catch (Exception e)
