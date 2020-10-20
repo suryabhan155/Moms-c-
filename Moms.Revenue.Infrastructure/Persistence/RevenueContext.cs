@@ -50,6 +50,18 @@ namespace Moms.Revenue.Infrastructure.Persistence
                 AddRange(data);
             }
 
+            if (!ItemTypes.Any())
+            {
+                var data = SeedDataReader.ReadCsv<ItemType>(typeof(RevenueContext).Assembly);
+                AddRange(data);
+            }
+
+            if (!ItemTypeSubTypes.Any())
+            {
+                var data = SeedDataReader.ReadCsv<ItemTypeSubType>(typeof(RevenueContext).Assembly);
+                AddRange(data);
+            }
+
             SaveChanges();
         }
     }
