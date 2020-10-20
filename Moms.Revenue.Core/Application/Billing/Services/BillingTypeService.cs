@@ -37,7 +37,7 @@ namespace Moms.Revenue.Core.Application.Billing.Services
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<BillingType> itemConfiguration, string ErrorMessage)> GetAllBillingType()
+        public async Task<(bool IsSuccess, IEnumerable<BillingType> billingTypes, string ErrorMessage)> GetAllBillingType()
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Moms.Revenue.Core.Application.Billing.Services
             }
         }
 
-        public async Task<(bool IsSuccess, BillingType itemConfiguration, string ErrorMessage)> GetBillType(Guid Id)
+        public async Task<(bool IsSuccess, BillingType billingType, string ErrorMessage)> GetBillType(Guid Id)
         {
             try
             {

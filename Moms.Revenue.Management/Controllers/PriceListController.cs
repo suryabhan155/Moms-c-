@@ -73,7 +73,22 @@ namespace Moms.Revenue.Management.Controllers
             }
         }
 
-
-
+        [HttpGet("delete/{Id}")]
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            try
+            {
+                var result = await _priceListService.Delete(Id);
+                if (result.IsSuccess)
+                    return Ok(result.ErrorMEssage);
+                return BadRequest(result.ErrorMEssage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
     }
 }
