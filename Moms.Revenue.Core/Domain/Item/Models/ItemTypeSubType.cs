@@ -12,6 +12,10 @@ namespace Moms.Revenue.Core.Domain.Item.Models
         public ItemType ItemType { get; set; }
         public ItemMaster ItemMaster { get; set; }
 
+        public ItemTypeSubType()
+        {
+
+        }
         public ItemTypeSubType(Guid itemTypeId, string name)
         {
             if(string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));

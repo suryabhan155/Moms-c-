@@ -9,7 +9,7 @@ namespace Moms.Revenue.Core.Domain.Item.Services
     {
         Task<(bool IsSuccess, ItemTypeSubType itemTypeSubType, string ErrorMessage)> Create(ItemTypeSubType itemTypeSubType);
         Task<(bool IsSuccess, IEnumerable<ItemTypeSubType> itemTypeSubType, string ErrorMessage)> GetAllItemTypeSubType();
-        Task<(bool IsSuccess, ItemTypeSubType itemTypeSubType, string ErrorMessage)> GetModule(Guid Id);
+        Task<(bool IsSuccess, ItemTypeSubType itemTypeSubType, string ErrorMessage)> GetItemTypeSubType(Guid Id);
         Task<(bool IsSuccess, Guid Id, string ErrorMEssage)> Delete(Guid Id);
     }
 }

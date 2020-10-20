@@ -11,13 +11,15 @@ namespace Moms.Revenue.Core.Domain.Billing.Models
     {
         public Guid ClientBillingId { get; set; }
         public Guid ItemMasterId { get; set; }
+        public ItemMaster ItemMaster { get; set; }
         public Guid PaymentTypeId { get; set; }
+        public PaymentType PaymentType { get; set; }
         public Guid ModuleId { get; set; }
+        public Module Module { get; set; }
         public Decimal DiscountedAmount { get; set; }
         public Decimal Amount { get; set; }
         public Boolean Status { get; set; }
 
-        public IEnumerable<ItemMaster> ItemMasters=new List<ItemMaster>();
         public IEnumerable<PaymentType> PaymentTypes = new List<PaymentType>();
         public IEnumerable<Module> Modules=new List<Module>();
 
