@@ -19,6 +19,6 @@ namespace Moms.Revenue.Core.Domain.Item.Models
         public IEnumerable<ItemType> ItemTypes  { get; set; }
         public ItemConfiguration ItemConfiguration { get; set; }
         public PriceList PriceList { get; set; }
-        public ClientBillPayment ClientBillPayment { get; set; }
+        public IEnumerable<ClientBillPayment> ClientBillPayments { get; set; }
     }
 }

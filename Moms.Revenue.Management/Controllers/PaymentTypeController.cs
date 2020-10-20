@@ -10,21 +10,20 @@ namespace Moms.Revenue.Management.Controllers
     [Route("api/[controller]")]
     public class PaymentTypeController : ControllerBase
     {
-        private readonly IBillingService _billingService;
+        private readonly IClientBillingService _billingService;
 
-        public PaymentTypeController(IBillingService billingService)
+        public PaymentTypeController(IClientBillingService billingService)
         {
             _billingService = billingService;
         }
 
-        [HttpGet]
+      /*  [HttpGet]
         public ActionResult Get()
         {
             try
             {
                 var results = _billingService.LoadPaymentTypes();
-
-                    return Ok(results);
+                return Ok(results);
             }
             catch (Exception e)
             {
@@ -32,6 +31,6 @@ namespace Moms.Revenue.Management.Controllers
                 Log.Error(e, msg);
                 return StatusCode(500, $"{msg} {e.Message}");
             }
-        }
+        }*/
     }
 }
