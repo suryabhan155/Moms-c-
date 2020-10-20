@@ -18,6 +18,10 @@ namespace Moms.Revenue.Core.Domain.Item.Models
        public bool Status { get; set; }
        public IEnumerable<ItemMaster> ItemMasters { get; set; }
 
+       public ItemConfiguration()
+       {
+
+       }
        public ItemConfiguration(Guid itemMasterId, int maxStock, int minStock, decimal purchaseUnitPrice, decimal quantityPerPurchaseUnit,
            string dispensingUnit, string purchaseUnit, string quantityPerDispenseUnit)
        {

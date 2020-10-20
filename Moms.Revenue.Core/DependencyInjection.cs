@@ -14,7 +14,7 @@ namespace Moms.Revenue.Core
         public static IServiceCollection AddApplication(this IServiceCollection services, List<Assembly> others = null)
         {
             services.AddAutoMapper(typeof(BillingProfile));
-            services.AddScoped<IBillingService, BillingService>();
+            services.AddScoped<IClientBillingService, BillingService>();
 
             return services;
         }
