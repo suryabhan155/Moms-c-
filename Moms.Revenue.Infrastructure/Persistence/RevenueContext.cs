@@ -43,6 +43,13 @@ namespace Moms.Revenue.Infrastructure.Persistence
                 AddRange(data);
             }
 
+
+            if (!Modules.Any())
+            {
+                var data = SeedDataReader.ReadCsv<Module>(typeof(RevenueContext).Assembly);
+                AddRange(data);
+            }
+
             SaveChanges();
         }
     }

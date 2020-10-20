@@ -12,18 +12,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Seed\IcdCode.csv" />
-      <None Remove="Seed\IcdCodeBlock.csv" />
-      <None Remove="Seed\IcdCodeChapter.csv" />
-      <None Remove="Seed\IcdCodeSubBlock.csv" />
       <None Remove="Seed\LookupItem.csv" />
       <None Remove="Seed\LookupMaster.csv" />
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Include="Seed\IcdCode.csv" />
-      <EmbeddedResource Include="Seed\IcdCodeBlock.csv" />
-      <EmbeddedResource Include="Seed\IcdCodeChapter.csv" />
-      <EmbeddedResource Include="Seed\IcdCodeSubBlock.csv" />
       <EmbeddedResource Include="Seed\LookupItem.csv" />
       <EmbeddedResource Include="Seed\LookupMaster.csv" />
       <None Remove="Seed\LookupOption.csv" />
@@ -41,10 +33,6 @@
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
       <PackageReference Include="Npgsql" Version="4.1.4" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
     </ItemGroup>

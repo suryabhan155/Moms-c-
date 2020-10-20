@@ -30,7 +30,7 @@ namespace Moms.Lookup.Infrastructure.Persistence
         {
             /*  add seeding of models here */
 
-            if (!LookupItems.Any())
+          if (!LookupItems.Any())
             {
                 var data = SeedDataReader.ReadCsv<LookupItem>(typeof(LookupContext).Assembly);
                 AddRange(data);
@@ -48,15 +48,12 @@ namespace Moms.Lookup.Infrastructure.Persistence
                 AddRange(data);
             }
 
-            if (!IcdCodeChapters.Any())
+            if (!CountyLookups.Any())
             {
-                var data = SeedDataReader.ReadCsv<IcdCodeChapter>(typeof(LookupContext).Assembly);
+                var data = SeedDataReader.ReadCsv<CountyLookup>(typeof(LookupContext).Assembly);
                 AddRange(data);
             }
 
-<<<<<<< HEAD
-          /*  if (!IcdCodeBlocks.Any())
-=======
             if (!IcdCodeChapters.Any())
             {
                 var data = SeedDataReader.ReadCsv<IcdCodeChapter>(typeof(LookupContext).Assembly);
@@ -64,7 +61,6 @@ namespace Moms.Lookup.Infrastructure.Persistence
             }
 
             if (!IcdCodeBlocks.Any())
->>>>>>> 1ecead17d9c0beba2667da02127c435196f41328
             {
                 var data = SeedDataReader.ReadCsv<IcdCodeBlock>(typeof(LookupContext).Assembly);
                 AddRange(data);
@@ -80,12 +76,7 @@ namespace Moms.Lookup.Infrastructure.Persistence
             {
                 var data = SeedDataReader.ReadCsv<IcdCode>(typeof(LookupContext).Assembly);
                 AddRange(data);
-<<<<<<< HEAD
-            }*/
-
-=======
             }
->>>>>>> 1ecead17d9c0beba2667da02127c435196f41328
             SaveChanges();
         }
     }

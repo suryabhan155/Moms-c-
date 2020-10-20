@@ -36,8 +36,6 @@ namespace Moms.Lookup.Infrastructure
 
             services
                 .AddScoped<ICountyLookupRepository, CountyLookupRepository>();
-
-
             services.AddMediatR(typeof(DependencyInjection).GetTypeInfo().Assembly);
 
             return services;
