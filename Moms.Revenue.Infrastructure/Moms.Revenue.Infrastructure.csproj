@@ -39,7 +39,6 @@
 
 
     <ItemGroup>
-      <EmbeddedResource Include="Seed\Module - Copy.csv" />
       <EmbeddedResource Include="Seed\Module.csv" />
       <EmbeddedResource Include="Seed\PaymentType.csv" />
     </ItemGroup>
