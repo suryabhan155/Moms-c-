@@ -1,8 +1,6 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Moms.Revenue.Core.Domain.Billing;
 using Moms.Revenue.Core.Domain.Billing.Models;
 using Moms.Revenue.Core.Domain.Billing.Services;
 using Serilog;
@@ -11,23 +9,23 @@ namespace Moms.Revenue.Management.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PaymentTypeController : ControllerBase
+    public class ClientBillPaymentController:ControllerBase
     {
-        private readonly IPaymentTypeService _paymentTypeService ;
+        private readonly IClientBillPaymentService _clientBillPaymentService;
 
-        public PaymentTypeController(IPaymentTypeService paymentTypeService)
+        public ClientBillPaymentController(IClientBillPaymentService clientBillPaymentService)
         {
-            _paymentTypeService = paymentTypeService;
+            _clientBillPaymentService = clientBillPaymentService;
         }
 
-        [HttpGet("PaymentType")]
+        [HttpGet("clientBillPayment")]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var result = await _paymentTypeService.GetAllPaymentType();
+                var result = await _clientBillPaymentService.GetAllClientBillPayment();
                 if (result.IsSuccess)
-                    return Ok(result.paymentType);
+                    return Ok(result.clientBillPayment);
                 return BadRequest(result.ErrorMessage);
             }
             catch (Exception e)
@@ -38,14 +36,14 @@ namespace Moms.Revenue.Management.Controllers
             }
         }
 
-        [HttpGet("PaymentType/{Id}")]
+        [HttpGet("clientBillPayment/{Id}")]
         public async Task<IActionResult> Get(Guid Id)
         {
             try
             {
-                var result = await _paymentTypeService.GetPaymentType(Id);
+                var result = await _clientBillPaymentService.GetClientBillPayment(Id);
                 if (result.IsSuccess)
-                    return Ok(result.itemConfiguration);
+                    return Ok(result.clientBillPayment);
                 return BadRequest(result.ErrorMessage);
             }
             catch (Exception e)
@@ -57,40 +55,40 @@ namespace Moms.Revenue.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PaymentType paymentType)
+        public async Task<IActionResult> Post([FromBody] ClientBillPayment clientBillPayment)
         {
             try
             {
-                var result = await _paymentTypeService.Create(paymentType);
+                var result =await _clientBillPaymentService.Create(clientBillPayment);
                 if (result.IsSuccess)
-                    return Ok(result.itemConfiguration);
+                    return Ok(result.ErrorMessage);
                 return BadRequest(result.ErrorMessage);
             }
             catch (Exception e)
             {
-                var msg = $"Error Saving ";
+                var msg = $"Error loading ";
                 Log.Error(e, msg);
                 return StatusCode(500, $"{msg} {e.Message}");
             }
         }
 
-        [HttpGet("delete/{Id}")]
+        [HttpGet("Delete/{Id}")]
         public async Task<IActionResult> Delete(Guid Id)
         {
             try
             {
-                var result = await _paymentTypeService.Delete(Id);
+                var result = await _clientBillPaymentService.Delete(Id);
                 if (result.IsSuccess)
                     return Ok(result.ErrorMEssage);
                 return BadRequest(result.ErrorMEssage);
+
             }
             catch (Exception e)
             {
-                var msg = $"Error Saving ";
+                var msg = $"Error loading ";
                 Log.Error(e, msg);
                 return StatusCode(500, $"{msg} {e.Message}");
             }
         }
-
     }
 }

@@ -32,6 +32,14 @@ namespace Moms.Revenue.Infrastructure
             services
                 .AddScoped<IPaymentTypeRepository, PaymentTypeRepository>();
 
+            services.AddScoped<IBillingDiscountRepository, BillingDiscountRepository>();
+            services.AddScoped<IBillingTypeRepository, BillingTypeRepository>();
+            services.AddScoped<IClientBillingItemRepository, ClientBillingItemRepository>();
+            services.AddScoped<IClientBillRepository, ClientBillingRepository>();
+            services.AddScoped<IClientBilPaymentRepository, ClientBillPaymentRepository>();
+            services.AddScoped<IPriceListRepository, PriceListRepository>();
+
+
             return services;
         }
     }
