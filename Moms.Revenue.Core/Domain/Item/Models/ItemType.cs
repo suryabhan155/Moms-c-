@@ -16,11 +16,6 @@ namespace Moms.Revenue.Core.Domain.Item.Models
        {
 
        }
-       public ItemType(string name)
-       {
-           if(string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(Name));
 
-           Name = name;
-       }
     }
 }
