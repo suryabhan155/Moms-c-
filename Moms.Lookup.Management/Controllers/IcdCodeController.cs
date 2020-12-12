@@ -39,5 +39,23 @@ namespace Moms.Lookup.Management.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Diagnosis()
+        {
+            try
+            {
+                var results = await _IcdCodeService.DiagnosisAll();
+                if (results.IsSuccess)
+                    return Ok(results.icdCodes);
+                return NotFound(results.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
     }
 }

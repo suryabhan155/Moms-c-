@@ -42,7 +42,8 @@ namespace Moms.Revenue.Core.Application.Item.Service
             {
                 var result = await _itemMasterRepository.GetAll(x => !x.Void)
                     .Include(x=>x.ItemConfiguration)
-                    .Include(x=>x.ItemTypes)
+                    .Include(x=>x.ItemType)
+                    .Include(x=>x.ItemTypeSubType)
                     .Include(x=>x.ClientBillPayments)
                     .ToListAsync();
                 if (result.Count > 0)
@@ -62,9 +63,9 @@ namespace Moms.Revenue.Core.Application.Item.Service
             {
                 var result = await _itemMasterRepository.GetAll(x => x.Id==Id)
                     .Include(x => x.ItemConfiguration)
-                    .Include(x => x.ItemTypes)
+                    .Include(x => x.ItemType)
                     .Include(x => x.ClientBillPayments)
-                    .Include(x => x.ItemTypeSubTypes)
+                    .Include(x => x.ItemTypeSubType)
                     .FirstOrDefaultAsync();
                 if (result.Id.IsNullOrEmpty())
                     return (false, new ItemMaster(), "Item Master Not Found");

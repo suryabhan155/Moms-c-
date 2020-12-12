@@ -8,5 +8,6 @@ namespace Moms.Lookup.Core.Domain.ICD.Services
     public interface IIcdCodeService
     {
        public Task<(bool IsSuccess, IEnumerable<IcdCode> icdCode, string ErrorMessage)> SearchDiagnosis(String icdCode);
+       public Task<(bool IsSuccess, IEnumerable<IcdCode> icdCodes, string ErrorMessage)> DiagnosisAll();
     }
 }

@@ -54,9 +54,9 @@ namespace Moms.Revenue.Core.Application.Billing.Services
             try
             {
                 var result = await _priceListRepository.GetAll(x => x.Id == Id)
-                    .Include(x => x.Items)
-                    .Include(x => x.Modules)
-                    .Include(x => x.BillingTypes)
+                    .Include(x => x.ItemMaster)
+                    .Include(x => x.Module)
+                    .Include(x => x.BillingType)
                     .Include(x => x.ClientBillingItems)
                     .FirstOrDefaultAsync();
                 if (result.Id.IsNullOrEmpty())

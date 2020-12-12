@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Moms.SharedKernel.Model;
 
 namespace Moms.Revenue.Core.Domain.Billing.Models
@@ -7,7 +8,8 @@ namespace Moms.Revenue.Core.Domain.Billing.Models
     {
       public string  Name { get; set; }
       public Boolean  Status { get; set; }
-      public PriceList PriceList { get; set; }
+      public ICollection<PriceList> PriceList { get; set; }
+
 
       public BillingType()
       {

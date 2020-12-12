@@ -12,7 +12,7 @@ namespace Moms.Revenue.Core.Domain.Item.Models
         public string Name { get; set; }
         [Required]
         public bool Status { get; set; }
-        public PriceList PriceList { get; set; }
+        public IEnumerable<PriceList>  PriceList { get; set; }
         public IEnumerable<ClientBillPayment> ClientBillPayments  { get; set; }
     }
 }
