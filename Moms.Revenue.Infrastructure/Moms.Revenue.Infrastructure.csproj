@@ -41,6 +41,12 @@
     <ItemGroup>
       <EmbeddedResource Include="Seed\Module.csv" />
       <EmbeddedResource Include="Seed\PaymentType.csv" />
+      <None Remove="Seed\ItemMaster.csv" />
+      <EmbeddedResource Include="Seed\ItemMaster.csv" />
+      <None Remove="Seed\ItemType.csv" />
+      <EmbeddedResource Include="Seed\ItemType.csv" />
+      <None Remove="Seed\ItemTypeSubType.csv" />
+      <EmbeddedResource Include="Seed\ItemTypeSubType.csv" />
     </ItemGroup>
 
 </Project>

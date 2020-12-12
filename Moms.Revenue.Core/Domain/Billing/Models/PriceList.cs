@@ -16,9 +16,9 @@ namespace Moms.Revenue.Core.Domain.Billing.Models
        public Boolean IsDiscounted { get; set; }
        public Boolean Status { get; set; }
 
-       public IEnumerable<ItemMaster> Items = new List<ItemMaster>();
-       public IEnumerable<Module> Modules= new List<Module>();
-       public IEnumerable<BillingType> BillingTypes=new List<BillingType>();
+       public ItemMaster ItemMaster { get; set; }
+       public Module Module { get; set; }
+       public BillingType BillingType { get; set; }
        public ClientBillingItem ClientBillingItems { get; set; }
 
 

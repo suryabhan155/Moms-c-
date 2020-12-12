@@ -15,10 +15,10 @@ namespace Moms.Revenue.Core.Domain.Item.Models
         public string ItemDescription { get; set; }
         public string Abbreviation { get; set; }
         public Guid Type { get; set; }
-        public IEnumerable<ItemTypeSubType> ItemTypeSubTypes { get; set; }
-        public IEnumerable<ItemType> ItemTypes  { get; set; }
+        public ItemTypeSubType ItemTypeSubType { get; set; }
+        public ItemType ItemType  { get; set; }
         public ItemConfiguration ItemConfiguration { get; set; }
         public PriceList PriceList { get; set; }
-        public IEnumerable<ClientBillPayment> ClientBillPayments { get; set; }
+        public ClientBillPayment ClientBillPayments { get; set; }
     }
 }

@@ -33,5 +33,22 @@ namespace Moms.Lookup.Core.Application.ICD.Services
                 return (false, lab, $"{e.Message}");
             }
         }
+
+        public async Task<(bool IsSuccess, IEnumerable<IcdCode> icdCodes, string ErrorMessage)> DiagnosisAll()
+        {
+            IEnumerable<IcdCode> _icdCodes = new List<IcdCode>();
+            try
+            {
+                var icdCodes = await _icdCodeRepository.GetAll().ToListAsync();
+                if (icdCodes == null)
+                    return (false, (List<IcdCode>) null, "No diagnosis found");
+                return (true, icdCodes, "Diagnosis List Found");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return (false, _icdCodes, $"{e.Message}");
+            }
+        }
     }
 }

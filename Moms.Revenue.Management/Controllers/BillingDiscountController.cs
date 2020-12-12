@@ -55,8 +55,41 @@ namespace Moms.Revenue.Management.Controllers
             }
         }
 
-        /*[HttpPost]
-        public async Task<IActionResult>Post([FromBody] BillingDiscount billingDiscount)*/
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] BillingDiscount billingDiscount)
+        {
+            try
+            {
+                var result = await _billingDiscountService.Create(billingDiscount);
+                if (result.IsSuccess)
+                    return Ok(result.ErrorMessage);
+                return BadRequest(result.ErrorMessage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
+
+        [HttpGet("delete/{Id}")]
+        public async Task<IActionResult> Delete(Guid Id)
+        {
+            try
+            {
+                var result = await _billingDiscountService.Delete(Id);
+                if (result.IsSuccess)
+                    return Ok(result.ErrorMEssage);
+                return BadRequest(result.ErrorMEssage);
+            }
+            catch (Exception e)
+            {
+                var msg = $"Error loading ";
+                Log.Error(e, msg);
+                return StatusCode(500, $"{msg} {e.Message}");
+            }
+        }
 
     }
 }
