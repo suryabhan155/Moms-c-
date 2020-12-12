@@ -10,7 +10,7 @@ namespace Moms.RegistrationManagement.Core.Domain.Patient.Models
        public Guid ReasonDeceased { get; set; }
        public Guid ICD10 { get; set; }
        public Guid PatientId { get; set; }
-       [JsonIgnore]
-       public Patient Patient { get; set; }
+       //[JsonIgnore]
+       //public Patient Patient { get; set; }
     }
 }

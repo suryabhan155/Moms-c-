@@ -1,10 +1,13 @@
 using System;
 using System.Threading.Tasks;
+using MassTransit;
+using MassTransit.NewIdProviders;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moms.RegistrationManagement.Core.Domain.Patient;
 using Moms.RegistrationManagement.Core.Domain.Patient.Models;
 using Moms.RegistrationManagement.Core.Domain.Patient.Service;
+using Moms.SharedKernel.Model;
 using Serilog;
 
 namespace Moms.RegistrationManagement.Controllers
@@ -16,12 +19,14 @@ namespace Moms.RegistrationManagement.Controllers
         private readonly IMediator _mediator;
         private readonly IPatientService _patientService;
         private readonly IPatientGridRepository _patientGridRepository;
+        private readonly IBus _bus;
 
-        public PatientController(IMediator  mediator, IPatientService patientService, IPatientGridRepository patientGridRepository)
+        public PatientController(IMediator  mediator, IPatientService patientService, IPatientGridRepository patientGridRepository, IBus bus)
         {
             _mediator = mediator;
             _patientService = patientService;
             _patientGridRepository = patientGridRepository;
+            _bus = bus;
         }
 
         [HttpPost]
@@ -151,6 +156,23 @@ namespace Moms.RegistrationManagement.Controllers
                 Log.Error(e, msg);
                 return StatusCode(500, $"{msg} {e.Message}");
             }
+        }
+
+        [HttpGet("testRabbitMQ")]
+        public async void testRabbitMQ()
+        {
+            string id = "13e267d2-8915-4ae7-88a6-f0c2146bee84";
+            string id2 = "13e267d2-8915-4ae7-88a6-f0c2146bee85";
+            Uri uri = new Uri("rabbitmq://localhost/patientqueue");
+            var endPoint = await _bus.GetSendEndpoint(uri);
+            var bill = new BillDto()
+            {
+                BillDate = DateTime.Now,
+                ItemId = new Guid(id),
+                PatientId = new Guid(id2),
+                Qty = 10
+            };
+            await endPoint.Send(bill);
         }
     }
 }

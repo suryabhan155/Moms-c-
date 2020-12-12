@@ -1,4 +1,6 @@
 using System;
+using GreenPipes;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Moms.Revenue.Core;
+using Moms.Revenue.Core.Application.Billing.Events;
 using Moms.Revenue.Infrastructure;
 using Moms.Revenue.Infrastructure.Persistence;
 using Moms.SharedKernel.Infrastructure.Persistence;
@@ -34,6 +37,27 @@ namespace Moms.Revenue.Management
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<BillConsumer>();
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+                {
+                    cfg.UseHealthCheck(provider);
+                    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ReceiveEndpoint("patientqueue", ep =>
+                    {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<BillConsumer>(provider);
+                    });
+                }));
+            });
+            services.AddMassTransitHostedService();
+
             services.AddControllers();
             services.AddInfrastructure(Configuration);
             services.AddApplication();

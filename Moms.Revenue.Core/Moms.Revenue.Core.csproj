@@ -9,6 +9,7 @@
         <PackageReference Include="AutoMapper" Version="10.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
         <PackageReference Include="CSharpFunctionalExtensions" Version="2.11.5" />
+        <PackageReference Include="MassTransit" Version="7.0.4" />
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.6" />
@@ -24,7 +25,6 @@
 
     <ItemGroup>
       <Folder Include="Application\Billing\Commands" />
-      <Folder Include="Application\Billing\Events" />
       <Folder Include="Application\Billing\Queries" />
       <Folder Include="Application\Item\Commands" />
       <Folder Include="Application\Item\Events" />
