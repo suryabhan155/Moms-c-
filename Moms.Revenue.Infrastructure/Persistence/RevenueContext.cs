@@ -62,11 +62,11 @@ namespace Moms.Revenue.Infrastructure.Persistence
                 AddRange(data);
             }
 
-          /*  if (!ItemMasters.Any())
+            if (!ItemMasters.Any())
             {
                 var data = SeedDataReader.ReadCsv<ItemMaster>(typeof(RevenueContext).Assembly);
                 AddRange(data);
-            }*/
+            }
 
             SaveChanges();
         }
