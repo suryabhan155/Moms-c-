@@ -97,10 +97,10 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
         {
             try
             {
-                var consultation = _VitalsRepository.GetById(id);
-                if (consultation == null)
+                var vitals = _VitalsRepository.GetById(id);
+                if (vitals == null)
                     return (false, null, "Vitals not found.");
-                return (true, consultation, "Vitals loaded successfully");
+                return (true, vitals, "Vitals loaded successfully");
             }
             catch (Exception e)
             {
