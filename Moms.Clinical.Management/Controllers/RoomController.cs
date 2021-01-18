@@ -9,6 +9,8 @@ using Serilog;
 
 namespace Moms.Clinical.Management.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _RoomService;
@@ -55,7 +57,7 @@ namespace Moms.Clinical.Management.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> AddQueue([FromBody] Room room)
+        public async Task<IActionResult> AddRoom([FromBody] Room room)
         {
             try
             {

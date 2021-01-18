@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Moms.Clinical.Core.Domain.Consultation;
+using Moms.Clinical.Core.Domain.Queue;
 using Moms.Clinical.Infrastructure.Persistence;
+using Moms.Clinical.Infrastructure.Persistence.Queue;
 
 namespace Moms.Clinical.Infrastructure
 {
@@ -24,6 +26,9 @@ namespace Moms.Clinical.Infrastructure
             services.AddScoped<IConsultationTreatmentRepository, ConsultationTreatmentRepository>();
             services.AddScoped<IVitalsRepository, VitalsRepository>();
             services.AddScoped<IConsultationServiceRepository, ConsultationServiceRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IQueueRepository, QueueRepository>();
+
             return services;
         }
     }
