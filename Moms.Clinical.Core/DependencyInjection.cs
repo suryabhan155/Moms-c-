@@ -5,7 +5,9 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Moms.Clinical.Core.Application.Consultation.Commands;
 using Moms.Clinical.Core.Application.Consultation.Services;
+using Moms.Clinical.Core.Application.Consultation.Services.Queue;
 using Moms.Clinical.Core.Domain.Consultation.Services;
+using Moms.Clinical.Core.Domain.Queue.Services;
 
 namespace Moms.Clinical.Core
 {
@@ -21,6 +23,9 @@ namespace Moms.Clinical.Core
             services.AddScoped<IConsultationServiceService, ConsultationServiceService>();
             services.AddScoped<IConsultationTreatmentService, ConsultationTreatmentService>();
             services.AddScoped<IVitalsService, VitalsService>();
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IQueueService, QueueService>();
+
 
             if (null != others)
             {
