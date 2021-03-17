@@ -34,6 +34,9 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                     b.Property<DateTime>("ReceivedDateTime")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<Guid>("SupplierId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
@@ -44,8 +47,6 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PurchaseOrderId");
 
                     b.ToTable("GoodReceivedNotes");
                 });
@@ -71,9 +72,6 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("ReceiveDateTime")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<decimal>("ReceivedQuantity")
                         .HasColumnType("numeric");
 
@@ -90,8 +88,6 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GoodReceivedNoteId");
 
                     b.ToTable("GoodReceivedNoteItems");
                 });
@@ -130,10 +126,6 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StoreId");
-
-                    b.HasIndex("SupplierId");
 
                     b.ToTable("PurchaseOrders");
                 });
@@ -182,20 +174,8 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                     b.Property<DateTime>("AdjustmentDateTime")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("AdjustmentReasonId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("BatchNumber")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("numeric");
 
                     b.Property<Guid>("StoreId")
                         .HasColumnType("uuid");
@@ -211,9 +191,45 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StoreId");
-
                     b.ToTable("StockAdjustments");
+                });
+
+            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockAdjustmentItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AdjustmentReasonId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("BatchNumber")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid>("StoreAdjustmentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StockAdjustmentItems");
                 });
 
             modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockVoucher", b =>
@@ -245,12 +261,10 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StoreId");
-
                     b.ToTable("StockVouchers");
                 });
 
-            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockVoucherItem", b =>
+            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockVoucherIssue", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -259,17 +273,14 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid?>("GoodReceivedNoteItemId")
+                    b.Property<Guid>("GoodReceivedNoteItemId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("IssueDate")
+                    b.Property<DateTime>("IssueDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<decimal?>("IssuedQuantity")
+                    b.Property<decimal>("IssuedQuantity")
                         .HasColumnType("numeric");
-
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("uuid");
 
                     b.Property<Guid>("StockVoucherId")
                         .HasColumnType("uuid");
@@ -283,14 +294,39 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                     b.Property<DateTime?>("VoidDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<decimal>("VoucherQuantity")
-                        .HasColumnType("numeric");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("GoodReceivedNoteItemId");
+                    b.ToTable("StockVoucherIssues");
+                });
 
-                    b.HasIndex("StockVoucherId");
+            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockVoucherItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid>("StockVoucherId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
 
                     b.ToTable("StockVoucherItems");
                 });
@@ -354,70 +390,6 @@ namespace Moms.SupplyChain.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
-                });
-
-            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.GoodReceivedNote", b =>
-                {
-                    b.HasOne("Moms.SupplyChain.Core.Domain.SupplyChain.Models.PurchaseOrder", "PurchaseOrder")
-                        .WithMany()
-                        .HasForeignKey("PurchaseOrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.GoodReceivedNoteItem", b =>
-                {
-                    b.HasOne("Moms.SupplyChain.Core.Domain.SupplyChain.Models.GoodReceivedNote", "GoodReceivedNote")
-                        .WithMany()
-                        .HasForeignKey("GoodReceivedNoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.PurchaseOrder", b =>
-                {
-                    b.HasOne("Moms.SupplyChain.Core.Domain.SupplyChain.Models.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Moms.SupplyChain.Core.Domain.SupplyChain.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockAdjustment", b =>
-                {
-                    b.HasOne("Moms.SupplyChain.Core.Domain.SupplyChain.Models.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockVoucher", b =>
-                {
-                    b.HasOne("Moms.SupplyChain.Core.Domain.SupplyChain.Models.Store", "Store")
-                        .WithMany()
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockVoucherItem", b =>
-                {
-                    b.HasOne("Moms.SupplyChain.Core.Domain.SupplyChain.Models.GoodReceivedNoteItem", "GoodReceivedNoteItem")
-                        .WithMany()
-                        .HasForeignKey("GoodReceivedNoteItemId");
-
-                    b.HasOne("Moms.SupplyChain.Core.Domain.SupplyChain.Models.StockVoucher", "StockVoucher")
-                        .WithMany()
-                        .HasForeignKey("StockVoucherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

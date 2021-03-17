@@ -8,6 +8,8 @@ using Moms.Clinical.Core.Domain.Consultation.Services;
 using Moms.Clinical.Core.Domain.Consultation.Models;
 using Moms.Clinical.Core.Domain.Consultation;
 using Moms.SharedKernel.Custom;
+using Moms.Clinical.Core.Application.Consultation.Response;
+using System.Net;
 
 namespace Moms.Clinical.Core.Application.Consultation.Services
 {
@@ -21,15 +23,15 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
         }
 
 
-        public async Task<(bool IsSuccess, IEnumerable<Domain.Consultation.Models.Consultation>, string ErrorMessage)> LoadConsultations()
+        public async Task<(bool IsSuccess, IEnumerable<Domain.Consultation.Models.Consultation>, ResponseModel model)> LoadConsultations()
         {
             IEnumerable<Domain.Consultation.Models.Consultation> c = new List<Domain.Consultation.Models.Consultation>();
             try
             {
-                var consultations = await _ConsultationRepository.GetAll().ToListAsync();
+                var consultations = await _ConsultationRepository.GetAll(x => !x.Void).ToListAsync();
                 if (consultations == null)
-                    return (false, c, "No record found.");
-                return (true, consultations, "Consultations loaded successfully.");
+                    return (false, c, new ResponseModel { message = "No record found.", data = c, code = HttpStatusCode.NotFound });
+                return (true, consultations, new ResponseModel { message = "Consultations loaded successfully.", data = consultations, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
@@ -38,12 +40,12 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
-        public async Task<(bool IsSuccess, Domain.Consultation.Models.Consultation consultation, string ErrorMEssage)> AddConsultation(Domain.Consultation.Models.Consultation consultation)
+        public async Task<(bool IsSuccess, Domain.Consultation.Models.Consultation consultation, ResponseModel model)> AddConsultation(Domain.Consultation.Models.Consultation consultation)
         {
             try
             {
                 if (consultation == null)
-                    return (false, consultation, "No consultation found");
+                    return (false, consultation, new ResponseModel { message = "No consultation found", data = consultation, code = HttpStatusCode.NotFound });
                 if (consultation.Id.IsNullOrEmpty())
                 {
                     _ConsultationRepository.Create(consultation);
@@ -54,7 +56,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 }
                 await _ConsultationRepository.Save();
 
-                return (true, consultation, "Consultation created successfully");
+                return (true, consultation, new ResponseModel { message = "Consultation created successfully", data = consultation, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
@@ -63,39 +65,39 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
-        public async Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteConsultation(Guid id)
+        public async Task<(bool IsSuccess, Guid id, ResponseModel model)> DeleteConsultation(Guid id)
         {
             try
             {
 
-                var consultation = await _ConsultationRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
+                var consultation = await _ConsultationRepository.GetAll(x => x.Id == id && !x.Void).FirstOrDefaultAsync();
                 if (consultation == null)
-                    return (false, id, "No record found.");
+                    return (false, id, new ResponseModel { message = "No record found.", data = id, code = HttpStatusCode.NotFound });
                 _ConsultationRepository.Delete(consultation);
 
-                return (false, id, "Record deleted successfully.");
+                return (false, id, new ResponseModel { message = "Record deleted successfully.", data = id, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
-                return (false, id, $"{e.Message}");
+                return (false, id, new ResponseModel { message = e.Message, data = id, code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<Domain.Consultation.Models.Consultation> consultations, string ErrorMessage)> GetConsultation(Guid id)
+        public async Task<(bool IsSuccess, IEnumerable<Domain.Consultation.Models.Consultation> consultations, ResponseModel model)> GetConsultation(Guid id)
         {
             IEnumerable<Domain.Consultation.Models.Consultation> lab = new List<Domain.Consultation.Models.Consultation>();
             try
             {
                 var consultation = await _ConsultationRepository.GetAll(x => x.Id == id).ToListAsync();
                 if (consultation == null)
-                    return (false, lab, "Consultation not found.");
-                return (true, consultation, "Consultation loaded successfully");
+                    return (false, lab, new ResponseModel { message = "Consultation not found.", data = lab, code = HttpStatusCode.NotFound });
+                return (true, consultation, new ResponseModel { message = "Consultation loaded successfully", data = consultation, code = HttpStatusCode.OK });
 
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, lab, $"{e.Message}");
+                return (false, lab, new ResponseModel { message = e.Message, data = lab, code = HttpStatusCode.InternalServerError });
             }
         }
 

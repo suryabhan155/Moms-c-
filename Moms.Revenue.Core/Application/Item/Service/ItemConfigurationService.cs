@@ -7,6 +7,8 @@ using Moms.Revenue.Core.Domain.Item.Models;
 using Moms.Revenue.Core.Domain.Item.Services;
 using Moms.SharedKernel.Custom;
 using Serilog;
+using Moms.SharedKernel.Response;
+using System.Net;
 
 namespace Moms.Revenue.Core.Application.Item.Service
 {
@@ -19,7 +21,7 @@ namespace Moms.Revenue.Core.Application.Item.Service
             _iTemConfigurationRepository = iTemConfigurationRepository;
         }
 
-        public async Task<(bool IsSuccess, ItemConfiguration itemConfiguration, string ErrorMessage)> Create(ItemConfiguration itemConfiguration)
+        public async Task<(bool IsSuccess, ItemConfiguration itemConfiguration, ResponseModel model)> Create(ItemConfiguration itemConfiguration)
         {
             try
             {
@@ -27,17 +29,17 @@ namespace Moms.Revenue.Core.Application.Item.Service
                     _iTemConfigurationRepository.Create(itemConfiguration);
                 _iTemConfigurationRepository.Update(itemConfiguration);
                 await _iTemConfigurationRepository.Save();
-                return (true, itemConfiguration, "Item Configuration Saved");
+                return (true, itemConfiguration, new ResponseModel { message = "Item Configuration Saved", data = itemConfiguration , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Error Saving Configuration ",e.Message);
-                return (false, itemConfiguration, e.Message);
+                return (false, itemConfiguration, new ResponseModel { message = e.Message, data = itemConfiguration , code = HttpStatusCode.InternalServerError } );
 
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<ItemConfiguration> itemConfiguration, string ErrorMessage)> GetAllConfiguration()
+        public async Task<(bool IsSuccess, IEnumerable<ItemConfiguration> itemConfiguration, ResponseModel model)> GetAllConfiguration()
         {
             try
             {
@@ -45,17 +47,17 @@ namespace Moms.Revenue.Core.Application.Item.Service
                     .Include(x => x.ItemMasters)
                     .ToListAsync();
                 if (result.Count > 0)
-                    return (true, result, "Item Configuration Loaded");
-                return (false, new List<ItemConfiguration>(), "Not Found");
+                    return (true, result, new ResponseModel { message = "Item Configuration Loaded", data = result , code = HttpStatusCode.OK });
+                return (false, new List<ItemConfiguration>(), new ResponseModel { message = "Not Found", data = new List<ItemConfiguration>(), code = HttpStatusCode.NotFound });
             }
             catch (Exception e)
             {
                 Log.Error("Error Loading Configuration ",e.Message);
-                return (false, new List<ItemConfiguration>(), e.Message);
+                return (false, new List<ItemConfiguration>(), new ResponseModel { message = e.Message, data = new List<ItemConfiguration>(), code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, ItemConfiguration itemConfiguration, string ErrorMessage)> GetConfiguration(Guid Id)
+        public async Task<(bool IsSuccess, ItemConfiguration itemConfiguration, ResponseModel model)> GetConfiguration(Guid Id)
         {
             try
             {
@@ -63,32 +65,32 @@ namespace Moms.Revenue.Core.Application.Item.Service
                     .Include(x => x.ItemMasters)
                     .FirstOrDefaultAsync();
                 if (result.Id.IsNullOrEmpty())
-                    return (false, result, "Item Not Found");
-                return (true, result, "Item Configuration Loade");
+                    return (false, result, new ResponseModel { message = "Item Not Found", data = result , code = HttpStatusCode.NotFound } );
+                return (true, result, new ResponseModel { message = "Item Configuration Loaded", data = result , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Error Saving Configuration ",e.Message);
-                return (false, new ItemConfiguration(), e.Message);
+                return (false, new ItemConfiguration(), new ResponseModel { message = e.Message, data = new ItemConfiguration(), code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, Guid Id, string ErrorMEssage)> Delete(Guid Id)
+        public async Task<(bool IsSuccess, Guid Id, ResponseModel model)> Delete(Guid Id)
         {
             try
             {
                 var result = await _iTemConfigurationRepository.GetAll(x => x.Id == Id).FirstOrDefaultAsync();
                 if (result.Id.IsNullOrEmpty())
-                    return (false, Id, "Item Configuration Not Found");
+                    return (false, Id, new ResponseModel { message = "Item Configuration Not Found", data = Id , code = HttpStatusCode.NotFound });
                 result.Void = true;
                 result.VoidDate=DateTime.Today;
                 await _iTemConfigurationRepository.Save();
-                return (true, Id, "Configuration Deleted");
+                return (true, Id, new ResponseModel { message = "Configuration Deleted", data = Id , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Error Saving Configuration ",e.Message);
-                return (false, Id, e.Message);
+                return (false, Id, new ResponseModel { message = e.Message, data = Id , code = HttpStatusCode.InternalServerError });
             }
         }
     }

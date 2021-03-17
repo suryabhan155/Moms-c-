@@ -62,8 +62,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupOptionsService.LoadAll();
                 if (result.IsSuccess)
-                    return Ok(result.lookupMasterItems);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -80,8 +80,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                var result= await _lookupOptionsService.DeleteLookupOption(id);
                if(result.IsSuccess)
-                return Ok("LookupOption deleted successfully");
-               return BadRequest(result.ErrorMessage);
+                return Ok(result.model);
+               return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -98,8 +98,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                var result= await _lookupOptionsService.AddLookupMasterItem(lookupOption);
                 if(result.IsSuccess)
-                    return Ok("Lookup Option added successuly");
-                return BadRequest(result.ErrorMEssage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -116,8 +116,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupOptionsService.GetAllCounty();
                 if (result.IsSuccess)
-                    return Ok(result.CountyLookup);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -134,8 +134,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupOptionsService.GetCounty(name);
                 if (result.IsSuccess)
-                    return Ok(result.CountyLookup);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -152,8 +152,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupOptionsService.GetSubCounty(name);
                 if (result.IsSuccess)
-                    return Ok(result.CountyLookup);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -170,8 +170,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupOptionsService.GetWards(name);
                 if (result.IsSuccess)
-                    return Ok(result.CountyLookup);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {

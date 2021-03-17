@@ -31,8 +31,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _vitalsService.LoadVitals();
                 if (results.IsSuccess)
-                    return Ok(results.vitals);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -50,8 +50,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = _vitalsService.GetVitals(id);
                 if (results.IsSuccess)
-                    return Ok(results.vital);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -68,8 +68,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _vitalsService.GetPatientVitals(patientId);
                 if (results.IsSuccess)
-                    return Ok(results.vitals);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -87,8 +87,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _vitalsService.AddVitals(vitals);
                 if (results.IsSuccess)
-                    return Ok(results.vitals);
-                return NotFound(results.ErrorMEssage);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -106,8 +106,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _vitalsService.DeleteVitals(id);
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {

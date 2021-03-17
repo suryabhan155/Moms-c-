@@ -7,6 +7,10 @@ using Moms.Revenue.Core.Domain.Billing.Models;
 using Moms.Revenue.Core.Domain.Billing.Services;
 using Moms.SharedKernel.Custom;
 using Serilog;
+using Moms.SharedKernel.Response;
+using System.Net;
+using Moms.SharedKernel.Interfaces.Persistence;
+using System.Linq;
 
 namespace Moms.Revenue.Core.Application.Billing.Services
 {
@@ -18,7 +22,7 @@ namespace Moms.Revenue.Core.Application.Billing.Services
         {
             _clientBilPaymentRepository = clientBilPaymentRepository;
         }
-        public async Task<(bool IsSuccess, ClientBillPayment clientBillPayment, string ErrorMessage)> Create(ClientBillPayment clientBillPayment)
+        public async Task<(bool IsSuccess, ClientBillPayment clientBillPayment, ResponseModel model)> Create(ClientBillPayment clientBillPayment)
         {
             try
             {
@@ -26,62 +30,67 @@ namespace Moms.Revenue.Core.Application.Billing.Services
                     _clientBilPaymentRepository.Create(clientBillPayment);
                 _clientBilPaymentRepository.Update(clientBillPayment);
                await  _clientBilPaymentRepository.Save();
-                return (true, clientBillPayment, "Client bill payment Saved");
+                return (true, clientBillPayment, new ResponseModel { message = "Client bill payment Saved", data = clientBillPayment , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Error Saving Bill Payment", e.Message);
-                return(false, clientBillPayment, e.Message);
+                return(false, clientBillPayment, new ResponseModel { message = e.Message, data = clientBillPayment , code = HttpStatusCode.NotFound });
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<ClientBillPayment> clientBillPayment, string ErrorMessage)> GetAllClientBillPayment()
+        public async Task<(bool IsSuccess, IEnumerable<ClientBillPayment> clientBillPayment, ResponseModel model)> GetAllClientBillPayment()
         {
             try
             {
-                var result = await _clientBilPaymentRepository.GetAll().ToListAsync();
-                return result.Count > 0 ? (true, result, "Payments Bill Loaded") : (false, new List<ClientBillPayment>(), "No Client Payment Found");
+                var result = _clientBilPaymentRepository.GetAllOrder(x => x.Void == false, x => x.CreateDate, Sorted.DESC).ToList();
+                return result.Count > 0 ? (true, result, new ResponseModel { message = "Payments Bill Loaded", data = result , code = HttpStatusCode.OK }) : (false, new List<ClientBillPayment>(), new ResponseModel { message = "No Client Payment Found", data = new List<ClientBillPayment>(), code = HttpStatusCode.NotFound });
             }
             catch (Exception e)
             {
                 Log.Error("Error Loading Client Bill Payment",e.Message);
-                return(false,new List<ClientBillPayment>(), e.Message);
+                return(false,new List<ClientBillPayment>(), new ResponseModel { message = e.Message, data = new List<ClientBillPayment>(), code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<ClientBillPayment>  clientBillPayment, string ErrorMessage)> GetClientBillPayment(Guid ClientBillingId)
+        public async Task<(bool IsSuccess, IEnumerable<ClientBillPayment>  clientBillPayment, ResponseModel model)> GetClientBillPayment(Guid ClientBillingId)
         {
             try
             {
                 var result = await _clientBilPaymentRepository.GetAll(x => x.ClientBillingId == ClientBillingId)
                     .Include(x => x.PaymentTypes)
-                    .Include(x=>x.Modules)
+                    .Include(p =>p.Modules)
                     .ToListAsync();
-                return result.Count > 0 ? (true, result, "Patient Bill Payment Loaded") : (false, new List<ClientBillPayment>(), "Client Bill  Payment Not Found");
+                if (result == null)
+                    return (false, new List<ClientBillPayment>(), new ResponseModel { message = "Client Bill  Payment Not Found", data = result, code = HttpStatusCode.NotFound } );
+                return result.Count > 0 ? (true, result, new ResponseModel { message = "Patient Bill Payment Loaded", data = result , code = HttpStatusCode.OK }) : (false, new List<ClientBillPayment>(), new ResponseModel { message = "Client Bill  Payment Not Found", data = result, code = HttpStatusCode.NotFound });
             }
             catch (Exception e)
             {
                 Log.Error("Error Loading Client Bill Payment(s)",e.Message);
-                return(false,new List<ClientBillPayment>(), e.Message);
+                return(false,new List<ClientBillPayment>(), new ResponseModel { message = e.Message, data = new List<ClientBillPayment>(), code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, Guid Id, string ErrorMEssage)> Delete(Guid Id)
+        public async Task<(bool IsSuccess, Guid Id, ResponseModel model)> Delete(Guid Id)
         {
             try
             {
-                var result = await _clientBilPaymentRepository.GetAll(x => x.Id == Id).FirstOrDefaultAsync();
+                var result = await _clientBilPaymentRepository.GetAll(x => x.Id == Id && !x.Void).FirstOrDefaultAsync();
+                if (result == null)
+                    return (false, Id, new ResponseModel { message = "Client Bill Payment not Found", data = Id , code = HttpStatusCode.NotFound });
                 if (result.Id.IsNullOrEmpty())
-                    return (false, Id, "Client Bill Payment not Found");
+                    return (false, Id, new ResponseModel { message = "Client Bill Payment not Found", data = Id , code = HttpStatusCode.NotFound });
                 result.VoidDate=DateTime.Today;
                 result.Void = true;
+                _clientBilPaymentRepository.Update(result);
                 await _clientBilPaymentRepository.Save();
-                return (true, Id, "Client Bill Payment Deleted");
+                return (true, Id, new ResponseModel { message = "Client Bill Payment Deleted", data = Id , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Error Deleting Client Bill Payment(s)",e.Message);
-                return(false,Id, e.Message);
+                return(false,Id, new ResponseModel { message = e.Message, data = Id , code = HttpStatusCode.InternalServerError });
             }
         }
     }

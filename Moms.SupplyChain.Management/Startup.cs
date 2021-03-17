@@ -1,5 +1,4 @@
 
-
 using System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +13,8 @@ using Moms.SupplyChain.Core;
 using Moms.SupplyChain.Infrastructure;
 using Moms.SupplyChain.Infrastructure.Persistence;
 using Serilog;
+using MediatR;
+using System.Reflection;
 
 namespace Moms.SupplyChain.Management
 {
@@ -39,6 +40,7 @@ namespace Moms.SupplyChain.Management
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
             services.AddControllers();
             services.AddInfrastructure(Configuration);
             services.AddApplication();
@@ -48,18 +50,20 @@ namespace Moms.SupplyChain.Management
 
             services.AddCors(options =>
             {
-                options.AddPolicy(MyAllowSpecificOrigins,
+                options.AddPolicy(name: MyAllowSpecificOrigins,
                     builder =>
                     {
                         builder.SetIsOriginAllowed(isOriginAllowed: _ => true).AllowAnyHeader().AllowAnyMethod()
                             .AllowCredentials();
                     });
             });
+
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,7 +85,7 @@ namespace Moms.SupplyChain.Management
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Moms.Registration V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Moms.SupplyChain V1");
             });
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -92,7 +96,7 @@ namespace Moms.SupplyChain.Management
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             EnsureMigrationOfContext<SupplyChainContext>(app);
-            Log.Information($"Moms.Registration [Version {GetType().Assembly.GetName().Version}] started successfully");
+            Log.Information($"Moms.SupplyChain [Version {GetType().Assembly.GetName().Version}] started successfully");
         }
 
         private static void EnsureMigrationOfContext<T>(IApplicationBuilder app) where T : BaseContext

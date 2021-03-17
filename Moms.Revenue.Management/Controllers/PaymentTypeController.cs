@@ -27,8 +27,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _paymentTypeService.GetAllPaymentType();
                 if (result.IsSuccess)
-                    return Ok(result.paymentType);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -45,8 +45,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _paymentTypeService.GetPaymentType(Id);
                 if (result.IsSuccess)
-                    return Ok(result.itemConfiguration);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -63,8 +63,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _paymentTypeService.Create(paymentType);
                 if (result.IsSuccess)
-                    return Ok(result.itemConfiguration);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -81,8 +81,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _paymentTypeService.Delete(Id);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMEssage);
-                return BadRequest(result.ErrorMEssage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {

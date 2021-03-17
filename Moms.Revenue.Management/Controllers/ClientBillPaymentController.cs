@@ -25,8 +25,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _clientBillPaymentService.GetAllClientBillPayment();
                 if (result.IsSuccess)
-                    return Ok(result.clientBillPayment);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -43,8 +43,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _clientBillPaymentService.GetClientBillPayment(Id);
                 if (result.IsSuccess)
-                    return Ok(result.clientBillPayment);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -61,8 +61,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result =await _clientBillPaymentService.Create(clientBillPayment);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMessage);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -79,8 +79,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _clientBillPaymentService.Delete(Id);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMEssage);
-                return BadRequest(result.ErrorMEssage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
 
             }
             catch (Exception e)

@@ -10,13 +10,13 @@ namespace Moms.Revenue.Core.Domain.Billing.Models
     {
         public Guid BillId { get; set; }
         public Guid ItemMasterId { get; set; }
-        public Guid PriceListId { get; set; }
+        //public Guid PriceListId { get; set; }
         public Decimal Quantity { get; set; }
         public Decimal  Price { get; set; }
         public Boolean Status { get; set; }
 
-        public IEnumerable<ItemMaster> ItemMasters { get; set; }
-        public IEnumerable<PriceList> PriceLists { get; set; }
+        //public IEnumerable<ItemMaster> ItemMasters { get; set; }
+        //public IEnumerable<PriceList> PriceLists { get; set; }
 
         public ClientBillingItem()
         {
@@ -32,7 +32,7 @@ namespace Moms.Revenue.Core.Domain.Billing.Models
 
             BillId = billId;
             ItemMasterId = itemMasterId;
-            PriceListId = priceListId;
+            //PriceListId = priceListId;
             Quantity = quantity;
             Price = price;
 

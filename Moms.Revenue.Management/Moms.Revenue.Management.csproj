@@ -6,6 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Controllers\PaymentTypeController.cs" />
+      <Compile Remove="Controllers\PriceListController.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AutoMapper" Version="10.0.0" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
         <PackageReference Include="CSharpFunctionalExtensions" Version="2.11.5" />

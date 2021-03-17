@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moms.SharedKernel.Custom;
+using Moms.SharedKernel.Interfaces.Persistence;
+using Moms.SharedKernel.Response;
 using Moms.SupplyChain.Core.Domain.SupplyChain;
 using Moms.SupplyChain.Core.Domain.SupplyChain.Models;
 using Moms.SupplyChain.Core.Domain.SupplyChain.Services;
@@ -20,12 +24,12 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             _goodReceivedNoteRepository = iGoodReceivedNoteRepository;
         }
-        public async Task<(bool IsSuccess, GoodReceivedNote goodReceivedNote, string ErrorMessage)> AddGoodReceivedNote(GoodReceivedNote goodReceivedNote)
+        public async Task<(bool IsSuccess, GoodReceivedNote goodReceivedNote, ResponseModel response)> AddGoodReceivedNote(GoodReceivedNote goodReceivedNote)
         {
             try
             {
                 if (goodReceivedNote == null)
-                    return (false, goodReceivedNote, "No good received note found");
+                    return (false, goodReceivedNote, new ResponseModel { message = "No good received note found", data =goodReceivedNote , code = HttpStatusCode.NotFound });
 
                 if (goodReceivedNote.Id.IsNullOrEmpty())
                 {
@@ -37,7 +41,7 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
                 }
                 await _goodReceivedNoteRepository.Save();
 
-                return (true, goodReceivedNote, "Good Received Note created successfully");
+                return (true, goodReceivedNote, new ResponseModel { message = "Good Received Note created successfully", data = goodReceivedNote, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
@@ -46,49 +50,53 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
             }
         }
 
-        public async Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteGoodReceivedNote(Guid id)
+        public async Task<(bool IsSuccess, Guid id, ResponseModel response)> DeleteGoodReceivedNote(Guid id)
         {
             try
             {
 
                 var grn = await _goodReceivedNoteRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
                 if (grn == null)
-                    return (false, id, "No record found.");
-                _goodReceivedNoteRepository.Delete(grn);
+                    return (false, id, new ResponseModel { message = "No record found.", data = grn, code = HttpStatusCode.NotFound });
+                grn.VoidDate = DateTime.Now;
+                grn.Void = true;
+                _goodReceivedNoteRepository.Update(grn);
+                await _goodReceivedNoteRepository.Save();
 
-                return (false, id, "Record deleted successfully.");
+                return (true, id, new ResponseModel { message = "Record deleted successfully.", data = grn, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
-                return (false, id, $"{e.Message}");
+                return (false, id, new ResponseModel { message = e.Message, data = id, code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public (bool IsSuccess, GoodReceivedNote goodReceivedNotes, string ErrorMessage) GetGoodReceivedNote(Guid id)
+        public (bool IsSuccess, GoodReceivedNote goodReceivedNotes, ResponseModel response) GetGoodReceivedNote(Guid id)
         {
             try
             {
                 var result = _goodReceivedNoteRepository.GetById(id);
-                return result == null ? (false, new GoodReceivedNote(), "GRN Not found") : (true, result, "GRN Found");
+                return result == null ? (false, new GoodReceivedNote(), new ResponseModel { message ="GRN Not found" , data = result, code = HttpStatusCode.NotFound }) : (true, result, new ResponseModel { message ="GRN Found" , data = result, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Stores Load: Error occurred", e);
-                return (false, new GoodReceivedNote(), e.Message);
+                return (false, new GoodReceivedNote(), new ResponseModel { message =e.Message , data = new GoodReceivedNote(), code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<GoodReceivedNote>, string ErrorMessage)> LoadGoodReceivedNotes()
+        public async Task<(bool IsSuccess, IEnumerable<GoodReceivedNote>, ResponseModel response)> LoadGoodReceivedNotes()
         {
             try
             {
-                var result = await _goodReceivedNoteRepository.GetAll().ToListAsync();
-                return result == null ? (false, new List<GoodReceivedNote>(), "No GRN Found") : (true, result, "GRN  Found");
+                var result =await _goodReceivedNoteRepository.GetAll(x => x.Void == false).OrderByDescending(x=>x.CreateDate).ToListAsync();
+
+                return result.Count == 0 ? (false, new List<GoodReceivedNote>(), new ResponseModel { message = "No GRN Found", data = result, code = HttpStatusCode.NotFound }) : (true, result, new ResponseModel { message = "GRN  Found", data = result, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Stores Load: Error occurred", e);
-                return (false, new List<GoodReceivedNote>(), e.Message);
+                return (false, new List<GoodReceivedNote>(), new ResponseModel { message = e.Message, data = new List<GoodReceivedNote>(), code = HttpStatusCode.InternalServerError });
             }
         }
     }

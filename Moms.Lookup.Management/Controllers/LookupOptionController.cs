@@ -24,8 +24,8 @@ namespace Moms.Lookup.Management.Controllers
              {
                  var result = await _optionRepository.GetLookupOptionsById(id);
                  if (result.IsSuccess)
-                     return Ok(result.lookupOptions);
-                 return BadRequest(result.ErrorMessage);
+                     return Ok(result.model);
+                 return BadRequest(result.model);
              }
              catch (Exception e)
              {
@@ -42,8 +42,8 @@ namespace Moms.Lookup.Management.Controllers
              {
                  var results = await _optionRepository.GetLookupOptionsByName(name);
                  if (results.IsSuccess)
-                     return Ok(results.lookupOptions);
-                 return BadRequest($"{results.ErrorMessage}");
+                     return Ok(results.model);
+                 return BadRequest($"{results.model}");
              }
              catch (Exception e)
              {

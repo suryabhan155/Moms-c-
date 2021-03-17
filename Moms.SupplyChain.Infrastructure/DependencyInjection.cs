@@ -37,6 +37,10 @@ namespace Moms.SupplyChain.Infrastructure
                 .AddScoped<IStockVoucherItemRepository, StockVoucherItemRepository>();
             services
                 .AddScoped<IStockAdjustmentRepository, StockAdjustmentRepository>();
+            services
+                .AddScoped<IStockAdjustmentItemRepository, StockAdjustmentItemRepository>();
+            services
+                .AddScoped<IStockVoucherIssueRepository, StockVoucherIssueRepository>();
 
             return services;
         }

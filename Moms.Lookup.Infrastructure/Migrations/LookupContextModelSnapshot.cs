@@ -280,6 +280,53 @@ namespace Moms.Lookup.Infrastructure.Migrations
 
                     b.ToTable("LookupMasterItems");
                 });
+
+            modelBuilder.Entity("Moms.Lookup.Core.Domain.Options.Models.LookupOption", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("LookupItemAlias")
+                        .HasColumnName("lookupitemalias")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("LookupItemId")
+                        .HasColumnName("lookupitemid")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("LookupItemName")
+                        .HasColumnName("lookupitemname")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LookupMasterAlias")
+                        .HasColumnName("lookupmasteralias")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("LookupMasterId")
+                        .HasColumnName("lookupmasterid")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("LookupMasterName")
+                        .HasColumnName("lookupmastername")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LookupOptions");
+                });
 #pragma warning restore 612, 618
         }
     }

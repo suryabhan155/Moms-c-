@@ -26,8 +26,9 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _billingDiscountService.GetAllBillingDiscounts();
                 if (result.IsSuccess)
-                    return Ok(result.billingDiscounts);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                else
+                    return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -44,8 +45,9 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _billingDiscountService.GetBillingDiscount(Id);
                 if (result.IsSuccess)
-                    return Ok(result.billingDiscount);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                else
+                    return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -62,8 +64,9 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _billingDiscountService.Create(billingDiscount);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMessage);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                else
+                    return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -80,8 +83,9 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _billingDiscountService.Delete(Id);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMEssage);
-                return BadRequest(result.ErrorMEssage);
+                    return Ok(result.model);
+                else
+                    return BadRequest(result.model);
             }
             catch (Exception e)
             {

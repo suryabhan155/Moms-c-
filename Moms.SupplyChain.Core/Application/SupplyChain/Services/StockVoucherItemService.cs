@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moms.SharedKernel.Custom;
+using Moms.SharedKernel.Interfaces.Persistence;
+using Moms.SharedKernel.Response;
 using Moms.SupplyChain.Core.Domain.SupplyChain;
 using Moms.SupplyChain.Core.Domain.SupplyChain.Models;
 using Moms.SupplyChain.Core.Domain.SupplyChain.Services;
@@ -20,12 +24,12 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
         {
             _stockVoucherItemRepository = stockVoucherItemRepository;
         }
-        public async Task<(bool IsSuccess, StockVoucherItem stockVoucherItem, string ErrorMessage)> AddStockVoucherItem(StockVoucherItem stockVoucherItem)
+        public async Task<(bool IsSuccess, StockVoucherItem stockVoucherItem, ResponseModel response)> AddStockVoucherItem(StockVoucherItem stockVoucherItem)
         {
             try
             {
                 if (stockVoucherItem == null)
-                    return (false, stockVoucherItem, "No Stock Voucher item found");
+                    return (false, stockVoucherItem, new ResponseModel { message = "No Stock Voucher item found", data = stockVoucherItem, code = HttpStatusCode.NotFound });
 
                 if (stockVoucherItem.Id.IsNullOrEmpty())
                 {
@@ -37,7 +41,7 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
                 }
                 await _stockVoucherItemRepository.Save();
 
-                return (true, stockVoucherItem, "Stock Voucher item created successfully");
+                return (true, stockVoucherItem, new ResponseModel { message = "Stock Voucher item created successfully", data = stockVoucherItem, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
@@ -46,51 +50,54 @@ namespace Moms.SupplyChain.Core.Application.SupplyChain.Services
             }
         }
 
-        public async Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteStockVoucherItem(Guid id)
+        public async Task<(bool IsSuccess, Guid id, ResponseModel response)> DeleteStockVoucherItem(Guid id)
         {
             try
             {
 
                 var voucher = await _stockVoucherItemRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
                 if (voucher == null)
-                    return (false, id, "No record found.");
-                _stockVoucherItemRepository.Delete(voucher);
+                    return (false, id, new ResponseModel { message = "No record found.", data =voucher , code = HttpStatusCode.NotFound });
+                voucher.VoidDate = DateTime.Now;
+                voucher.Void = true;
+                _stockVoucherItemRepository.Update(voucher);
+                await _stockVoucherItemRepository.Save();
 
-                return (false, id, "Record deleted successfully.");
+                return (true, id, new ResponseModel { message = "Record deleted successfully.", data = voucher, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
-                return (false, id, $"{e.Message}");
+                return (false, id, new ResponseModel { message = e.Message, data = id, code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public (bool IsSuccess, StockVoucherItem stockVoucherItems, string ErrorMessage) GetStockVoucherItem(Guid id)
+        public (bool IsSuccess, StockVoucherItem stockVoucherItems, ResponseModel response) GetStockVoucherItem(Guid id)
         {
             try
             {
                 var voucher = _stockVoucherItemRepository.GetById(id);
                 if (voucher == null)
-                    return (false, null, "Voucher item not found.");
-                return (true, voucher, "Voucher item loaded successfully");
+                    return (false, null, new ResponseModel { message ="Voucher item not found." , data = voucher, code = HttpStatusCode.NotFound });
+                return (true, voucher, new ResponseModel { message = "Voucher item loaded successfully", data = voucher, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, null, $"{e.Message}");
+                return (false, null, new ResponseModel { message = e.Message, data = null, code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<StockVoucherItem>, string ErrorMessage)> LoadStockVoucherItem()
+        public async Task<(bool IsSuccess, IEnumerable<StockVoucherItem>, ResponseModel response)> LoadStockVoucherItem()
         {
             try
             {
-                var result = await _stockVoucherItemRepository.GetAll().ToListAsync();
-                return result == null ? (false, new List<StockVoucherItem>(), "Record Not Found") : (true, result, "Stock Voucher Loaded");
+                var result = await _stockVoucherItemRepository.GetAll(x => x.Void == false).OrderByDescending(x => x.CreateDate).ToListAsync();
+                return result.Count == 0 ? (false, new List<StockVoucherItem>(), new ResponseModel { message ="Record Not Found" , data = result, code = HttpStatusCode.NotFound } ) : (true, result, new ResponseModel { message ="Stock Voucher Loaded" , data =result , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Stores Load: Error occurred", e);
-                return (false, new List<StockVoucherItem>(), e.Message);
+                return (false, new List<StockVoucherItem>(), new ResponseModel { message = e.Message, data = new List<StockVoucherItem>(), code = HttpStatusCode.NotFound });
             }
         }
     }

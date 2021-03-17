@@ -60,6 +60,198 @@ namespace Moms.Revenue.Infrastructure.Migrations
                     b.ToTable("BillingDiscounts");
                 });
 
+            modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.BillingItemConfiguration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("DispensingUnit")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ItemMasterId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("MaxStock")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MinStock")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PurchaseUnit")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("PurchaseUnitPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("QuantityPerDispenseUnit")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("QuantityPerPurchaseUnit")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BillingItemConfigurations");
+                });
+
+            modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.BillingItemMaster", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Abbreviation")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("BillingItemConfigurationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ItemCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ItemDescription")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ItemSubTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("ItemTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BillingItemConfigurationId");
+
+                    b.ToTable("BillingItemMasters");
+                });
+
+            modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.BillingItemType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BillingItemTypes");
+                });
+
+            modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.BillingMaster", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BillingMasters");
+                });
+
+            modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.BillingSubItemType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("ItemTypeID")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BillingSubItemTypes");
+                });
+
             modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.BillingType", b =>
                 {
                     b.Property<Guid>("Id")
@@ -165,7 +357,8 @@ namespace Moms.Revenue.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemMasterId");
+                    b.HasIndex("ItemMasterId")
+                        .IsUnique();
 
                     b.HasIndex("ModuleId");
 
@@ -192,9 +385,6 @@ namespace Moms.Revenue.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<Guid>("PriceListId")
-                        .HasColumnType("uuid");
-
                     b.Property<decimal>("Quantity")
                         .HasColumnType("numeric");
 
@@ -213,6 +403,35 @@ namespace Moms.Revenue.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ClientBillingItems");
+                });
+
+            modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.PaymentMaster", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMasters");
                 });
 
             modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.PaymentType", b =>
@@ -306,6 +525,53 @@ namespace Moms.Revenue.Infrastructure.Migrations
                     b.ToTable("PriceLists");
                 });
 
+            modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.PriceMaster", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BillTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("EffectiveDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDiscounted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("ItemMasterId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ModuleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("SellingPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PriceMasters");
+                });
+
             modelBuilder.Entity("Moms.Revenue.Core.Domain.Item.Models.ItemConfiguration", b =>
                 {
                     b.Property<Guid>("Id")
@@ -365,9 +631,6 @@ namespace Moms.Revenue.Infrastructure.Migrations
                     b.Property<string>("Abbreviation")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("ClientBillingItemId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -389,6 +652,9 @@ namespace Moms.Revenue.Infrastructure.Migrations
                     b.Property<Guid?>("ItemTypeId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("ItemTypeSubTypeId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -406,9 +672,11 @@ namespace Moms.Revenue.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientBillingItemId");
-
                     b.HasIndex("ItemConfigurationId");
+
+                    b.HasIndex("ItemTypeId");
+
+                    b.HasIndex("ItemTypeSubTypeId");
 
                     b.ToTable("ItemMasters");
                 });
@@ -421,9 +689,6 @@ namespace Moms.Revenue.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid?>("ItemMasterId")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -442,8 +707,6 @@ namespace Moms.Revenue.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemMasterId");
-
                     b.ToTable("ItemTypes");
                 });
 
@@ -455,9 +718,6 @@ namespace Moms.Revenue.Infrastructure.Migrations
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid?>("ItemMasterId")
-                        .HasColumnType("uuid");
 
                     b.Property<Guid>("ItemTypeId")
                         .HasColumnType("uuid");
@@ -479,10 +739,7 @@ namespace Moms.Revenue.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemMasterId");
-
-                    b.HasIndex("ItemTypeId")
-                        .IsUnique();
+                    b.HasIndex("ItemTypeId");
 
                     b.ToTable("ItemTypeSubTypes");
                 });
@@ -517,11 +774,18 @@ namespace Moms.Revenue.Infrastructure.Migrations
                     b.ToTable("Modules");
                 });
 
+            modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.BillingItemMaster", b =>
+                {
+                    b.HasOne("Moms.Revenue.Core.Domain.Billing.Models.BillingItemConfiguration", null)
+                        .WithMany("BillingItemMasters")
+                        .HasForeignKey("BillingItemConfigurationId");
+                });
+
             modelBuilder.Entity("Moms.Revenue.Core.Domain.Billing.Models.ClientBillPayment", b =>
                 {
                     b.HasOne("Moms.Revenue.Core.Domain.Item.Models.ItemMaster", "ItemMaster")
-                        .WithMany("ClientBillPayments")
-                        .HasForeignKey("ItemMasterId")
+                        .WithOne("ClientBillPayments")
+                        .HasForeignKey("Moms.Revenue.Core.Domain.Billing.Models.ClientBillPayment", "ItemMasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -545,7 +809,7 @@ namespace Moms.Revenue.Infrastructure.Migrations
                         .HasForeignKey("BillingTypeId");
 
                     b.HasOne("Moms.Revenue.Core.Domain.Billing.Models.ClientBillingItem", "ClientBillingItems")
-                        .WithMany("PriceLists")
+                        .WithMany()
                         .HasForeignKey("ClientBillingItemsId");
 
                     b.HasOne("Moms.Revenue.Core.Domain.Item.Models.ItemMaster", "ItemMaster")
@@ -563,31 +827,24 @@ namespace Moms.Revenue.Infrastructure.Migrations
 
             modelBuilder.Entity("Moms.Revenue.Core.Domain.Item.Models.ItemMaster", b =>
                 {
-                    b.HasOne("Moms.Revenue.Core.Domain.Billing.Models.ClientBillingItem", null)
-                        .WithMany("ItemMasters")
-                        .HasForeignKey("ClientBillingItemId");
-
                     b.HasOne("Moms.Revenue.Core.Domain.Item.Models.ItemConfiguration", "ItemConfiguration")
                         .WithMany("ItemMasters")
                         .HasForeignKey("ItemConfigurationId");
-                });
 
-            modelBuilder.Entity("Moms.Revenue.Core.Domain.Item.Models.ItemType", b =>
-                {
-                    b.HasOne("Moms.Revenue.Core.Domain.Item.Models.ItemMaster", "ItemMaster")
-                        .WithMany("ItemTypes")
-                        .HasForeignKey("ItemMasterId");
+                    b.HasOne("Moms.Revenue.Core.Domain.Item.Models.ItemType", "ItemType")
+                        .WithMany("ItemMaster")
+                        .HasForeignKey("ItemTypeId");
+
+                    b.HasOne("Moms.Revenue.Core.Domain.Item.Models.ItemTypeSubType", "ItemTypeSubType")
+                        .WithMany("ItemMaster")
+                        .HasForeignKey("ItemTypeSubTypeId");
                 });
 
             modelBuilder.Entity("Moms.Revenue.Core.Domain.Item.Models.ItemTypeSubType", b =>
                 {
-                    b.HasOne("Moms.Revenue.Core.Domain.Item.Models.ItemMaster", "ItemMaster")
-                        .WithMany("ItemTypeSubTypes")
-                        .HasForeignKey("ItemMasterId");
-
                     b.HasOne("Moms.Revenue.Core.Domain.Item.Models.ItemType", "ItemType")
-                        .WithOne("ItemTypeSubType")
-                        .HasForeignKey("Moms.Revenue.Core.Domain.Item.Models.ItemTypeSubType", "ItemTypeId")
+                        .WithMany("ItemTypeSubType")
+                        .HasForeignKey("ItemTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

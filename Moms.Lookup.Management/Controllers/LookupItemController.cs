@@ -26,7 +26,7 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupItemService.LoadAll();
                 if (result.IsSuccess)
-                    return Ok(result.lookupItem);
+                    return Ok(result.ErrorMessage);
                 return BadRequest(result.ErrorMessage);
             }
             catch (Exception e)
@@ -44,7 +44,7 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupItemService.GetLookupItem(id);
                 if (result.IsSuccess)
-                    return Ok(result.lookupItem);
+                    return Ok(result.ErrorMessage);
                 return BadRequest(result.ErrorMessage);
             }
             catch (Exception e)
@@ -62,7 +62,7 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupItemService.DeleteLookupItem(id);
                 if (result.IsSuccess)
-                    return Ok(result.id);
+                    return Ok(result.ErrorMessage);
                 return BadRequest(result.ErrorMessage);
             }
             catch (Exception e)
@@ -80,8 +80,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupItemService.AddLookupItem(lookupItem);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMEssage);
-                return BadRequest(result.lookupItem);
+                    return Ok(result.ErrorMessage);
+                return BadRequest(result.ErrorMessage);
             }
             catch (Exception e)
             {

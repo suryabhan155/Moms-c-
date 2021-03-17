@@ -28,7 +28,7 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _IcdCodeService.SearchDiagnosis(icdCode);
                 if (result.IsSuccess)
-                    return Ok(result.icdCode);
+                    return Ok(result);
                 return NotFound();
             }
             catch (Exception e)
@@ -46,8 +46,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var results = await _IcdCodeService.DiagnosisAll();
                 if (results.IsSuccess)
-                    return Ok(results.icdCodes);
-                return NotFound(results.ErrorMessage);
+                    return Ok(results);
+                return NotFound(results);
             }
             catch (Exception e)
             {

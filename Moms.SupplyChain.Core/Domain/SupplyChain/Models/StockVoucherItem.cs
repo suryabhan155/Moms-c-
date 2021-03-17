@@ -9,14 +9,15 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
     {
         public Guid StockVoucherId { set; get; }
         public Guid ItemId { set; get; }
-        public decimal VoucherQuantity { set; get; }
+        public decimal Quantity { set; get; }
+        //public decimal VoucherQuantity { set; get; }
 
-        public Guid? GoodReceivedNoteItemId { set; get; }
-        public decimal? IssuedQuantity { set; get; }
-        public DateTime? IssueDate { set; get; }
+        //public Guid? GoodReceivedNoteItemId { set; get; }
+        //public decimal? IssuedQuantity { set; get; }
+        //public DateTime? IssueDate { set; get; }
 
-        public StockVoucher StockVoucher { set; get; }
-        public GoodReceivedNoteItem GoodReceivedNoteItem { set; get; }
+        //public StockVoucher StockVoucher { set; get; }
+        //public GoodReceivedNoteItem GoodReceivedNoteItem { set; get; }
 
         public StockVoucherItem()
         {

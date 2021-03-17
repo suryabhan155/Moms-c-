@@ -398,7 +398,7 @@ namespace Moms.RegistrationManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("Moms.RegistrationManagement.Core.Domain.Patient.Models.Death", b =>
                 {
-                    b.HasOne("Moms.RegistrationManagement.Core.Domain.Patient.Models.Patient", "Patient")
+                    b.HasOne("Moms.RegistrationManagement.Core.Domain.Patient.Models.Patient", null)
                         .WithOne("Death")
                         .HasForeignKey("Moms.RegistrationManagement.Core.Domain.Patient.Models.Death", "PatientId")
                         .OnDelete(DeleteBehavior.Cascade)

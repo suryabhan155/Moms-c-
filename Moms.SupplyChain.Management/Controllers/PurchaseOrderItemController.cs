@@ -31,8 +31,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.LoadPurchaseOrderItems();
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound();
+                    return Ok(results.response);
+                return NotFound(results.response);
 
             }
             catch (Exception e)
@@ -50,8 +50,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = _Service.GetPurchaseOrderItem(id);
                 if (results.IsSuccess)
-                    return Ok(results.purchaseOrderItems);
-                return NotFound(results);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {
@@ -68,8 +68,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.AddPurchaseOrderItem(purchaseOrderItem);
                 if (results.IsSuccess)
-                    return Ok(results.purchaseOrderItem);
-                return NotFound(results.ErrorMessage);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {
@@ -87,8 +87,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.DeletePurchaseOrderItem(id);
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound(results);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {

@@ -27,8 +27,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupMasterService.LoadAll();
                 if (result.IsSuccess)
-                    return Ok(result.lookupMasters);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -45,8 +45,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupMasterService.GetLookupMaster(id);
                 if (result.IsSuccess)
-                    return Ok(result.lookupMaster);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -63,8 +63,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupMasterService.GetLookupMasterByName(name);
                 if (result.IsSuccess)
-                    return Ok(result.lookupMaster);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -81,8 +81,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupMasterService.DeleteLookupMaster(id);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMessage);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -99,8 +99,8 @@ namespace Moms.Lookup.Management.Controllers
             {
                 var result = await _lookupMasterService.AddLookupMaster(lookupMaster);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMEssage);
-                return BadRequest(result.ErrorMEssage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {

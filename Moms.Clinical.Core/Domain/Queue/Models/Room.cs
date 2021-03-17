@@ -9,6 +9,5 @@ namespace Moms.Clinical.Core.Domain.Queue.Models
     {
         public string Name { get; set; }
         public int Status { get; set; }
-
     }
 }

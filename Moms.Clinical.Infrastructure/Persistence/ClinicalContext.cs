@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Moms.Clinical.Core.Domain.Consultation.Models;
+using Moms.Clinical.Core.Domain.Queue.Models;
 using Moms.SharedKernel.Infrastructure.Persistence;
 using ConsultationService = Moms.Clinical.Core.Application.Consultation.Services.ConsultationService;
 
@@ -14,6 +15,8 @@ namespace Moms.Clinical.Infrastructure.Persistence
         public DbSet<ConsultationFinding> ConsultationFindings { get; set; }
         public DbSet<ConsultationTreatment> ConsultationTreatments { get; set; }
         public DbSet<Vital> Vitals { get; set; }
+        //public DbSet<Queue> Queue { get; set; }
+        public DbSet<Room> Room { get; set; }
 
         public ClinicalContext(DbContextOptions<ClinicalContext> options) : base(options)
         {
@@ -23,7 +26,6 @@ namespace Moms.Clinical.Infrastructure.Persistence
         public override void EnsureSeeded()
         {
             /* add seeding data here */
-
             SaveChanges();
         }
     }

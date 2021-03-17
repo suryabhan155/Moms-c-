@@ -13,9 +13,16 @@ namespace Moms.Revenue.Infrastructure.Persistence
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<BillingDiscount> BillingDiscounts { get; set; }
         public DbSet<BillingType> BillingTypes { get; set; }
+        public DbSet<BillingMaster> BillingMasters { get; set; }
+        public DbSet<BillingItemType> BillingItemTypes { get; set; }
+        public DbSet<BillingItemMaster> BillingItemMasters { get; set; }
+        public DbSet<BillingItemConfiguration> BillingItemConfigurations { get; set; }
+        public DbSet<BillingSubItemType> BillingSubItemTypes { get; set; }
+        public DbSet<PaymentMaster> PaymentMasters { get; set; }
         public DbSet<ClientBill> ClientBills { get; set; }
         public DbSet<ClientBillingItem> ClientBillingItems { get; set; }
         public DbSet<PriceList> PriceLists { get; set; }
+        public DbSet<PriceMaster> PriceMasters { get; set; }
 
         /* Item Configuration Models*/
         public DbSet<ItemConfiguration> ItemConfigurations { get; set; }

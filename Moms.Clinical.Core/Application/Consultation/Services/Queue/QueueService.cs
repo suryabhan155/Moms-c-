@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Moms.Clinical.Core.Application.Consultation.Response;
 using Moms.Clinical.Core.Domain.Queue;
 using Moms.Clinical.Core.Domain.Queue.Services;
 using Moms.SharedKernel.Custom;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,12 +21,12 @@ namespace Moms.Clinical.Core.Application.Consultation.Services.Queue
         }
 
 
-        public async Task<(bool IsSuccess, Domain.Queue.Models.Queue queue, string ErrorMEssage)> AddQueue(Domain.Queue.Models.Queue queue)
+        public async Task<(bool IsSuccess, Domain.Queue.Models.Queue queue, ResponseModel model)> AddQueue(Domain.Queue.Models.Queue queue)
         {
             try
             {
                 if (queue == null)
-                    return (false, queue, "No queue found");
+                    return (false, queue, new ResponseModel { message = "No queue found", data = queue, code = HttpStatusCode.NotFound });
 
                 if (queue.Id.IsNullOrEmpty())
                 {
@@ -36,7 +38,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services.Queue
                 }
                 await _QueueRepository.Save();
 
-                return (true, queue, "Queue created successfully");
+                return (true, queue, new ResponseModel { message = "Queue created successfully", data = queue, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
@@ -45,48 +47,48 @@ namespace Moms.Clinical.Core.Application.Consultation.Services.Queue
             }
         }
 
-        public async Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteQueue(Guid id)
+        public async Task<(bool IsSuccess, Guid id, ResponseModel model)> DeleteQueue(Guid id)
         {
             try
             {
 
                 var queue = await _QueueRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
                 if (queue == null)
-                    return (false, id, "No record found.");
+                    return (false, id, new ResponseModel { message =  "No record found.", data = id, code = HttpStatusCode.NotFound });
                 _QueueRepository.Delete(queue);
 
-                return (false, id, "Record deleted successfully.");
+                return (false, id, new ResponseModel { message = "Record deleted successfully.", data = id, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
-                return (false, id, $"{e.Message}");
+                return (false, id, new ResponseModel { message =e.Message , data = id, code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public (bool IsSuccess, Domain.Queue.Models.Queue queue, string ErrorMessage) GetQueue(Guid id)
+        public (bool IsSuccess, Domain.Queue.Models.Queue queue, ResponseModel model) GetQueue(Guid id)
         {
             try
             {
                 var room = _QueueRepository.GetById(id);
                 if (room == null)
-                    return (false, null, "Room not found.");
-                return (true, room, "Room loaded successfully");
+                    return (false, null, new ResponseModel { message = "Room not found.", data = null, code = HttpStatusCode.NotFound } );
+                return (true, room, new ResponseModel { message = "Room loaded successfully", data = room, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, null, $"{e.Message}");
+                return (false, null, new ResponseModel { message = e.Message, data = null, code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<Domain.Queue.Models.Queue> queues, string ErrorMessage)> LoadQueues()
+        public async Task<(bool IsSuccess, IEnumerable<Domain.Queue.Models.Queue> queues, ResponseModel model)> LoadQueues()
         {
             try
             {
                 var queues = await _QueueRepository.GetAll().ToListAsync();
                 if (queues == null)
-                    return (false, new List<Domain.Queue.Models.Queue>(), "No record found.");
-                return (true, queues, "Queues loaded successfully.");
+                    return (false, new List<Domain.Queue.Models.Queue>(), new ResponseModel { message ="No record found." , data = new List<Domain.Queue.Models.Queue>() , code = HttpStatusCode.NotFound });
+                return (true, queues, new ResponseModel { message = "Queues loaded successfully.", data = queues, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {

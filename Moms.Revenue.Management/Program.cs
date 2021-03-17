@@ -22,7 +22,6 @@ namespace Moms.Revenue.Management
             try
             {
                 Log.Information($"Starting Moms.Revenue...");
-                ;
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)

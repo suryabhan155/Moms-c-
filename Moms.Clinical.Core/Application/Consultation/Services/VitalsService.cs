@@ -8,6 +8,8 @@ using Moms.Clinical.Core.Domain.Consultation.Services;
 using Moms.Clinical.Core.Domain.Consultation.Models;
 using Moms.Clinical.Core.Domain.Consultation;
 using Moms.SharedKernel.Custom;
+using Moms.Clinical.Core.Application.Consultation.Response;
+using System.Net;
 
 namespace Moms.Clinical.Core.Application.Consultation.Services
 {
@@ -21,14 +23,14 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
         }
 
 
-        public async Task<(bool IsSuccess, IEnumerable<Vital> vitals, string ErrorMessage)> LoadVitals()
+        public async Task<(bool IsSuccess, IEnumerable<Vital> vitals, ResponseModel model)> LoadVitals()
         {
             try
             {
-                var vitalses = await _VitalsRepository.GetAll().ToListAsync();
+                var vitalses = await _VitalsRepository.GetAll(x => !x.Void).ToListAsync();
                 if (vitalses == null)
-                    return (false, new List<Vital>(), "No record found.");
-                return (true, vitalses, "Vitals loaded successfully.");
+                    return (false, new List<Vital>(), new ResponseModel { message = "No record found.", data =new List<Vital>(), code = HttpStatusCode.NotFound } );
+                return (true, vitalses, new ResponseModel { message = "Vitals loaded successfully.", data = vitalses, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
@@ -37,12 +39,12 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
-        public async Task<(bool IsSuccess, Vital vitals, string ErrorMEssage)> AddVitals(Vital vitals)
+        public async Task<(bool IsSuccess, Vital vitals, ResponseModel model)> AddVitals(Vital vitals)
         {
             try
             {
                 if (vitals == null)
-                    return (false, vitals, "No vitals found");
+                    return (false, vitals, new ResponseModel { message = "No vitals found", data = vitals, code = HttpStatusCode.NotFound });
                 if (vitals.Id.IsNullOrEmpty())
                 {
                     _VitalsRepository.Create(vitals);
@@ -53,7 +55,7 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
                 }
                 await _VitalsRepository.Save();
 
-                return (true, vitals, "Vitals created successfully");
+                return (true, vitals, new ResponseModel { message = "Vitals created successfully", data = vitals, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
@@ -62,50 +64,50 @@ namespace Moms.Clinical.Core.Application.Consultation.Services
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<Vital> vitals, string ErrorMEssage)> GetPatientVitals(Guid patientId)
+        public async Task<(bool IsSuccess, IEnumerable<Vital> vitals, ResponseModel model)> GetPatientVitals(Guid patientId)
         {
             try
             {
                 var vitals = await _VitalsRepository.GetAll(x => x.PatientId == patientId).ToListAsync();
-                return (true, vitals, "Vitals loaded successfully.");
+                return (true, vitals, new ResponseModel { message = "Vitals loaded successfully.", data = vitals, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
-                return (false, new List<Vital>(), $"{e.Message}");
+                return (false, new List<Vital>(), new ResponseModel { message = e.Message, data = new List<Vital>(), code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, Guid id, string ErrorMessage)> DeleteVitals(Guid id)
+        public async Task<(bool IsSuccess, Guid id, ResponseModel model)> DeleteVitals(Guid id)
         {
             try
             {
 
-                var vitals = await _VitalsRepository.GetAll(x => x.Id == id).FirstOrDefaultAsync();
+                var vitals = await _VitalsRepository.GetAll(x => x.Id == id && !x.Void).FirstOrDefaultAsync();
                 if (vitals == null)
-                    return (false, id, "No record found.");
+                    return (false, id, new ResponseModel { message = "No record found.", data = id, code = HttpStatusCode.NotFound });
                 _VitalsRepository.Delete(vitals);
 
-                return (false, id, "Record deleted successfully.");
+                return (false, id, new ResponseModel { message = "Record deleted successfully.", data = id, code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
-                return (false, id, $"{e.Message}");
+                return (false, id, new ResponseModel { message = e.Message, data = id, code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public (bool IsSuccess, Vital vital, string ErrorMessage) GetVitals(Guid id)
+        public (bool IsSuccess, Vital vital, ResponseModel model) GetVitals(Guid id)
         {
             try
             {
                 var vitals = _VitalsRepository.GetById(id);
                 if (vitals == null)
-                    return (false, null, "Vitals not found.");
-                return (true, vitals, "Vitals loaded successfully");
+                    return (false, null, new ResponseModel { message = "Vitals not found.", data = null, code = HttpStatusCode.NotFound } );
+                return (true, vitals, new ResponseModel { message ="Vitals loaded successfully" , data =vitals , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, null, $"{e.Message}");
+                return (false, null, new ResponseModel { message =e.Message , data = null, code = HttpStatusCode.InternalServerError });
             }
         }
 

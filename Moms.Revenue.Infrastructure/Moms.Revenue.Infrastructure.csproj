@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Migrations.zip" />
       <None Remove="Seed\Module - Copy.csv" />
       <None Remove="Seed\Module.csv" />
     </ItemGroup>

@@ -9,14 +9,6 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
     {
         public Guid StoreId { set; get; }
         public DateTime AdjustmentDateTime { set; get; }
-
-        public Guid ItemId { set; get; }
-        public String BatchNumber { set; get; }
-        public Guid AdjustmentReasonId { set; get; }
-        public decimal Quantity { set; get; }
-
-        public Store Store { get; set; }
-
         public StockAdjustment()
         {
 

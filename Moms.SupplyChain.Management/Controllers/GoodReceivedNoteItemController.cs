@@ -31,8 +31,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.LoadGoodReceivedNoteItems();
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound();
+                    return Ok(results.response);
+                return NotFound(results.response);
 
             }
             catch (Exception e)
@@ -50,8 +50,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = _Service.GetGoodReceivedNoteItems(id);
                 if (results.IsSuccess)
-                    return Ok(results.goodReceivedNoteItems);
-                return NotFound(results);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {
@@ -68,8 +68,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.AddGoodReceivedNoteItems(goodReceivedNoteItem);
                 if (results.IsSuccess)
-                    return Ok(results.goodReceivedNoteItem);
-                return NotFound(results.ErrorMessage);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {
@@ -87,8 +87,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.DeleteGoodReceivedNoteItems(id);
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound(results);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {

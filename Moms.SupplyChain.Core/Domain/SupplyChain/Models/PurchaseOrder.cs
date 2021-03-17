@@ -18,7 +18,7 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
         public DateTime OrderDateTime { set; get; }
         public int Status { set; get; }
 
-        public Store Store { set; get; }
-        public Supplier Supplier { set; get; }
+        //public Store Store { set; get; }
+        //public Supplier Supplier { set; get; }
     }
 }

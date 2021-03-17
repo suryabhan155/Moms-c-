@@ -15,8 +15,10 @@ namespace Moms.SupplyChain.Infrastructure.Persistence
         public DbSet<GoodReceivedNote> GoodReceivedNotes { get; set; }
         public DbSet<GoodReceivedNoteItem> GoodReceivedNoteItems { get; set; }
         public DbSet<StockVoucher> StockVouchers { get; set; }
+        public DbSet<StockVoucherIssue> StockVoucherIssues { get; set; }
         public DbSet<StockVoucherItem> StockVoucherItems { get; set; }
         public DbSet<StockAdjustment> StockAdjustments { get; set; }
+        public DbSet<StockAdjustmentItem> StockAdjustmentItems { get; set; }
 
         public SupplyChainContext(DbContextOptions<SupplyChainContext> options):base(options)
         {

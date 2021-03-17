@@ -26,8 +26,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _priceListService.GetAllPriceList();
                 if (result.IsSuccess)
-                    return Ok(result.priceList);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -44,8 +44,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _priceListService.GetPriceList(Id);
                 if (result.IsSuccess)
-                   return Ok(result.priceList);
-                return BadRequest(result.ErrorMessage);
+                   return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -62,8 +62,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _priceListService.Create(priceList);
                 if (result.IsSuccess)
-                    return Ok(result.priceList);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -80,8 +80,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _priceListService.Delete(Id);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMEssage);
-                return BadRequest(result.ErrorMEssage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {

@@ -31,8 +31,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _ConsultationTreatmentService.LoadConsultationTreatments();
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound();
+                    return Ok(results.model);
+                return NotFound(results.model);
 
             }
             catch (Exception e)
@@ -50,8 +50,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var result = await _ConsultationTreatmentService.GetConsultationTreatments(id);
                 if (result.IsSuccess)
-                    return Ok(result);
-                return NotFound();
+                    return Ok(result.model);
+                return NotFound(result.model);
             }
             catch (Exception e)
             {
@@ -68,8 +68,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var result = await _ConsultationTreatmentService.DeleteConsultationTreatment(id);
                 if (result.IsSuccess)
-                    return Ok(result);
-                return NotFound();
+                    return Ok(result.model);
+                return NotFound(result.model);
             }
             catch (Exception e)
             {
@@ -85,8 +85,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _ConsultationTreatmentService.AddConsultationTreatment(consultation);
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound();
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {

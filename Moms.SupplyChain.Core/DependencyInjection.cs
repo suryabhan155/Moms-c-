@@ -30,6 +30,8 @@ namespace Moms.SupplyChain.Core
                .AddScoped<IStockVoucherItemService, StockVoucherItemService>();
                services
                .AddScoped<IStockAdjustmentService, StockAdjustmentService>();
+            services.AddScoped<IStockAdjustmentItemService, StockAdjustmentItemService>();
+            services.AddScoped<IStockVoucherIssueService, StockVoucherIssueService>();
 
             return services;
         }

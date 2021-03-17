@@ -31,8 +31,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.LoadStockVoucher();
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound();
+                    return Ok(results.response);
+                return NotFound(results.response);
 
             }
             catch (Exception e)
@@ -50,8 +50,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = _Service.GetStockVoucher(id);
                 if (results.IsSuccess)
-                    return Ok(results.stockVouchers);
-                return NotFound(results);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {
@@ -68,8 +68,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.AddStockVoucher(stockVoucher);
                 if (results.IsSuccess)
-                    return Ok(results.stockVoucher);
-                return NotFound(results.ErrorMessage);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {
@@ -87,8 +87,8 @@ namespace Moms.SupplyChain.Management.Controllers
             {
                 var results = await _Service.DeleteStockVoucher(id);
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound(results);
+                    return Ok(results.response);
+                return NotFound(results.response);
             }
             catch (Exception e)
             {

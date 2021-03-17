@@ -8,7 +8,7 @@ namespace Moms.Lookup.Core.Domain
 {
     public interface ILookupMasterItemRepository : IRepository<LookupMasterItem, Guid>
     {
-       /* Task<(bool IsSuccess, IEnumerable<LookupOption>  lookupOption, string ErrorMessage)> GetLookupOptionsByName(string name);
-        Task<(bool IsSuccess, IEnumerable<LookupOption>  lookupOption, string ErrorMessage)> GetLookupOptionsById(Guid id);*/
+       /* Task<(bool IsSuccess, IEnumerable<LookupOption>  lookupOption, ResponseModel model)> GetLookupOptionsByName(string name);
+        Task<(bool IsSuccess, IEnumerable<LookupOption>  lookupOption, ResponseModel model)> GetLookupOptionsById(Guid id);*/
     }
 }

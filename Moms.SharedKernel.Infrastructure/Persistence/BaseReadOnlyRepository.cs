@@ -113,5 +113,26 @@ namespace Moms.SharedKernel.Infrastructure.Persistence
             _connection?.Dispose();
             _connection = null;
         }
+
+        public virtual IQueryable<TC> OrderBy<TC>(IQueryable<TC> source, string orderByValues) where TC : class
+        {
+            return Context.Set<TC>().AsNoTracking();
+        }
+
+        public virtual IEnumerable<T> GetAllOrder(Func<T, bool> predicate,Func<T, object> order, Sorted _sort = Sorted.ASC)
+        {
+            IEnumerable<T> query = _sort == Sorted.ASC ? 
+                Context.Set<T>().Where(predicate).OrderBy(order) :
+                Context.Set<T>().Where(predicate).OrderByDescending(order);
+            return query;
+        }
+
+        public IEnumerable<T> GetAllOrder(Func<T, object> predicate, Sorted sorted, int max, int skip)
+        {
+            if (sorted == Sorted.ASC)
+                return Context.Set<T>().OrderBy(predicate).Skip(skip).Take(max);
+            else
+                return Context.Set<T>().OrderByDescending(predicate).Skip(skip).Take(max);
+        }
     }
 }

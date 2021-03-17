@@ -16,10 +16,10 @@ namespace Moms.Revenue.Core.Domain.Billing.Models
        public Boolean IsDiscounted { get; set; }
        public Boolean Status { get; set; }
 
-       public ItemMaster ItemMaster { get; set; }
-       public Module Module { get; set; }
-       public BillingType BillingType { get; set; }
-       public ClientBillingItem ClientBillingItems { get; set; }
+        public ItemMaster ItemMaster { get; set; }
+        public Module Module { get; set; }
+        public BillingType BillingType { get; set; }
+        public ClientBillingItem ClientBillingItems { get; set; }
 
 
     }

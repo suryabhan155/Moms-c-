@@ -274,6 +274,35 @@ namespace Moms.Clinical.Infrastructure.Migrations
                     b.ToTable("Vitals");
                 });
 
+            modelBuilder.Entity("Moms.Clinical.Core.Domain.Queue.Models.Room", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Void")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("VoidDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Room");
+                });
+
             modelBuilder.Entity("Moms.Clinical.Core.Domain.Consultation.Models.ConsultationComplaint", b =>
                 {
                     b.HasOne("Moms.Clinical.Core.Domain.Consultation.Models.Consultation", "Consultation")

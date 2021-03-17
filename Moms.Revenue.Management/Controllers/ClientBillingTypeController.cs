@@ -26,8 +26,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _billingTypeService.GetAllBillingType();
                 if (result.IsSuccess)
-                    return Ok(result.billingTypes);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -44,8 +44,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _billingTypeService.GetBillType(Id);
                 if(result.IsSuccess)
-                    return Ok(result.billingType);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -62,8 +62,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _billingTypeService.Create(billingType);
                 if (result.IsSuccess)
-                    return Ok(result.billingType);
-                return BadRequest(result.ErrorMessage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {
@@ -80,8 +80,8 @@ namespace Moms.Revenue.Management.Controllers
             {
                 var result = await _billingTypeService.Delete(Id);
                 if (result.IsSuccess)
-                    return Ok(result.ErrorMEssage);
-                return BadRequest(result.ErrorMEssage);
+                    return Ok(result.model);
+                return BadRequest(result.model);
             }
             catch (Exception e)
             {

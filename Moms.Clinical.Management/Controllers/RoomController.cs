@@ -28,8 +28,8 @@ namespace Moms.Clinical.Management.Controllers
                 var results = await _RoomService.LoadRooms();
 
                 if (results.IsSuccess)
-                    return Ok(results.rooms);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -46,8 +46,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = _RoomService.GetRoom(id);
                 if (results.IsSuccess)
-                    return Ok(results.room);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -63,8 +63,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _RoomService.AddRoom(room);
                 if (results.IsSuccess)
-                    return Ok(results.room);
-                return NotFound(results.ErrorMEssage);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -79,10 +79,10 @@ namespace Moms.Clinical.Management.Controllers
         {
             try
             {
-                var results = await _RoomService.DeleteRoom(id);
+                var results = await _RoomService.UpdateRoom(id);
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {

@@ -11,7 +11,7 @@ namespace Moms.SupplyChain.Core.Domain.SupplyChain.Models
         public Guid SourceStoreId { set; get; }
         public DateTime VoucherDateTime { set; get; }
 
-        public Store Store { set; get; }
+        //public Store Store { set; get; }
 
         public StockVoucher()
         {

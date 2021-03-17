@@ -28,8 +28,8 @@ namespace Moms.Clinical.Management.Controllers
                 var results = await _QueueService.LoadQueues();
 
                 if (results.IsSuccess)
-                    return Ok(results.queues);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -46,8 +46,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = _QueueService.GetQueue(id);
                 if (results.IsSuccess)
-                    return Ok(results.queue);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -63,8 +63,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _QueueService.AddQueue(queue);
                 if (results.IsSuccess)
-                    return Ok(results.queue);
-                return NotFound(results.ErrorMEssage);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {
@@ -81,8 +81,8 @@ namespace Moms.Clinical.Management.Controllers
             {
                 var results = await _QueueService.DeleteQueue(id);
                 if (results.IsSuccess)
-                    return Ok(results);
-                return NotFound(results);
+                    return Ok(results.model);
+                return NotFound(results.model);
             }
             catch (Exception e)
             {

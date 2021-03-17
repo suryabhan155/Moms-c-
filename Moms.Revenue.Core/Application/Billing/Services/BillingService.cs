@@ -8,6 +8,7 @@ using Moms.Revenue.Core.Domain.Billing.Dto;
 using Moms.Revenue.Core.Domain.Billing.Models;
 using Moms.Revenue.Core.Domain.Billing.Services;
 using Serilog;
+using Moms.SharedKernel.Response;
 
 namespace Moms.Revenue.Core.Application.Billing.Services
 {
@@ -36,23 +37,23 @@ namespace Moms.Revenue.Core.Application.Billing.Services
             }
         }*/
 
-        public Task<(bool IsSuccess, ClientBill clientBill, string ErrorMessage)> Create(ClientBill clientBill)
+        public Task<(bool IsSuccess, ClientBill clientBill, ResponseModel model)> Create(ClientBill clientBill)
         {
             throw new NotImplementedException();
         }
 
-        public Task<(bool IsSuccess, IEnumerable<ClientBill> clientBills, string ErrorMessage)> GetAllBilling()
+        public Task<(bool IsSuccess, IEnumerable<ClientBill> clientBills, ResponseModel model)> GetAllBilling()
         {
             throw new NotImplementedException();
         }
 
-        public Task<(bool IsSuccess, IEnumerable<ClientBill> clientBill, string ErrorMessage)> GetClientBill(Guid Id)
+        public Task<(bool IsSuccess, IEnumerable<ClientBill> clientBill, ResponseModel model)> GetClientBill(Guid Id)
         {
             throw new NotImplementedException();
         }
 
 
-        public Task<(bool IsSuccess, Guid Id, string ErrorMEssage)> Delete(Guid Id)
+        public Task<(bool IsSuccess, Guid Id, ResponseModel model)> Delete(Guid Id)
         {
             throw new NotImplementedException();
         }

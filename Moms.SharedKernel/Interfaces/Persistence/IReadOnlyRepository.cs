@@ -12,6 +12,7 @@ namespace Moms.SharedKernel.Interfaces.Persistence
         string ConnectionString { get; }
 
         IQueryable<T> GetAll();
+        IQueryable<TC> OrderBy<TC>(IQueryable<TC> source, string orderByValues) where TC : class;
         IQueryable<TC> GetAll<TC, TCId>() where TC : Entity<TCId>;
         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
         IQueryable<TC> GetAll<TC, TCId>(Expression<Func<TC, bool>> predicate) where TC : Entity<TCId>;
@@ -20,5 +21,6 @@ namespace Moms.SharedKernel.Interfaces.Persistence
         IEnumerable<TC> ExecQuery<TC>(string selectStatement);
         IDbConnection GetConnection(bool open = true);
         void CloseConnection();
+        IEnumerable<T> GetAllOrder(Func<T, bool> predicate,Func<T, object> order,Sorted sorted);
     }
 }

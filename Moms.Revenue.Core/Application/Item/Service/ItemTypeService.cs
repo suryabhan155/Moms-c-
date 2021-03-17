@@ -7,6 +7,8 @@ using Moms.Revenue.Core.Domain.Item.Models;
 using Moms.Revenue.Core.Domain.Item.Services;
 using Moms.SharedKernel.Custom;
 using Serilog;
+using Moms.SharedKernel.Response;
+using System.Net;
 
 namespace Moms.Revenue.Core.Application.Item.Service
 {
@@ -18,7 +20,7 @@ namespace Moms.Revenue.Core.Application.Item.Service
         {
             _itemTypeRepository = itemTypeRepository;
         }
-        public async Task<(bool IsSuccess, ItemType itemType, string ErrorMessage)> Create(ItemType itemType)
+        public async Task<(bool IsSuccess, ItemType itemType, ResponseModel model)> Create(ItemType itemType)
         {
             try
             {
@@ -26,16 +28,16 @@ namespace Moms.Revenue.Core.Application.Item.Service
                     _itemTypeRepository.Create(itemType);
                 _itemTypeRepository.Update(itemType);
                 await _itemTypeRepository.Save();
-                return (true, itemType, "Item Type Saved");
+                return (true, itemType, new ResponseModel { message = "Item Type Saved", data = itemType , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Error Saving Item Type",e.Message);
-                return(false, itemType,e.Message);
+                return(false, itemType, new ResponseModel { message = e.Message, data = itemType , code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, IEnumerable<ItemType> itemType, string ErrorMessage)> GetAllItemType()
+        public async Task<(bool IsSuccess, IEnumerable<ItemType> itemType, ResponseModel model)> GetAllItemType()
         {
             try
             {
@@ -44,17 +46,17 @@ namespace Moms.Revenue.Core.Application.Item.Service
                     .Include(x => x.ItemTypeSubType)
                     .ToListAsync();
                 if (result.Count > 0)
-                    return (true, result, "Item Type Loaded");
-                return (false, new List<ItemType>(), "Item Type Not Found");
+                    return (true, result, new ResponseModel { message ="Item Type Loaded" , data = result , code = HttpStatusCode.OK });
+                return (false, new List<ItemType>(), new ResponseModel { message = "Item Type Not Found", data = new List<ItemType>(), code = HttpStatusCode.NotFound });
             }
             catch (Exception e)
             {
                 Log.Error("Error Loading Item Type",e.Message);
-                return(false, new List<ItemType>(), e.Message);
+                return(false, new List<ItemType>(), new ResponseModel { message =e.Message , data = new List<ItemType>(), code = HttpStatusCode.InternalServerError } );
             }
         }
 
-        public async Task<(bool IsSuccess, ItemType itemType, string ErrorMessage)> GetItemType(Guid Id)
+        public async Task<(bool IsSuccess, ItemType itemType, ResponseModel model)> GetItemType(Guid Id)
         {
             try
             {
@@ -63,32 +65,32 @@ namespace Moms.Revenue.Core.Application.Item.Service
                     .Include(x => x.ItemTypeSubType)
                     .FirstOrDefaultAsync();
                 if (result.Id.IsNullOrEmpty())
-                    return (false, result, "Item Type Not Found");
-                return (true, result, "Item Type Loaded");
+                    return (false, result, new ResponseModel { message = "Item Type Not Found", data = result , code = HttpStatusCode.NotFound });
+                return (true, result, new ResponseModel { message = "Item Type Loaded", data = result , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Error Loading Item Type",e.Message);
-                return(false, new ItemType(), e.Message);
+                return(false, new ItemType(), new ResponseModel { message = e.Message, data = new ItemType(), code = HttpStatusCode.InternalServerError });
             }
         }
 
-        public async Task<(bool IsSuccess, Guid Id, string ErrorMEssage)> Delete(Guid Id)
+        public async Task<(bool IsSuccess, Guid Id, ResponseModel model)> Delete(Guid Id)
         {
             try
             {
                 var result = await _itemTypeRepository.GetAll(x => x.Id == Id).FirstOrDefaultAsync();
                 if (result.Id.IsNullOrEmpty())
-                    return (false, Id, "Item Type Not Found");
+                    return (false, Id, new ResponseModel { message = "Item Type Not Found", data = Id , code = HttpStatusCode.NotFound });
                 result.Void = true;
                 result.VoidDate=DateTime.Today;
                 await _itemTypeRepository.Save();
-                return (true, Id, "Item Type Deleted");
+                return (true, Id, new ResponseModel { message = "Item Type Deleted", data = Id , code = HttpStatusCode.OK });
             }
             catch (Exception e)
             {
                 Log.Error("Error Deleting Item Type",e.Message);
-                return(false, Id, e.Message);
+                return(false, Id, new ResponseModel { message = e.Message, data = Id , code = HttpStatusCode.InternalServerError });
             }
         }
     }
